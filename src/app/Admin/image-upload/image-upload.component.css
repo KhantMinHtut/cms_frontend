@@ -1,0 +1,12 @@
+main {
+  width: 100vw;
+  height: 100vh;
+  background-color: #eadaca;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.container {
+  padding: 10px;
+}

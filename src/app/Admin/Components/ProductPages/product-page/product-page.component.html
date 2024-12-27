@@ -1,0 +1,18 @@
+<div class="">
+  <div class="row">
+    @if (currentPage == 'info-page') {
+    <app-product-info-page
+      class="col-12"
+      [currentBtn]="currentBtn"
+      (changePage)="onCurrentPage($event)"
+    ></app-product-info-page>
+    } @else if (currentPage == 'add-page') {
+    <app-add-page
+      class="col-12"
+      [data]="product"
+      [currentBtn]="currentBtn"
+      (changePage)="onCurrentPage($event)"
+    ></app-add-page>
+    }
+  </div>
+</div>

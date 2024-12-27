@@ -1,0 +1,129 @@
+<body>
+  <div class="mycontainer" id="container" [ngClass]="{ active: isActive }">
+    <div class="header">
+      <h1>Little Mushroom</h1>
+      <h2 data-text="Welcome!">Welcome!</h2>
+    </div>
+    <div class="loginbox">
+      <div class="form">
+        <!-- Register -->
+        <div class="form-container sign-up" *ngIf="isActive">
+          <form (ngSubmit)="register()" #registerForm="ngForm">
+            <h3>Create Account</h3>
+            <div class="social-icons">
+              <a href="#" class="icon">
+                <i class="bi bi-google"></i>
+                <i class="bi bi-facebook"></i>
+              </a>
+            </div>
+            <span>or use your email for registration.</span>
+            <input
+              type="text"
+              placeholder="Name"
+              name="name"
+              ngModel
+              [(ngModel)]="customer.name"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              ngModel
+              [(ngModel)]="customer.email"
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              ngModel
+              [(ngModel)]="customer.password"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Phone Number"
+              name="phone"
+              ngModel
+              [(ngModel)]="customer.phone"
+              required
+            />
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+        <!-- Sign In -->
+        <div class="form-container sign-in" *ngIf="!isActive">
+          <form (ngSubmit)="login()" #loginForm="ngForm">
+            <h3>Sign In</h3>
+            <div class="social-icons">
+              <a href="#" class="icon">
+                <i class="bi bi-google"></i>
+                <i class="bi bi-facebook"></i>
+              </a>
+            </div>
+            <span>or use your email.</span>
+            <div style="width: 100%">
+              <input
+                type="email"
+                placeholder="Email"
+                #email="ngModel"
+                name="email"
+                ngModel
+                [(ngModel)]="credentials.email"
+                required
+              />
+              <div
+                style="font-size: 12px; color: red"
+                *ngIf="isError && email.invalid"
+              >
+                *Enter your valid email!
+              </div>
+            </div>
+
+            <div style="width: 100%">
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                #password="ngModel"
+                ngModel
+                [(ngModel)]="credentials.password"
+                required
+              />
+              <div
+                style="font-size: 12px; color: red"
+                *ngIf="isError && password.invalid"
+              >
+                *Enter your valid password!
+              </div>
+            </div>
+            <!-- <a href="#">Forgot your email password?</a> -->
+            <button type="submit">Login</button>
+          </form>
+        </div>
+        <div class="toggle-container">
+          <div class="toggle">
+            <div class="toggle-panel toggle-left">
+              <h3>Welcome Back</h3>
+              <p>Enter your personal details to use all of site features</p>
+              <button class="hidden" id="login" (click)="showLogin()">
+                Login
+              </button>
+            </div>
+            <div class="toggle-panel toggle-right">
+              <h3>Hello, Friend</h3>
+              <!-- <a href="" class="menu">Go To Menu Page</a> -->
+              <button class="goMenu" (click)="goToMenu()">
+                Go To The Menu Page
+              </button>
+              <!-- <button class="hidden" id="register" (click)="showRegister()">
+                Sign Up
+              </button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

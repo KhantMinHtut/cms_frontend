@@ -1,0 +1,300 @@
+<main>
+  <div class="p-xxl-3 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 homepage">
+    <div class="header">
+      <div class="card-container">
+        <div class="myCard" matTooltip="Total Orders">
+          <div class="title">
+            <span class="user-select-none"
+              ><img
+                src="../../../../assets/images/order-icon.png"
+                alt="orderIcon"
+                style="width: 100%; height: 100%"
+              />
+            </span>
+          </div>
+          <div class="content mt-2 user-select-none">
+            {{ totalOrder }}
+          </div>
+        </div>
+
+        <div class="myCard" matTooltip="Total Customers">
+          <div class="title">
+            <span class="user-select-none">
+              <img
+                src="../../../../assets/images/customer-icon.png"
+                alt="costomerIcon"
+                style="width: 100%; height: 100%"
+              />
+            </span>
+          </div>
+          <div class="content mt-2 user-select-none">
+            {{ totalCustomer }}
+          </div>
+        </div>
+
+        <div class="myCard" matTooltip="Total Employees">
+          <div class="title">
+            <span class="user-select-none">
+              <img
+                src="../../../../assets/images/employee-icon.png"
+                alt="employeeIcon"
+                style="width: 100%; height: 100%"
+              />
+            </span>
+          </div>
+          <div class="content mt-2 user-select-none">
+            {{ totalEmployee }}
+          </div>
+        </div>
+
+        <div class="myCard" matTooltip="Total Income">
+          <div class="title">
+            <span class="user-select-none">
+              <img
+                src="../../../../assets/images/money-icon.webp"
+                alt="icon"
+                style="width: 100%; height: 100%"
+              />
+            </span>
+          </div>
+          <div class="content mt-2 user-select-none">
+            {{ totalAmount }}
+          </div>
+        </div>
+      </div>
+      <div class="dc align-items-center">
+        <div class="date-container">
+          <mat-form-field
+            appearance="outline"
+            style="
+              width: 210px;
+              height: 55px;
+              background-color: #f3e0d3;
+              border-radius: 4px;
+            "
+          >
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+              <input
+                matStartDate
+                formControlName="start"
+                placeholder="Start date"
+                (dateChange)="onDateRangeChange($event)"
+              />
+              <input
+                matEndDate
+                formControlName="end"
+                placeholder="End date"
+                (dateChange)="onDateRangeChange($event)"
+              />
+            </mat-date-range-input>
+            <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+
+            @if (range.controls.start.hasError('matStartDateInvalid')) {
+            <mat-error>Invalid start date</mat-error>
+            } @if (range.controls.end.hasError('matEndDateInvalid')) {
+            <mat-error>Invalid end date</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-around">
+      <div
+        class="barChart col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12"
+      >
+        <div class="orderBarChart w-100">
+          @if (monthsDatas.join('') != "000000000000") {
+          <canvas
+            baseChart
+            [data]="orderData"
+            type="bar"
+            [options]="chartOption"
+          ></canvas>
+          } @else {
+          <span>
+            <img
+              src="../../../../assets/images/nodatafound.png"
+              alt="dataset"
+              style="width: 350px"
+            />
+          </span>
+          }
+        </div>
+
+        <div class="saleBarChart w-100">
+          @if (monthsDatas.join('') != "000000000000") {
+          <canvas
+            baseChart
+            [data]="paymentData"
+            type="line"
+            [options]="chartOption"
+          ></canvas>
+          } @else {
+          <span>
+            <img
+              src="../../../../assets/images/nodatafound.png"
+              alt="dataset"
+              style="width: 350px"
+            />
+          </span>
+          }
+        </div>
+      </div>
+      <div
+        class="pieChart-shaff d-flex flex-xxl-column flex-xl-column flex-lg-column flex-md-row flex-sm-column flex-column col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12"
+      >
+        <div class="pieChart">
+          @if(pieChartData.length != 0) {
+          <canvas
+            baseChart
+            [data]="pieChart"
+            type="pie"
+            [options]="pieChartOption"
+          >
+          </canvas>
+          } @else {
+          <span>
+            <img
+              src="../../../../assets/images/nodatafound.png"
+              alt="dataset"
+              style="width: 300px"
+            />
+          </span>
+          }
+        </div>
+
+        <div class="staff">
+          <div class="staff-title">Staff</div>
+          <div class="row-container">
+            <div class="staff-row">
+              <span class="staff-image">
+                <img
+                  src="../../../../assets/images/managerImage.png"
+                  alt="image"
+                />
+              </span>
+              <span class="staff-content">
+                <span>Manager</span>
+                <span>{{ manager }}</span>
+              </span>
+            </div>
+
+            <div class="staff-row">
+              <span class="staff-image">
+                <img src="../../../../assets/images/barista.png" alt="image" />
+              </span>
+              <span class="staff-content">
+                <span>Barista</span>
+                <span>{{ barista }}</span>
+              </span>
+            </div>
+
+            <div class="staff-row">
+              <span class="staff-image">
+                <img src="../../../../assets/images/cashier.png" alt="image" />
+              </span>
+              <span class="staff-content">
+                <span>Cashier</span>
+                <span>{{ cashier }}</span>
+              </span>
+            </div>
+
+            <div class="staff-row">
+              <span class="staff-image">
+                <img src="../../../../assets/images/waiter.png" alt="image" />
+              </span>
+              <span class="staff-content">
+                <span>Waiter</span>
+                <span>{{ waiter }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- 
+<div class="barChart">
+  <div class="orderBarChart">
+    <canvas baseChart [data]="data" type="bar" [options]="chartOption">
+    </canvas>
+  </div>
+
+  <div class="saleBarChart">
+    <canvas baseChart [data]="data" type="line"> </canvas>
+  </div>
+</div>
+<div class="pieChart-shaff">
+  <div class="pieChart">
+    <canvas
+      baseChart
+      [data]="pieChartData"
+      type="pie"
+      [options]="pieChartOption"
+    >
+    </canvas>
+  </div>
+
+  <div class="staff">
+    <div class="staff-title">Staff</div>
+    <div class="staff-row">
+      <span class="staff-image">
+        <img
+          src="../../../../assets/images/placeholder.png"
+          alt="image"
+        />
+      </span>
+      <span class="staff-content">
+        <span>Manager</span>
+        <span>1</span>
+      </span>
+    </div>
+
+    <div class="staff-row">
+      <span class="staff-image">
+        <img
+          src="../../../../assets/images/placeholder.png"
+          alt="image"
+        />
+      </span>
+      <span class="staff-content">
+        <span>Barista</span>
+        <span>1</span>
+      </span>
+    </div>
+
+    <div class="staff-row">
+      <span class="staff-image">
+        <img
+          src="../../../../assets/images/placeholder.png"
+          alt="image"
+        />
+      </span>
+      <span class="staff-content">
+        <span>Cashier</span>
+        <span>1</span>
+      </span>
+    </div>
+
+    <div class="staff-row">
+      <span class="staff-image">
+        <img
+          src="../../../../assets/images/placeholder.png"
+          alt="image"
+        />
+      </span>
+      <span class="staff-content">
+        <span>Waiter</span>
+        <span>1</span>
+      </span>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,264 @@
+<main>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- <span class="productBtn" (click)="onChangePage()">
+        <i class="bi bi-arrow-left"></i>
+      </span> -->
+
+      <button mat-fab class="addBtn" (click)="onChangePage()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <section class="mt-2 formsection">
+    <form [formGroup]="form">
+      <div class="grid-container">
+        <div>
+          <div class="image-upload">
+            <img [src]="imageUrl" alt="image" />
+            <div class="edit-container">
+              <label for="image-upload" class="edit"
+                ><mat-icon>edit</mat-icon> Edit</label
+              >
+              <input
+                type="file"
+                #fileInput
+                name="image-upload"
+                id="image-upload"
+                (change)="selectedImage($event)"
+                hidden
+              />
+            </div>
+          </div>
+        </div>
+        <div>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Name"
+            class="form-control"
+            formControlName="name"
+          />
+          <div
+            *ngIf="
+              form.controls['name'].invalid &&
+              (form.controls['name'].touched || form.controls['name'].dirty)
+            "
+          >
+            <small *ngIf="form.controls['name'].errors?.['required']"
+              >*required name!</small
+            >
+          </div>
+        </div>
+        <div>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            class="form-control"
+            formControlName="email"
+          />
+          <div
+            *ngIf="
+              form.controls['email'].invalid &&
+              (form.controls['email'].touched || form.controls['email'].dirty)
+            "
+          >
+            <small *ngIf="form.controls['email'].errors?.['required']"
+              >*required email!</small
+            >
+            <small *ngIf="form.controls['email'].errors?.['email']"
+              >*required valid email!</small
+            >
+          </div>
+        </div>
+        <div>
+          <input
+            type="number"
+            name="phone"
+            id="phone"
+            placeholder="Phone"
+            class="form-control"
+            formControlName="phone"
+          />
+          <div
+            *ngIf="
+              form.controls['phone'].invalid &&
+              (form.controls['phone'].touched || form.controls['phone'].dirty)
+            "
+          >
+            <small *ngIf="form.controls['phone'].errors?.['required']"
+              >*required phone!</small
+            >
+          </div>
+        </div>
+        <div>
+          <input
+            [type]="isPasswordVisible ? 'text' : 'password'"
+            name="password"
+            id="password"
+            class="form-control"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <button
+            *ngIf="!form.controls['password'].errors?.['required']"
+            mat-icon-button
+            class="passwordToggle"
+            (click)="onPasswordVisible()"
+          >
+            <mat-icon color="brown">{{ visibleIcon }}</mat-icon>
+          </button>
+          <div
+            *ngIf="
+              form.controls['password'].invalid &&
+              (form.controls['password'].touched ||
+                form.controls['password'].dirty)
+            "
+          >
+            <small *ngIf="form.controls['password'].errors?.['required']"
+              >*required password!</small
+            >
+            <small *ngIf="form.controls['password'].errors?.['minlength']"
+              >*at least 6 character!</small
+            >
+          </div>
+        </div>
+        <div>
+          <select
+            name="position"
+            id="position"
+            class="custom-select"
+            formControlName="position"
+          >
+            <option value="" disabled selected>Choose category</option>
+            <option value="Manager" selected>Manager</option>
+            <option value="Barista">Barista</option>
+            <option value="Cashier">Cashier</option>
+            <option value="Waiter">Waiter</option>
+          </select>
+          <div
+            *ngIf="
+              form.controls['position'].invalid &&
+              (form.controls['position'].touched ||
+                form.controls['position'].dirty)
+            "
+          >
+            <small *ngIf="form.controls['position'].errors?.['required']"
+              >*required position!</small
+            >
+          </div>
+        </div>
+        <div>
+          <input
+            type="number"
+            name="salary"
+            id="salary"
+            placeholder="Salary"
+            class="form-control"
+            formControlName="salary"
+          />
+          <div
+            *ngIf="
+              form.controls['salary'].invalid &&
+              (form.controls['salary'].touched || form.controls['salary'].dirty)
+            "
+          >
+            <small *ngIf="form.controls['salary'].errors?.['required']"
+              >*required salary!</small
+            >
+          </div>
+        </div>
+        <!-- <div>
+          <span
+            ><input type="date" name="date" id="date" class="form-control"
+          /></span>
+          <span
+            ><input
+              type="time"
+              name="start-time"
+              id="start-time"
+              class="form-control"
+          /></span>
+          <span>
+            <input
+              type="time"
+              name="end-time"
+              id="end-time"
+              class="form-control"
+            />
+          </span>
+        </div> -->
+        <div>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            class="form-control"
+            formControlName="hire_date"
+            [value]="employee.hire_date"
+          />
+          <div
+            *ngIf="
+              form.controls['hire_date'].invalid &&
+              (form.controls['hire_date'].touched ||
+                form.controls['hire_date'].dirty)
+            "
+          >
+            <small *ngIf="form.controls['hire_date'].errors?.['required']"
+              >*required date!</small
+            >
+          </div>
+        </div>
+        <div>
+          <input
+            type="text"
+            name="location"
+            id="location"
+            placeholder="Location"
+            class="form-control"
+            formControlName="location"
+          />
+          <div
+            *ngIf="
+              form.controls['location'].invalid &&
+              (form.controls['location'].touched ||
+                form.controls['location'].dirty)
+            "
+          >
+            <small *ngIf="form.controls['location'].errors?.['required']"
+              >*required location!</small
+            >
+          </div>
+        </div>
+
+        <div>
+          <label class="custom-radio">
+            <input type="radio" formControlName="role" value="1" />
+            <span class="radio-label">Admin </span>
+          </label>
+          <label class="custom-radio">
+            <input type="radio" formControlName="role" value="0" />
+            <span class="radio-label">User</span>
+          </label>
+        </div>
+
+        <div>
+          <button
+            mat-fab
+            extended
+            color="primary"
+            (click)="onSubmit(form.value, fileInput)"
+            [disabled]="!form.valid"
+          >
+            Submit
+            <mat-icon>send</mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+  </section>
+</main>

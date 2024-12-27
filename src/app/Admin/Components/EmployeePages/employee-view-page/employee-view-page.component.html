@@ -1,0 +1,566 @@
+<div class="col-12 mainContainer">
+  <div class="row mt-2 p-0 align-items-center justify-content-between a">
+    <div class="row col-xl-10 col-lg-9 col-md-9 col-sm-8 scroll">
+      <!-- Employee Card -->
+      <div class="myCard">
+        <div class="title">
+          <span class="d-none d-sm-none d-md-inline-block user-select-none"
+            >Total Employee</span
+          >
+          <span class="d-inline d-sm-inline d-md-none">
+            <i class="bi bi-grid"></i>
+          </span>
+        </div>
+        <div class="content mt-2 user-select-none">
+          {{ employeeCount }}
+        </div>
+      </div>
+
+      <!-- Departments Card -->
+      <div class="myCard">
+        <div class="title">
+          <span class="d-none d-sm-none d-md-inline-block user-select-none"
+            >Departments</span
+          >
+          <span class="d-inline d-sm-inline d-md-none">
+            <i class="bi bi-grid"></i>
+          </span>
+        </div>
+        <div class="content mt-2 user-select-none">
+          {{ departments.length }}
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <!-- <div class="myBotton" (click)="onChangePage()">
+        <div class="title">
+          <span class="btnIcon"><i class="bi bi-cart-plus-fill"></i></span>
+          <span class="d-none d-sm-inline d-md-inline-block user-select-none"
+            >create product</span
+          >
+        </div>
+      </div> -->
+
+      <button class="addBtn" mat-fab extended (click)="onChangePage()">
+        <mat-icon>person_add</mat-icon>
+        <span class="hidden">Add Employee</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- <div class="row">
+    <div class="mt-3 p-0 container-fluid table-responsive table-container">
+      <section class="table-header">
+        <h3>Employee's Info</h3>
+        <div class="d-flex">
+          <span
+            (click)="searchBox('open')"
+            (mouseleave)="searchBox('close')"
+            class="d-xl-none d-lg-none d-md-none d-sm-inline-block d-inline-block align-content-center justify-content-center rounded bg-primary"
+          >
+            <span [ngClass]="searchIcon" class="mt-1 mb-1 ml-2 mr-2"
+              ><i class="bi bi-search"></i
+            ></span>
+            <span [ngClass]="searchInput">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                (keyup)="onSearch($event)"
+              />
+            </span>
+          </span>
+          <span
+            class="d-xl-inline-block d-lg-inline-block d-md-inline-block d-sm-none d-none"
+          >
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              (keyup)="onSearch($event)"
+            />
+          </span>
+        </div>
+      </section>
+      <section class="table-body">
+        <table class="table-striped">
+          <thead>
+            <tr>
+              <th class="">ID</th>
+              <th class="">Name</th>
+              <th class="">Position</th>
+              <th class="">Email</th>
+              <th class="">Phone</th>
+              <th class="text-center">Hire_Date</th>
+              <th class="text-center">Role</th>
+              <th class="text-center">Salary</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(employee of paginatedEmployees; track employee; let i=$index) {
+
+            <tr>
+              <td class="">{{ employee.employee_id }}</td>
+              <td class="" style="min-width: 100px">{{ employee.name }}</td>
+              <td class="">{{ employee.position }}</td>
+              <td class="">{{ employee.email }}</td>
+              <td class="">{{ employee.phone }}</td>
+              <td class="text-center">{{ employee.createdAt | date }}</td>
+              <td class="text-center">
+                {{ employee.role }}
+              </td>
+
+              <td class="text-center">
+                <strong>{{ employee.salary }}</strong>
+              </td>
+
+              <td class="text-center">
+                <span>
+                  <span
+                    class="btn btn-sm btn-primary m-1"
+                    (click)="onChangePage('add-page', employee, 'update')"
+                    ><i class="bi bi-pencil-square"></i
+                  ></span>
+
+                  <span
+                    class="btn btn-sm btn-primary m-1"
+                    (click)="onChangePage('shift-page', employee)"
+                    ><i class="bi bi-info-circle"></i
+                  ></span>
+                </span>
+              </td>
+            </tr>
+
+            }
+          </tbody>
+        </table>
+      </section>
+
+      <section class="table-pagination">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li
+              [attr.aria-disabled]="currentPage == 1"
+              [class.disabled]="currentPage == 1"
+              (click)="
+                !(currentPage == 1) && fetchPaginatedData(currentPage - 1)
+              "
+            >
+              <span class="page-link">Previous</span>
+            </li>
+            @for (item of pages; track item; let i = $index) {
+
+            <li
+              class="page-item"
+              (click)="fetchPaginatedData(i + 1)"
+              [class.active]="currentPage == i + 1"
+            >
+              <span class="page-link">{{ i + 1 }}</span>
+            </li>
+            }
+
+            <li
+              [attr.aria-disabled]="pages[pages.length - 1] < currentPage + 1"
+              [class.disabled]="pages[pages.length - 1] < currentPage + 1"
+              (click)="
+                !(pages[pages.length - 1] < currentPage + 1) &&
+                  fetchPaginatedData(currentPage + 1)
+              "
+            >
+              <span class="page-link">Next</span>
+            </li>
+          </ul>
+        </nav>
+      </section>
+    </div>
+  </div> -->
+
+  <div class="row mt-3">
+    <mat-tab-group
+      style="width: 100%"
+      mat-stretch-tabs="false"
+      mat-align-tabs="start"
+    >
+      <mat-tab label="All">
+        <ng-template matTabContent>
+          <div class="card-container">
+            @for(employee of employees; track employee; let i=$index) {
+
+            <div class="employee-card">
+              <button mat-icon-button class="small" [matMenuTriggerFor]="menu">
+                <!-- <mat-icon class="material-symbols-outlined">edit_square</mat-icon> -->
+                <!-- <i class="bi bi-pencil-square" style="font-size: 18px"></i> -->
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  (click)="onChangePage('add-page', employee, 'update')"
+                >
+                  <mat-icon>edit_square</mat-icon> Update
+                </button>
+
+                <button
+                  mat-menu-item
+                  (click)="onChangePage('shift-page', employee)"
+                >
+                  <mat-icon>event_available</mat-icon> event
+                </button>
+
+                <button mat-menu-item (click)="onDeleteEmployee(employee._id)">
+                  <mat-icon>delete</mat-icon> Delete
+                </button>
+              </mat-menu>
+              <div class="image-container">
+                <img [src]="employee.image_url" alt="image" />
+              </div>
+              <div class="name">
+                <div style="width: 60px; font-weight: bold">Name</div>
+                <span>: {{ employee.name }}</span>
+              </div>
+              <div class="email">
+                <div style="width: 60px; font-weight: bold">Email</div>
+                <span>: {{ employee.email }}</span>
+              </div>
+              <div class="phone">
+                <div style="width: 60px; font-weight: bold">Phone</div>
+                <span>: {{ employee.phone }}</span>
+              </div>
+              <div class="location">
+                <div style="width: 70px; font-weight: bold">Location</div>
+                <span>: {{ employee.location }}</span>
+              </div>
+              <!-- <div class="password">
+                <div style="width: 65px">Password</div>
+                <span>: 123456</span>
+              </div> -->
+              <div class="position">
+                <div style="width: 70px; font-weight: bold">Position</div>
+                <span>: {{ employee.position }}</span>
+              </div>
+              <div class="salary">
+                <div style="width: 70px; font-weight: bold">Salary</div>
+                <span>: {{ employee.salary }}</span>
+              </div>
+              <div class="date">
+                <div style="width: 40px; font-weight: bold">Date</div>
+                <span>: {{ employee.createdAt | date }}</span>
+              </div>
+              <div class="role">
+                <div style="width: 40px; font-weight: bold">Role</div>
+                <span>: {{ employee.role }}</span>
+              </div>
+            </div>
+
+            }
+          </div>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Manager">
+        <ng-template matTabContent>
+          <div class="card-container">
+            @for(employee of managers; track employee; let i=$index) {
+
+            <div class="employee-card">
+              <button mat-icon-button class="small" [matMenuTriggerFor]="menu">
+                <!-- <mat-icon class="material-symbols-outlined">edit_square</mat-icon> -->
+                <!-- <i class="bi bi-pencil-square" style="font-size: 18px"></i> -->
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  (click)="onChangePage('add-page', employee, 'update')"
+                >
+                  <mat-icon>edit_square</mat-icon> Update
+                </button>
+
+                <button
+                  mat-menu-item
+                  (click)="onChangePage('shift-page', employee)"
+                >
+                  <mat-icon>event_available</mat-icon> event
+                </button>
+
+                <button mat-menu-item (click)="onDeleteEmployee(employee._id)">
+                  <mat-icon>delete</mat-icon> Delete
+                </button>
+              </mat-menu>
+              <div class="image-container">
+                <img [src]="employee.image_url" alt="image" />
+              </div>
+              <div class="name">
+                <div style="width: 60px; font-weight: bold">Name</div>
+                <span>: {{ employee.name }}</span>
+              </div>
+              <div class="email">
+                <div style="width: 60px; font-weight: bold">Email</div>
+                <span>: {{ employee.email }}</span>
+              </div>
+              <div class="phone">
+                <div style="width: 60px; font-weight: bold">Phone</div>
+                <span>: {{ employee.phone }}</span>
+              </div>
+              <div class="location">
+                <div style="width: 70px; font-weight: bold">Location</div>
+                <span>: {{ employee.location }}</span>
+              </div>
+              <!-- <div class="password">
+                <div style="width: 65px">Password</div>
+                <span>: 123456</span>
+              </div> -->
+              <div class="position">
+                <div style="width: 70px; font-weight: bold">Position</div>
+                <span>: {{ employee.position }}</span>
+              </div>
+              <div class="salary">
+                <div style="width: 70px; font-weight: bold">Salary</div>
+                <span>: {{ employee.salary }}</span>
+              </div>
+              <div class="date">
+                <div style="width: 40px; font-weight: bold">Date</div>
+                <span>: {{ employee.createdAt | date }}</span>
+              </div>
+              <div class="role">
+                <div style="width: 40px; font-weight: bold">Role</div>
+                <span>: {{ employee.role }}</span>
+              </div>
+            </div>
+
+            }
+          </div>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Barista">
+        <ng-template matTabContent>
+          <div class="card-container">
+            @for(employee of baristas; track employee; let i=$index) {
+
+            <div class="employee-card">
+              <button mat-icon-button class="small" [matMenuTriggerFor]="menu">
+                <!-- <mat-icon class="material-symbols-outlined">edit_square</mat-icon> -->
+                <!-- <i class="bi bi-pencil-square" style="font-size: 18px"></i> -->
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  (click)="onChangePage('add-page', employee, 'update')"
+                >
+                  <mat-icon>edit_square</mat-icon> Update
+                </button>
+
+                <button
+                  mat-menu-item
+                  (click)="onChangePage('shift-page', employee)"
+                >
+                  <mat-icon>event_available</mat-icon> event
+                </button>
+
+                <button mat-menu-item (click)="onDeleteEmployee(employee._id)">
+                  <mat-icon>delete</mat-icon> Delete
+                </button>
+              </mat-menu>
+              <div class="image-container">
+                <img [src]="employee.image_url" alt="image" />
+              </div>
+              <div class="name">
+                <div style="width: 60px; font-weight: bold">Name</div>
+                <span>: {{ employee.name }}</span>
+              </div>
+              <div class="email">
+                <div style="width: 60px; font-weight: bold">Email</div>
+                <span>: {{ employee.email }}</span>
+              </div>
+              <div class="phone">
+                <div style="width: 60px; font-weight: bold">Phone</div>
+                <span>: {{ employee.phone }}</span>
+              </div>
+              <div class="location">
+                <div style="width: 70px; font-weight: bold">Location</div>
+                <span>: {{ employee.location }}</span>
+              </div>
+              <!-- <div class="password">
+                <div style="width: 65px">Password</div>
+                <span>: 123456</span>
+              </div> -->
+              <div class="position">
+                <div style="width: 70px; font-weight: bold">Position</div>
+                <span>: {{ employee.position }}</span>
+              </div>
+              <div class="salary">
+                <div style="width: 70px; font-weight: bold">Salary</div>
+                <span>: {{ employee.salary }}</span>
+              </div>
+              <div class="date">
+                <div style="width: 40px; font-weight: bold">Date</div>
+                <span>: {{ employee.createdAt | date }}</span>
+              </div>
+              <div class="role">
+                <div style="width: 40px; font-weight: bold">Role</div>
+                <span>: {{ employee.role }}</span>
+              </div>
+            </div>
+
+            }
+          </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab label="Cashier">
+        <ng-template matTabContent>
+          <div class="card-container">
+            @for(employee of cashiers; track employee; let i=$index) {
+
+            <div class="employee-card">
+              <button mat-icon-button class="small" [matMenuTriggerFor]="menu">
+                <!-- <mat-icon class="material-symbols-outlined">edit_square</mat-icon> -->
+                <!-- <i class="bi bi-pencil-square" style="font-size: 18px"></i> -->
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  (click)="onChangePage('add-page', employee, 'update')"
+                >
+                  <mat-icon>edit_square</mat-icon> Update
+                </button>
+
+                <button
+                  mat-menu-item
+                  (click)="onChangePage('shift-page', employee)"
+                >
+                  <mat-icon>event_available</mat-icon> event
+                </button>
+
+                <button mat-menu-item (click)="onDeleteEmployee(employee._id)">
+                  <mat-icon>delete</mat-icon> Delete
+                </button>
+              </mat-menu>
+              <div class="image-container">
+                <img [src]="employee.image_url" alt="image" />
+              </div>
+              <div class="name">
+                <div style="width: 60px; font-weight: bold">Name</div>
+                <span>: {{ employee.name }}</span>
+              </div>
+              <div class="email">
+                <div style="width: 60px; font-weight: bold">Email</div>
+                <span>: {{ employee.email }}</span>
+              </div>
+              <div class="phone">
+                <div style="width: 60px; font-weight: bold">Phone</div>
+                <span>: {{ employee.phone }}</span>
+              </div>
+              <div class="location">
+                <div style="width: 70px; font-weight: bold">Location</div>
+                <span>: {{ employee.location }}</span>
+              </div>
+              <!-- <div class="password">
+                <div style="width: 65px">Password</div>
+                <span>: 123456</span>
+              </div> -->
+              <div class="position">
+                <div style="width: 70px; font-weight: bold">Position</div>
+                <span>: {{ employee.position }}</span>
+              </div>
+              <div class="salary">
+                <div style="width: 70px; font-weight: bold">Salary</div>
+                <span>: {{ employee.salary }}</span>
+              </div>
+              <div class="date">
+                <div style="width: 40px; font-weight: bold">Date</div>
+                <span>: {{ employee.createdAt | date }}</span>
+              </div>
+              <div class="role">
+                <div style="width: 40px; font-weight: bold">Role</div>
+                <span>: {{ employee.role }}</span>
+              </div>
+            </div>
+
+            }
+          </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab label="Waiter">
+        <ng-template matTabContent>
+          <div class="card-container">
+            @for(employee of waiters; track employee; let i=$index) {
+
+            <div class="employee-card">
+              <button mat-icon-button class="small" [matMenuTriggerFor]="menu">
+                <!-- <mat-icon class="material-symbols-outlined">edit_square</mat-icon> -->
+                <!-- <i class="bi bi-pencil-square" style="font-size: 18px"></i> -->
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  (click)="onChangePage('add-page', employee, 'update')"
+                >
+                  <mat-icon>edit_square</mat-icon> Update
+                </button>
+
+                <button
+                  mat-menu-item
+                  (click)="onChangePage('shift-page', employee)"
+                >
+                  <mat-icon>event_available</mat-icon> event
+                </button>
+
+                <button mat-menu-item (click)="onDeleteEmployee(employee._id)">
+                  <mat-icon>delete</mat-icon> Delete
+                </button>
+              </mat-menu>
+              <div class="image-container">
+                <img [src]="employee.image_url" alt="image" />
+              </div>
+              <div class="name">
+                <div style="width: 60px; font-weight: bold">Name</div>
+                <span>: {{ employee.name }}</span>
+              </div>
+              <div class="email">
+                <div style="width: 60px; font-weight: bold">Email</div>
+                <span>: {{ employee.email }}</span>
+              </div>
+              <div class="phone">
+                <div style="width: 60px; font-weight: bold">Phone</div>
+                <span>: {{ employee.phone }}</span>
+              </div>
+              <div class="location">
+                <div style="width: 70px; font-weight: bold">Location</div>
+                <span>: {{ employee.location }}</span>
+              </div>
+              <!-- <div class="password">
+                <div style="width: 65px">Password</div>
+                <span>: 123456</span>
+              </div> -->
+              <div class="position">
+                <div style="width: 70px; font-weight: bold">Position</div>
+                <span>: {{ employee.position }}</span>
+              </div>
+              <div class="salary">
+                <div style="width: 70px; font-weight: bold">Salary</div>
+                <span>: {{ employee.salary }}</span>
+              </div>
+              <div class="date">
+                <div style="width: 40px; font-weight: bold">Date</div>
+                <span>: {{ employee.createdAt | date }}</span>
+              </div>
+              <div class="role">
+                <div style="width: 40px; font-weight: bold">Role</div>
+                <span>: {{ employee.role }}</span>
+              </div>
+            </div>
+
+            }
+          </div>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

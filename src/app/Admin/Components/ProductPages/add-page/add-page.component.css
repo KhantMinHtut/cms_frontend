@@ -1,0 +1,225 @@
+.productBtn {
+  background-color: #aa715a;
+  color: white;
+  font-size: 23px;
+  padding: 5px 12px;
+  border-radius: 7px;
+}
+
+.backBtnRow {
+  background-color: transparent;
+}
+
+.formContainer {
+  height: 79vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: 20px;
+  /* background-color: #f3e8e5; */
+}
+
+.formContainer::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.formContainer::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: #0004;
+  visibility: hidden;
+}
+
+.formContainer:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+.formContainer::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.image-upload {
+  width: 230px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  border: 4px dashed #aa715a;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.textarea {
+  width: 250px;
+  border-radius: 10px;
+  background-color: #aa715a;
+  color: white;
+}
+.textarea::placeholder {
+  color: white;
+}
+
+/* .ingredients {
+  width: 230px;
+  height: 200px;
+  background-color: aqua;
+} */
+
+.list {
+  list-style: none;
+  display: flex;
+  border: 1px solid black;
+}
+
+.list-item {
+  padding: 5px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid black;
+}
+
+.list-item:nth-child(3) {
+  border-right: none;
+}
+
+.border-radius {
+  border-radius: 10px;
+}
+
+.overflow {
+  width: 100%;
+  height: auto;
+  overflow-y: scroll;
+}
+
+.upload {
+  font-size: 90px;
+  color: #987861;
+}
+
+small {
+  min-width: 200px;
+  color: red;
+  font-size: 12px;
+}
+
+input.ng-invalid.ng-touched {
+  border: red 1px solid;
+}
+
+textarea.ng-invalid.ng-touched {
+  border: red 1px solid;
+}
+
+.description {
+  background-color: #aa715a;
+  color: white;
+}
+
+.description::placeholder {
+  color: white;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-input::placeholder {
+  color: white; /* Set your desired color */
+  opacity: 1; /* Optional: Ensure the color is fully visible */
+}
+
+.category {
+  background-color: #aa715a !important;
+  color: white;
+}
+
+.category option {
+  color: white;
+  background-color: #aa715a;
+}
+
+@media screen and (max-width: 991px) {
+  .image-upload {
+    width: 85%;
+    height: 150px;
+    border-radius: 15px;
+  }
+
+  .image-upload img {
+    width: 75%;
+  }
+
+  .textarea {
+    width: 85%;
+    height: 120px;
+  }
+
+  .myposition {
+    position: absolute;
+    bottom: 10px;
+    left: -69%;
+  }
+
+  .description {
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .formContainer::-webkit-scrollbar {
+    width: 0.4rem;
+    height: 0.4rem;
+  }
+
+  .formContainer::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background-color: #aa715a;
+    visibility: hidden;
+  }
+
+  .formContainer:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
+  }
+
+  .image-upload {
+    max-width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    margin-right: 5px;
+  }
+
+  .image-upload img {
+    width: 100%;
+  }
+
+  .textarea {
+    width: 250px;
+    height: 150px;
+    margin-left: 5px;
+  }
+
+  .myposition {
+    position: relative;
+    bottom: 0px;
+    left: 0;
+  }
+
+  .myposition div {
+    padding: 0;
+  }
+
+  .description {
+    height: 100px;
+  }
+}
+
+input {
+  background-color: #aa715a !important;
+  color: white !important;
+}
+
+input::placeholder {
+  color: white !important;
+}

@@ -1,0 +1,81 @@
+<div class="dialog-title-between">
+  <span>{{ supplierData.title }}</span>
+  <button
+    (click)="closePopup()"
+    mat-raised-button
+    color="warn"
+    style="font-size: 35px"
+  >
+    &times;
+  </button>
+</div>
+
+<form [formGroup]="form">
+  <div class="p-3">
+    <div class="m-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          placeholder="Enter name"
+          type="text"
+          formControlName="name"
+        />
+      </mat-form-field>
+    </div>
+    <!-- <div>
+      <input
+        type="text"
+        name="contact_person"
+        id="contact_person"
+        class="form-control"
+      />
+    </div> -->
+
+    <div class="m-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Contact person</mat-label>
+        <input
+          matInput
+          placeholder="Enter contact person"
+          type="text"
+          formControlName="contact_person"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="m-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          placeholder="Enter email"
+          type="email"
+          formControlName="email"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="m-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Phone</mat-label>
+        <input
+          matInput
+          placeholder="Enter phone number"
+          type="text"
+          formControlName="phone"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+
+<div mat-dialog-actions align="center" class="mb-4">
+  <button
+    (click)="closeAndSavePopup()"
+    mat-raised-button
+    style="background-color: #aa715a; color: white"
+  >
+    Add
+  </button>
+</div>

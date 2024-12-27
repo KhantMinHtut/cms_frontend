@@ -1,0 +1,69 @@
+<div class="container-fluid align-items-center p-2 mynavbar">
+  <div class="font-weight-bold cusfs">Coffee Shop Management System</div>
+
+  <div class="profile-container">
+    <div class="profile">
+      <div class="image-container pos" #userInfoBtn (click)="showUserInfo()">
+        <img src="{{ currentUser.image_url }}" class="img-fluid" alt="user" />
+      </div>
+      <!-- <div
+        class="role-name d-xl-inline-block d-lg-inline-block d-md-inline-block d-sm-none d-none"
+      >
+        <div class="admin">Admin</div>
+        <div class="name">User</div>
+      </div> -->
+    </div>
+    <div></div>
+  </div>
+</div>
+<!-- 
+<ng-container class="editUser" *ngIf="userEditPage">
+  <app-employee-add-page
+    [employee]="currentUser"
+    [editUser]="true"
+    (hideEditUser)="onHideEditUser($event)"
+  ></app-employee-add-page>
+</ng-container> -->
+
+<ng-container *ngIf="click">
+  <div class="user-info-card onOpen" #userInfoCard (click)="editUser()">
+    <div class="row1">
+      <div class="appbar">
+        <span class="float-right">
+          <button mat-icon-button>
+            <mat-icon>open_in_new</mat-icon>
+          </button>
+        </span>
+        <span class="image-wapper">
+          <img src="{{ currentUser.image_url }}" alt="user" />
+        </span>
+      </div>
+    </div>
+    <div class="row2">
+      <div style="height: 35px"></div>
+      <div class="user-name">
+        <div class="username">{{ currentUser.name }}</div>
+        <div class="email">{{ currentUser.email }}</div>
+      </div>
+      <div class="user-info">
+        <div class="info">
+          <span>ID</span><span>{{ currentUser.employee_id }}</span>
+        </div>
+        <div class="info">
+          <span>Phone</span><span>{{ currentUser.phone }}</span>
+        </div>
+        <div class="info">
+          <span>Position</span><span>{{ currentUser.position }}</span>
+        </div>
+
+        <div class="info">
+          <span>Date</span><span>{{ currentUser.hire_date }}</span>
+        </div>
+
+        <div class="info">
+          <span>Role</span><span>{{ currentUser.role }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

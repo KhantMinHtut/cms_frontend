@@ -1,0 +1,57 @@
+<div class="dialog-title-between bg-primary">
+  <span>{{ employeeData.title }}</span>
+  <button
+    (click)="closePopup()"
+    mat-raised-button
+    color="warn"
+    style="font-size: 35px"
+  >
+    &times;
+  </button>
+</div>
+
+<form [formGroup]="form">
+  <div
+    class="d-flex flex-column justify-content-around p-3"
+    style="height: 200px"
+  >
+    <div class="w-100">
+      <input
+        type="date"
+        name="date"
+        id="date"
+        class="form-control"
+        formControlName="date"
+      />
+      <div
+        *ngIf="form.controls['date'].invalid && form.controls['date'].touched"
+      >
+        <small>Date of Birth is required.</small>
+      </div>
+    </div>
+    <div class="w-100 d-flex justify-content-between">
+      <span style="width: 175px"
+        ><input
+          type="time"
+          name="time"
+          id="time "
+          class="form-control"
+          formControlName="startTime"
+      /></span>
+      <span style="width: 175px"
+        ><input
+          type="time"
+          name="time"
+          id="time "
+          class="form-control"
+          formControlName="endTime"
+      /></span>
+    </div>
+  </div>
+</form>
+
+<div mat-dialog-actions class="dialog-actions-center">
+  <button (click)="closeAndSavePopup()" mat-raised-button color="primary">
+    OK
+  </button>
+</div>

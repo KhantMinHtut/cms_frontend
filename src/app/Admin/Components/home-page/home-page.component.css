@@ -1,0 +1,556 @@
+.container-fluid {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.homepage {
+  width: 100%;
+  height: 87vh;
+  padding: 5px;
+  margin: 0;
+  /* overflow-x: hidden; */
+  overflow-y: auto;
+}
+
+.homepage::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.homepage::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: violet;
+  visibility: hidden;
+}
+
+.homepage:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+.homepage::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.card-container {
+  width: 75%;
+  display: flex;
+
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.myCard {
+  min-width: 120px;
+  height: 65px;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 7px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #aa715a;
+}
+
+.title {
+  margin: 4px;
+}
+
+.title span {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+}
+
+.content {
+  margin: 4px;
+}
+
+.dc {
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* 
+.date-container {
+  background-color: #aa715a;
+} */
+
+/* Material DatePicker range */
+
+/* Custom styles for the date range input fields */
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-date-range-input input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+/* Style the calendar popup */
+.mat-calendar {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+/* Highlight selected date range */
+.mat-calendar-body-selected {
+  background-color: #3f51b5;
+  color: white;
+}
+
+/* ================================== */
+
+.barChart {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.pieChart-shaff {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.orderBarChart,
+.saleBarChart {
+  /* width: 650px; */
+  width: 50vw;
+  height: 50vh;
+
+  /* min-width: 300px; */
+
+  position: relative;
+  margin: 10px;
+  border: 2px solid #bb9887;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fee7dc;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.pieChart {
+  /* width: 400px;*/
+
+  height: 50vh;
+
+  position: relative;
+  margin: 10px;
+  border: 2px solid #bb9887;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fee7dc;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.staff {
+  /* width: 400px; */
+
+  height: 50vh;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid #bb9887;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fee7dc;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.staff-title {
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  font-size: 25px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background-color: #bb9887;
+}
+
+.row-container {
+  width: 100%;
+  margin-top: 10px;
+  overflow-y: auto;
+}
+
+.row-container::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.row-container::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: violet;
+  visibility: hidden;
+}
+
+.row-container:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+.row-container::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.staff-row {
+  width: 100%;
+
+  padding: 0px;
+  border-radius: 22px;
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.staff-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid #bb9887;
+}
+
+.staff-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.staff-content {
+  width: 170px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #bb9887;
+}
+
+.staff-content span:first-child {
+  color: white;
+  margin-left: 5px;
+  padding: 3px;
+}
+
+.staff-content span:last-child {
+  color: white;
+  margin-right: 5px;
+  padding: 3px;
+}
+
+@media (max-width: 1207px) {
+  .staff-content {
+    width: 150px;
+  }
+}
+
+@media (max-width: 1110px) {
+  .staff-content {
+    width: 130px;
+  }
+}
+
+@media screen and (max-width: 991.5px) {
+  .pieChart {
+    width: 60%;
+  }
+  .staff {
+    width: 40%;
+  }
+
+  .staff-title {
+    width: 125px;
+  }
+
+  .staff-content {
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 767.5px) {
+  .pieChart {
+    width: 100%;
+  }
+  .staff {
+    width: 100%;
+  }
+
+  .staff-title {
+    width: 250px;
+  }
+
+  .staff-content {
+    width: 60%;
+  }
+}
+
+@media (max-width: 705px) {
+  .myCard {
+    min-width: 100px;
+    height: 60px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .title span:first-child {
+    display: none;
+  }
+
+  .title span:last-child {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .card-container {
+    width: 100%;
+  }
+
+  .dc {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 575.5px) {
+  .homepage {
+    overflow-x: hidden;
+  }
+  .orderBarChart,
+  .saleBarChart,
+  .pieChart,
+  .staff {
+    margin-top: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 10px;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 567.5px) {
+  .homepage {
+    overflow-x: hidden;
+  }
+
+  .homepage::-webkit-scrollbar {
+    width: 0rem;
+    height: 0rem;
+  }
+
+  .homepage::-webkit-scrollbar-thumb {
+    border-radius: 0rem;
+    background-color: violet;
+    visibility: hidden;
+  }
+
+  .homepage:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
+  }
+
+  .homepage::-webkit-scrollbar-corner {
+    display: none;
+  }
+
+  .orderBarChart,
+  .saleBarChart,
+  .pieChart,
+  .staff {
+    margin-top: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .staff-title {
+    width: 150px;
+  }
+}
+
+/* .staff-content:last-child {
+  background-color: yellow;
+} */
+/* 
+@media (max-width: 1400px) {
+  .orderBarChart,
+  .saleBarChart {
+    width: 550px;
+    height: 310px;
+  }
+
+  .pieChart {
+    width: 400px;
+    height: 310px;
+  }
+
+  .staff {
+    width: 400px;
+    height: 310px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .orderBarChart,
+  .saleBarChart {
+    width: 470px;
+    height: 310px;
+  }
+
+  .pieChart {
+    width: 400px;
+    height: 310px;
+  }
+
+  .staff {
+    width: 400px;
+    height: 310px;
+  }
+}
+
+@media (max-width: 1184px) {
+  .orderBarChart,
+  .saleBarChart {
+    width: 450px;
+    height: 310px;
+  }
+
+  .pieChart {
+    width: 350px;
+    height: 310px;
+  }
+
+  .staff {
+    width: 350px;
+    height: 310px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .orderBarChart,
+  .saleBarChart {
+    width: 450px;
+    height: 310px;
+  }
+
+  .pieChart {
+    width: 300px;
+    height: 310px;
+  }
+
+  .staff {
+    width: 300px;
+    height: 310px;
+  }
+}
+
+@media (max-width: 1040px) {
+  .orderBarChart,
+  .saleBarChart {
+    width: 450px;
+    height: 310px;
+  }
+
+  .pieChart {
+    width: 250px;
+    height: 310px;
+  }
+
+  .staff {
+    width: 250px;
+    height: 310px;
+  }
+
+  .staff-content {
+    width: 130px;
+  }
+}
+
+@media (max-width: 991px) {
+  .orderBarChart,
+  .saleBarChart {
+    width: 450px;
+    height: 310px;
+  }
+
+  .pieChart {
+    width: 290px;
+    height: 310px;
+  }
+
+  .staff {
+    width: 290px;
+    height: 310px;
+  }
+
+  .staff-content {
+    width: 150px;
+  }
+}
+
+@media (max-width: 991px) {
+  .homepage {
+    max-width: 798px;
+  }
+
+  .orderBarChart,
+  .saleBarChart {
+    width: 650px;
+    height: 370px;
+  }
+
+  .pieChart-shaff {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .pieChart {
+    width: 300px;
+    height: 370px;
+    padding: 15px;
+  }
+
+  .staff {
+    width: 300px;
+    height: 370px;
+  }
+
+  .staff-content {
+    width: 150px;
+  }
+} */
+
+/* @media (max-width: 798px) {
+  .homepage {
+    max-width: ;
+  }
+} */

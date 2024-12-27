@@ -1,0 +1,14 @@
+<main class="row">
+  @if (currentPage == 'view-page') {
+  <app-order-view-page
+    class="col-12"
+    (changePage)="onCurrentPage($event)"
+  ></app-order-view-page>
+  } @else {
+  <app-order-details-page
+    class="col-12"
+    [orderId]="currentOrderId"
+    (changePage)="onCurrentPage($event)"
+  ></app-order-details-page>
+  }
+</main>

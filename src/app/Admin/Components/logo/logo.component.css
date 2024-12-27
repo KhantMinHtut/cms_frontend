@@ -1,0 +1,19 @@
+.container {
+  height: 80px;
+  min-width: 100%;
+  padding-top: 20px;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  /* border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; */
+  background: linear-gradient(#aa715a, #e7d1c9, #d5afa1);
+}
+
+.myfs {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

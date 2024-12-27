@@ -1,0 +1,330 @@
+<div class="col-12 order-container">
+  <div class="row mt-2 p-0 align-items-center justify-content-between a">
+    <div class="row col-12 scroll">
+      <div class="myCard">
+        <div class="title">
+          <span class="d-none d-sm-none d-md-inline-block user-select-none"
+            >Total Orders</span
+          >
+          <span class="d-inline d-sm-inline d-md-none">
+            <i class="bi bi-grid"></i>
+          </span>
+        </div>
+        <div class="content mt-2 user-select-none">
+          {{ orderCount }}
+        </div>
+      </div>
+
+      <div class="myCard">
+        <div class="title">
+          <span class="d-none d-sm-none d-md-inline-block user-select-none"
+            >Completed</span
+          >
+          <span class="d-inline d-sm-inline d-md-none">
+            <i class="bi bi-boxes"></i>
+          </span>
+        </div>
+        <div class="content user-select-none">{{ completedOrder }}</div>
+      </div>
+
+      <div class="myCard">
+        <div class="title">
+          <span class="d-none d-sm-none d-md-inline-block user-select-none"
+            >Pending</span
+          >
+          <span class="d-inline d-sm-inline d-md-none"
+            ><i class="bi bi-card-checklist"></i
+          ></span>
+        </div>
+        <div class="content user-select-none">{{ pendingOrder }}</div>
+      </div>
+
+      <div class="myCard">
+        <div class="title">
+          <span class="d-none d-sm-none d-md-inline-block user-select-none"
+            >Cancelled</span
+          >
+          <span class="d-inline d-sm-inline d-md-none"
+            ><i class="bi bi-card-checklist"></i
+          ></span>
+        </div>
+        <div class="content user-select-none">{{ cancelledOrder }}</div>
+      </div>
+
+      <!-- <div class="datepicker">
+        <mat-form-field>
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+            <input
+              matStartDate
+              formControlName="start"
+              placeholder="Start date"
+            />
+            <input matEndDate formControlName="end" placeholder="End date" />
+          </mat-date-range-input>
+          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+
+          @if (range.controls.start.hasError('matStartDateInvalid')) {
+          <mat-error>Invalid start date</mat-error>
+          } @if (range.controls.end.hasError('matEndDateInvalid')) {
+          <mat-error>Invalid end date</mat-error>
+          }
+        </mat-form-field>
+      </div> -->
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="mt-3 p-0 container-fluid table-responsive table-container">
+      <section class="table-header">
+        <h3>Orders</h3>
+        <div class="d-flex justify-content-around align-items-center">
+          <span
+            (click)="searchBox('open')"
+            (mouseleave)="searchBox('close')"
+            class="d-xl-none d-lg-none d-md-none d-sm-inline-block d-inline-block align-content-center justify-content-center position-relative"
+          >
+            <span [ngClass]="searchIcon">
+              <button mat-icon-button>
+                <mat-icon>search</mat-icon>
+              </button>
+            </span>
+            <span [ngClass]="searchInput">
+              <input
+                class="form-control me-2 myposition"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                (keyup)="onSearch($event)"
+              />
+            </span>
+          </span>
+          <span
+            class="d-xl-inline-block d-lg-inline-block d-md-inline-block d-sm-none d-none"
+          >
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              (keyup)="onSearch($event)"
+            />
+          </span>
+          <!-- <label class="btn btn-primary ml-2 mr-2" (click)="dateInput.click()">
+            <i class="bi bi-calendar2-check"></i>
+          </label>
+          <input type="date" name="date" id="date" hidden #dateInput /> -->
+
+          <div class="date-picker-container">
+            <!-- Hidden input field for the date -->
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [(ngModel)]="selectedDate"
+              style="
+                width: 0px;
+                height: 0;
+                opacity: 0;
+                position: relative;
+                right: -150px;
+                top: -100px;
+              "
+              type="text"
+              [min]="minDate"
+              [max]="maxDate"
+              (ngModelChange)="onSelectedDate($event)"
+            />
+
+            <!-- Icon to trigger the datepicker -->
+            <button mat-icon-button (click)="picker.open()">
+              <mat-icon>calendar_today</mat-icon>
+            </button>
+
+            <!-- Datepicker popup -->
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+
+          <!-- <span class="btn btn-info" (click)="downloadPDF()"
+            ><i class="bi bi-file-earmark-arrow-down"></i
+          ></span> -->
+
+          <button
+            mat-icon-button
+            printTitle="Coffee Shop"
+            [useExistingCss]="true"
+            printSectionId="print-section"
+            ngxPrint
+          >
+            <mat-icon>picture_as_pdf</mat-icon>
+          </button>
+
+          <button mat-icon-button (click)="fetchInitData()">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
+      </section>
+
+      <!-- pint preview -->
+      <div id="print-section" hidden>
+        <!--Your html stuff that you want to print-->
+
+        <section class="order-table-container">
+          <h2>Orders</h2>
+          <table class="order-table">
+            <thead>
+              <tr>
+                <th class="">ID</th>
+                <th class="">Customer</th>
+                <th class="">Customer's Email</th>
+                <th class="text-center">Order Date</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of orders; let i = index">
+                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                <td>{{ order.customer_id.name }}</td>
+                <td>{{ order.customer_id.email }}</td>
+                <td class="text-center">
+                  {{ order.orderDate | date : "mediumDate" }}
+                </td>
+                <td class="text-center">
+                  <span [class]="getStatusClass(order.orderStatus)">{{
+                    order.orderStatus
+                  }}</span>
+                </td>
+                <td class="text-center">{{ order.totalAmount }} MMK</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+
+      <section class="table-body">
+        <table id="tablepdf" class="table-striped">
+          <thead>
+            <tr>
+              <th class="">ID</th>
+              <th class="">Customer</th>
+              <th class="">Customer's Email</th>
+              <th class="text-center">Order Date</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Amount</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+
+          @if (paginationOrders.length == 0) {
+          <tbody
+            style="
+              width: 100%;
+              height: 400px;
+
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              position: absolute;
+            "
+          >
+            <span style="font-size: 30px; font-weight: bolder">No order</span>
+          </tbody>
+          } @else {
+
+          <tbody>
+            @for (order of paginationOrders; track order; let i = $index) {
+
+            <tr>
+              <td class="">
+                <!-- {{ (currentPage - 1) * pageSize + i + 1 }} -->
+                {{ order.order_id }}
+              </td>
+              <td>
+                {{ order.customer_id.name }}
+              </td>
+              <td>
+                {{ order.customer_id.email }}
+              </td>
+              <td class="text-center" style="min-width: 130px">
+                {{ order.orderDate | date }}
+              </td>
+              <td class="text-center">
+                <span class="status" [ngClass]="order.orderStatus">
+                  {{ order.orderStatus }}
+                </span>
+              </td>
+              <td class="text-center">
+                <strong>{{ order.totalAmount }}</strong>
+              </td>
+              <td class="text-center">
+                <span>
+                  <span
+                    class="btn btn-sm btn-primary m-1"
+                    (click)="onChangePage(order._id)"
+                    ><i
+                      class="bi bi-clipboard-check"
+                      style="font-size: 18px"
+                    ></i
+                  ></span>
+                  <span
+                    class="btn btn-sm btn-primary m-1"
+                    (click)="onDeletedOrder(order._id)"
+                    ><i class="bi bi-trash3" style="font-size: 18px"></i
+                  ></span>
+                </span>
+              </td>
+            </tr>
+            }
+          </tbody>
+
+          }
+        </table>
+      </section>
+
+      <section class="table-pagination">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li
+              style="cursor: pointer"
+              [attr.aria-disabled]="currentPage == 1"
+              [class.disabled]="currentPage == 1"
+              (click)="!(currentPage == 1) && fetchData(currentPage - 1)"
+            >
+              <!-- <span class="page-link">Previous</span> -->
+              <span aria-hidden="true" class="page-link">&laquo;</span>
+            </li>
+            @for (item of pages; track item; let i = $index) {
+
+            <li
+              class="page-item"
+              (click)="fetchData(i + 1)"
+              [class.active]="currentPage == i + 1"
+            >
+              <span class="page-link">{{ i + 1 }}</span>
+            </li>
+            }
+
+            <li
+              style="cursor: pointer"
+              [attr.aria-disabled]="pages[pages.length - 1] < currentPage + 1"
+              [class.disabled]="pages[pages.length - 1] < currentPage + 1"
+              (click)="
+                !(pages[pages.length - 1] < currentPage + 1) &&
+                  fetchData(currentPage + 1)
+              "
+            >
+              <!-- <span class="page-link">Next</span> -->
+              <span aria-hidden="true" class="page-link">&raquo;</span>
+            </li>
+          </ul>
+        </nav>
+      </section>
+    </div>
+  </div>
+</div>

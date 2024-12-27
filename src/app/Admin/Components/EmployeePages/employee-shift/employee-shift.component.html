@@ -1,0 +1,67 @@
+<main style="position: relative">
+  <div
+    class="row align-content-center justify-content-between align-items-center"
+  >
+    <div class="d-flex">
+      <button mat-fab (click)="onChangePage('view-page')" class="bgBrown">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <span class="ml-3 align-items-center">
+        <div>
+          <span style="font-size: 26px" class="mr-3 brown">{{
+            employee.name
+          }}</span>
+          <span class="status active">active</span>
+        </div>
+        <div style="font-size: 18px" class="brown">
+          ID: #{{ employee.employee_id }}
+        </div>
+      </span>
+    </div>
+    <div class="mr-5">
+      <button
+        mat-fab
+        extended
+        class="bgBrown"
+        (click)="openPopup('Created Shift', shiftDate)"
+      >
+        Add Shift
+        <mat-icon>calendar_add_on</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- <div class="mt-2 d-flex border">
+    <span>
+      <div>
+        <img
+          src="../../../../../assets/images/placeholder.png"
+          style="width: 40px"
+          alt=""
+        />
+      </div>
+    </span>
+    <span class="ml-2">
+      <div style="font-size: 14px">Start Time: 12:45</div>
+      <div style="font-size: 14px">End Time: 01:30</div>
+    </span>
+  </div> -->
+
+  <div class="calendar-container mt-4">
+    <div class="d-flex justify-content-between align-items-center w-100 mb-3">
+      <button class="btn btn-primary" (click)="preMonth()">previous</button>
+      <div>
+        <span class="mr-2">{{ monthNames[currentMonth] }}</span>
+        <span>{{ currentYear }}</span>
+      </div>
+      <button class="btn btn-primary" (click)="nextMonth()">next</button>
+    </div>
+    <div class="day-grid">
+      @for (day of dayNames; track day) {
+      <div>{{ day }}</div>
+      }
+    </div>
+    <div class="grid-container"></div>
+  </div>
+</main>

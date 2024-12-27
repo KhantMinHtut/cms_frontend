@@ -1,0 +1,300 @@
+.order-container {
+  display: block;
+  height: 87vh;
+  overflow-y: auto;
+}
+
+.order-container::-webkit-scrollbar {
+  width: 0.2rem;
+  height: 0.2rem;
+  border-radius: 3px;
+  background-color: #0004;
+  visibility: hidden;
+}
+.order-container:hover::-webkit-scrollbar {
+  visibility: visible;
+}
+
+.myCard {
+  min-width: 130px;
+  height: 75px;
+  color: white;
+  font-weight: bolder;
+  padding: 5px 20px;
+  margin: 5px;
+  border-radius: 7px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #aa715a;
+}
+
+.date-picker-container {
+  position: relative;
+  display: flex;
+
+  align-items: center;
+}
+
+mat-icon {
+  cursor: pointer;
+  color: #3f51b5; /* Change to your desired color */
+}
+
+.datepicker {
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+
+.title {
+  margin: 4px;
+}
+.content {
+  margin: 4px;
+}
+
+.myposition {
+  width: 200px;
+  position: absolute;
+  top: -5px;
+  right: 0px;
+  z-index: 100;
+}
+
+.page-item {
+  width: 35px;
+  height: 35px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.page-item.active .page-link {
+  background-color: #aa715a;
+  border-radius: 50%;
+}
+
+.page-link {
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  width: 100%;
+  height: 100%;
+  color: #aa715a;
+}
+
+table,
+th,
+td {
+  border-collapse: collapse;
+  padding: 1rem;
+}
+
+.table-container {
+  height: 72vh;
+  border-radius: 15px;
+  overflow: hidden;
+  /* background-color: #fff5; */
+  /* background-color: #f7f3f3; */
+  background-color: rgba(242, 237, 237, 0.92);
+  backdrop-filter: blur(15px);
+  /* background-color: #aa715a; */
+}
+
+.table-header {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  /* background-color: #fff4; */
+
+  padding: 0.8rem 1rem;
+}
+
+.table-header h3 {
+  color: #aa715a;
+
+  font-weight: bolder;
+}
+
+.table-body {
+  width: 100%;
+  height: calc(83% - 1.6rem);
+  overflow: auto;
+  background-color: #f5f7f7;
+  /* background-color: #fee7dc; */
+}
+
+table {
+  width: 100%;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  left: 0;
+  /* background-color: #bfb6d4fe; */
+  color: white;
+  background-color: #9c644e;
+}
+
+tbody tr td {
+  color: #aa715a;
+}
+
+tbody tr:hover {
+  background-color: #fff6;
+}
+
+.table-body::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.table-body::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: #0004;
+  visibility: hidden;
+}
+
+.table-body:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+.table-body::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.table-pagination {
+  width: 100%;
+  /* background-color: #aa715a; */
+}
+
+.table-pagination nav {
+  padding: 0.8rem;
+  /* background-color: #fff5; */
+  /* background-color: #aa715a; */
+  background-color: rgba(242, 237, 237, 0.92);
+  backdrop-filter: blur(15px);
+}
+
+.fontSize {
+  font-size: 18px;
+}
+
+.button {
+  border-radius: 15px;
+  border: none;
+  outline: none;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.status {
+  display: inline-block;
+  width: 100px;
+  border-radius: 12px;
+  padding: 5px 8px;
+}
+
+.completed {
+  background-color: #86e49d;
+  color: #006b21;
+}
+
+.pending {
+  background-color: #ebc474;
+  color: #be7e00;
+}
+
+.cancelled {
+  background-color: #d893a3;
+  color: #b30021;
+}
+
+@media screen and (max-width: 767.5px) {
+  .myCard {
+    min-width: auto;
+    height: auto;
+    padding: 3px 9px;
+    margin-left: 5px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #aa715a;
+  }
+
+  .title {
+    margin: 4px;
+  }
+  .content {
+    margin: 4px;
+  }
+}
+
+/* print preview css */
+
+.order-table-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.order-table th,
+.order-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.order-table th {
+  background-color: #9c9999;
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.no-orders {
+  text-align: center;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+.status-pending {
+  color: #ffa500;
+}
+.status-processing {
+  color: #1e90ff;
+}
+.status-shipped {
+  color: #32cd32;
+}
+.status-completed {
+  color: #008000;
+}
+.status-cancelled {
+  color: #ff0000;
+}

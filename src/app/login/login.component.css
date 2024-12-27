@@ -1,0 +1,248 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.mycontainer {
+  background-image: url("../../assets/images/bg.jpg");
+  height: 100vh;
+  background-repeat: no-repeat;
+  width: 100%;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: myAnim 2s ease 0s 1 normal forwards;
+}
+/* @keyframes myAnim {
+  0% {
+    background-position: center bottom;
+    background-size: 100%;
+  }
+  100% {
+    background-position: center bottom;
+    background-size: 150%;
+  }
+} */
+.loginbox {
+  margin-top: 25px;
+  /* background-color: #fff; */
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  width: 650px;
+  max-width: 100%;
+  min-height: 65vh;
+  backdrop-filter: blur(2px);
+}
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+h1 {
+  margin-top: 20px;
+  color: #432308dc;
+  font-size: 5.5vw;
+}
+h2 {
+  position: relative;
+  margin-top: 7px;
+  color: #f0e5d6;
+  font-size: 4vw;
+  -webkit-text-stroke: 0.1vw #917054;
+}
+h2::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  color: #917054;
+  -webkit-text-stroke: 0vw #917054;
+  border-right: 2px solid #917054;
+  overflow: hidden;
+  animation: animate 6s linear infinite;
+}
+@keyframes animate {
+  0%,
+  10%,
+  100% {
+    width: 0;
+  }
+  70%,
+  80% {
+    width: 100%;
+  }
+}
+.mycontainer p {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.3px;
+  margin: 20px 0;
+}
+.mycontainer span {
+  font-size: 12px;
+}
+.mycontainer a {
+  color: #4a4948;
+  font-size: 15px;
+  text-decoration: none;
+  margin: 15px 0 10px;
+}
+.mycontainer button {
+  background-color: #917054;
+  color: #f0e5d6;
+  font-size: 12px;
+  padding: 5px 35px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.mycontainer button.hidden {
+  background-color: transparent;
+  border-color: #fff;
+}
+.mycontainer form {
+  /* background-color: #fff; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  height: 100%;
+  backdrop-filter: blur(15);
+}
+.mycontainer input {
+  background-color: #917054 !important;
+  color: white;
+  border: none;
+  margin: 8px 0;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+}
+.mycontainer input::placeholder {
+  color: white;
+}
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+.sign-in {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+.mycontainer.active .sign-in {
+  transform: translateX(100%);
+}
+.sign-up {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+.mycontainer.active .sign-up {
+  transform: translate(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: move 0.6s;
+}
+@keyframes move {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+.social-icons {
+  margin: 20px 0;
+}
+.social-icons a {
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 3px;
+  width: 40px;
+  height: 40px;
+}
+.toggle-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.6s ease-in-out;
+  border-radius: 150px 0 0 100px;
+  z-index: 1000;
+}
+.mycontainer.active .toggle-container {
+  transform: translateX(-100%);
+  border-radius: 0 150px 100px 0;
+}
+.toggle {
+  background-color: #917054;
+  height: 100%;
+  background: linear-gradient(to right, #917054, #4b3421);
+  color: #fff;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: all 0.6ss ease-in-out;
+}
+.mycontainer.active .toggle {
+  transform: translateX(50%);
+}
+.toggle-panel {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.toggle-panel p {
+  margin-left: 8px;
+}
+.toggle-left {
+  transform: translateX(-200%);
+}
+.mycontainer.active .toggle-left {
+  transform: translateX(0);
+}
+.toggle-right {
+  right: 0;
+  transform: translateX(0);
+}
+.mycontainer.active .toggle-right {
+  transform: translateX(200%);
+}

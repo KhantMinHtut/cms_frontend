@@ -1,0 +1,195 @@
+<main>
+  <div class="row mt-2 p-0 align-items-center justify-content-between a">
+    <div class="row col-xl-10 col-lg-10 col-md-9 col-sm-8 scroll">
+      <div class="myCard">
+        <div class="title">
+          <span class="d-none d-sm-none d-md-inline-block user-select-none"
+            >Total Suppliers</span
+          >
+          <span class="d-inline d-sm-inline d-md-none">
+            <i class="bi bi-grid"></i>
+          </span>
+        </div>
+        <div class="content mt-2 user-select-none">
+          {{ supplierCount }}
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <!-- <div class="myBotton" (click)="onChangePage()">
+        <div class="title">
+          <span class="btnIcon"><i class="bi bi-cart-plus-fill"></i></span>
+          <span class="d-none d-sm-inline d-md-inline-block user-select-none"
+            >create supplier</span
+          >
+        </div>
+      </div> -->
+
+      <button
+        class="addBtn"
+        mat-fab
+        extended
+        (click)="openPopup('Add Supplier', supplierInfo)"
+      >
+        <mat-icon>person_add</mat-icon>
+        <span class="hidden">Add Supplier</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <div class="row">
+    <div class="mt-3 p-0 container-fluid table-responsive table-container">
+      <section class="table-header">
+        <h3>Supplier's Info</h3>
+        <div class="d-flex">
+          <span
+            (click)="searchBox('open')"
+            (mouseleave)="searchBox('close')"
+            class="d-xl-none d-lg-none d-md-none d-sm-inline-block d-inline-block align-content-center justify-content-center rounded bg-primary"
+          >
+            <span [ngClass]="searchIcon" class="mt-1 mb-1 ml-2 mr-2"
+              ><i class="bi bi-search"></i
+            ></span>
+            <span [ngClass]="searchInput">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                (keyup)="onSearch($event)"
+              />
+            </span>
+          </span>
+          <span
+            class="d-xl-inline-block d-lg-inline-block d-md-inline-block d-sm-none d-none"
+          >
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              (keyup)="onSearch($event)"
+            />
+          </span>
+        </div>
+      </section>
+      <section class="table-body">
+        <table class="table-striped">
+          <thead>
+            <tr>
+              <th class="text-center">No.</th>
+              <th class="text-center">Name</th>
+              <th class="text-center">Contact Person</th>
+              <th class="text-center">Phone</th>
+              <th class="text-center">Email</th>
+
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+          @if (paginatedSuppliers.length == 0) {
+          <tbody
+            style="
+              width: 100%;
+              height: 400px;
+
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              position: absolute;
+            "
+          >
+            <span style="font-size: 30px; font-weight: bolder"
+              >No supplier</span
+            >
+          </tbody>
+          } @else {
+
+          <tbody>
+            @for (supplier of paginatedSuppliers; track supplier; let i =
+            $index) {
+
+            <tr>
+              <td class="text-center">
+                {{ (currentPage - 1) * pageSize + i + 1 }}
+              </td>
+
+              <td class="text-center" style="width: 250px">
+                {{ supplier.name }}
+              </td>
+
+              <td class="text-center">
+                {{ supplier.contact_person }}
+              </td>
+              <td class="text-center">{{ supplier.phone }}</td>
+              <td class="text-center">{{ supplier.email }}</td>
+
+              <td class="text-center">
+                <span>
+                  <span
+                    class="btn btn-sm btn-primary m-1"
+                    (click)="openPopup('Updated Supplier', supplier)"
+                    ><i class="bi bi-pencil-square"></i
+                  ></span>
+                  <span
+                    class="btn btn-sm btn-primary m-1"
+                    (click)="onDeletedSupplier(supplier._id!)"
+                    ><i class="bi bi-trash3-fill"></i
+                  ></span>
+                </span>
+              </td>
+            </tr>
+            }
+          </tbody>
+
+          }
+        </table>
+      </section>
+
+      <section class="table-pagination">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li
+              style="cursor: pointer"
+              [attr.aria-disabled]="currentPage == 1"
+              [class.disabled]="currentPage == 1"
+              (click)="!(currentPage == 1) && fetchData(currentPage - 1)"
+            >
+              <!-- <span class="page-link">Previous</span> -->
+              <span aria-hidden="true" class="page-link">&laquo;</span>
+            </li>
+            @for (item of pages; track item; let i = $index) {
+
+            <li
+              class="page-item"
+              (click)="fetchData(i + 1)"
+              [class.active]="currentPage == i + 1"
+            >
+              <span class="page-link">{{ i + 1 }}</span>
+            </li>
+            }
+
+            <li
+              style="
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+              [attr.aria-disabled]="pages[pages.length - 1] < currentPage + 1"
+              [class.disabled]="pages[pages.length - 1] < currentPage + 1"
+              (click)="
+                !(pages[pages.length - 1] < currentPage + 1) &&
+                  fetchData(currentPage + 1)
+              "
+            >
+              <!-- <span class="page-link">Next</span> -->
+              <span aria-hidden="true" class="page-link">&raquo;</span>
+            </li>
+          </ul>
+        </nav>
+      </section>
+    </div>
+  </div>
+</main>

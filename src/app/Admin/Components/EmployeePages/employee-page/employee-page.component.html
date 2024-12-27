@@ -1,0 +1,18 @@
+<div class="">
+  @if (currentPage == 'view-page') {
+  <app-employee-view-page
+    (changePage)="onChangePage($event)"
+  ></app-employee-view-page>
+  } @else if (currentPage == 'add-page') {
+  <app-employee-add-page
+    (changePage)="onChangePage($event)"
+    [employee]="currentData"
+    [clickedBtn]="clickedBtn"
+  ></app-employee-add-page>
+  } @else if (currentPage == 'shift-page') {
+  <app-employee-shift
+    (changePage)="onChangePage($event)"
+    [employee]="currentData"
+  ></app-employee-shift>
+  }
+</div>

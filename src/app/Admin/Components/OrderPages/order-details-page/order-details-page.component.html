@@ -1,0 +1,234 @@
+<main class="main">
+  <div class="container-fluid">
+    <div class="row">
+      <span class="productBtn" (click)="onChangePage()">
+        <i class="bi bi-arrow-left"></i>
+      </span>
+
+      <span>
+        <div class="col-12 d-flex align-items-center">
+          <h2 class="mr-3">Order Id: #{{ customOrderId }}</h2>
+          <!-- <span class="status completed">Pending</span> -->
+        </div>
+        <div class="col-12">
+          <span class="mr-4"
+            >Oder Date: {{ orderDetails.createdAt | date : "dd-MM-yyyy" }} at
+            {{ orderDetails.createdAt | date : "h:mm a" }}</span
+          >
+          <span
+            >Order Status:
+            <span class="status" [ngClass]="orderStatus">{{
+              orderStatus
+            }}</span></span
+          >
+        </div>
+      </span>
+
+      <span class="offset-6 d-flex justify-content-center align-items-center">
+        <button
+          class="btn btn-primary"
+          printTitle="Coffee Shop"
+          [useExistingCss]="true"
+          printSectionId="print-section"
+          ngxPrint
+        >
+          print
+        </button>
+      </span>
+    </div>
+  </div>
+
+  <div id="print-section" hidden>
+    <!--Your html stuff that you want to print-->
+
+    <div class="order-details">
+      <h2>Order Details</h2>
+
+      <div>
+        <div class="order-info">
+          <p><strong>Order ID:</strong> {{ orderId }}</p>
+          <p><strong>Customer Name:</strong> {{ customerInfo.name }}</p>
+          <p>
+            <strong>Order Date:</strong>
+            {{ orderDetails.createdAt | date : "medium" }}
+          </p>
+          <p><strong>Status:</strong> {{ status }}</p>
+        </div>
+
+        <h3>Items</h3>
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of products">
+              <td>{{ item.name }}</td>
+              <td>{{ ProductCounts(item._id) }}</td>
+              <td>{{ item.price | currency }}</td>
+              <td>{{ ProductCounts(item._id) * item.price }} MMK</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="order-total">
+          <strong>Total: {{ orderDetails.price }} MMK</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="container-fluid">
+    <div class="row">
+      <!-- <div class="col-12 d-flex align-items-center">
+        <h2 class="mr-3">Order Id: #001</h2>
+        
+      </div>
+      <div class="col-12">
+        <span class="mr-4">Oder Date: 17-8-2024 at 8:50 AM</span>
+        <span>Order Status: <span class="status completed">Pending</span></span>
+      </div> -->
+    </div>
+    <div class="row mt-3">
+      <div
+        class="col-12 d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column h-75"
+      >
+        <div class="col-xl-8 col-lg-7 col-md-12 col-sm-12 col-12">
+          <div class="table-body">
+            <table class="table-striped">
+              <thead>
+                <tr>
+                  <th class="">Item Summary</th>
+                  <th class="text-center">Quantity</th>
+                  <th class="text-center">Price</th>
+                  <th class="text-center">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (product of products; track product; let i=$index) {
+
+                <tr>
+                  <td style="min-width: 200px">
+                    <span>
+                      <span class="mr-1">
+                        <img
+                          src="{{ product.image_url }}"
+                          alt="item"
+                          style="width: 50px; border-radius: 5px"
+                        />
+                      </span>
+                      <span> {{ product.name }} </span>
+                    </span>
+                  </td>
+                  <td class="text-center">{{ ProductCounts(product._id) }}</td>
+                  <td class="text-center">{{ product.price }}</td>
+                  <td class="text-center" style="min-width: 130px">
+                    {{ ProductCounts(product._id) * product.price }}
+                  </td>
+                </tr>
+
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          class="col-xl-4 col-lg-5 col-md-12 d-xl-inline-block d-lg-inline-block d-md-flex flex-xl-column flex-lg-column flex-md-row justify-content-between mt-xl-0 mt-lg-0 mt-md-0 mt-sm-3 mt-3"
+        >
+          <div class="col-xl-12 col-lg-12 col-md-6 p-1 mt-xl-0 mt-lg-0 mt-md-3">
+            <div class="myCard">
+              <div class="header">Customer's Info</div>
+              <div class="body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>Name</span>
+                  <span>{{ customerInfo.name }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>Email</span>
+                  <span>{{ customerInfo.email }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>Phone</span>
+                  <span>{{ customerInfo.phone }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-12 col-lg-12 col-md-6 p-1 mt-3">
+            <div class="myCard">
+              <div class="header">Payment</div>
+              <div class="body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>Payment Date</span>
+                  <span>{{ payment.payment_date | date }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>Payment Method</span>
+                  <span>{{ payment.payment_method }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>Subtotal</span>
+                  <span>{{ payment.amount }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>Discount</span>
+                  <span>0 %</span>
+                </div>
+
+                <div class="w-100 border border-dark"></div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>Total</span>
+                  <span>{{ payment.amount }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 
+<table class="table-striped">
+  <thead>
+    <tr>
+      <th class="text-center">Item</th>
+      <th class="text-center">Quantity</th>
+      <th class="text-center">Price</th>
+      <th class="text-center">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="">
+        <span>
+          <span>
+            <img
+              src="../../../../../assets/images/coffee-logo-brm.jpg"
+              alt="item"
+              style="width: 50px"
+            />
+          </span>
+          <span> Item 1 </span>
+        </span>
+      </td>
+      <td class="text-center">3</td>
+      <td class="text-center">3000</td>
+      <td class="text-center" style="min-width: 130px">
+        {{ 3 * 3000 }}
+      </td>
+    </tr>
+  </tbody>
+</table> -->

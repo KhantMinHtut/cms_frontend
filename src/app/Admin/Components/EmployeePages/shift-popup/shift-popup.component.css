@@ -1,0 +1,16 @@
+.dialog-title-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.dialog-title-between span {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+}
+
+.dialog-actions-center {
+  justify-content: center;
+}

@@ -1,0 +1,72 @@
+<ng-container *ngIf="isAdmin">
+  <div class="container-fluid overflow-hidden">
+    <div class="row myrow">
+      <div class="col-2 col-sm-2 col-md-1 col-lg-2 mySiderBar-container">
+        <div class="mySideBar">
+          <div class="nav-container-one">
+            <app-logo></app-logo>
+            @for ( item of navItems; track item;let i = $index) {
+            <!-- i = change pages, true = close userEdit page -->
+            <div (click)="changePage(i, false)">
+              <app-nav-items
+                isActive="{{ i == currentIndex ? 'active' : '' }}"
+                icon="{{ item['icon'] }}"
+                content="{{ item['content'] }}"
+              ></app-nav-items>
+            </div>
+            }
+          </div>
+          <div class="nav-container-two">
+            <div (click)="logOut()">
+              <app-nav-items
+                icon="bi bi-box-arrow-right"
+                content="Log Out"
+              ></app-nav-items>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-10 col-sm-10 col-md-11 col-lg-10 main-page position-relative"
+      >
+        <app-nav-bar
+          [currentUser]="currentUser"
+          (onEditPage)="showUserEditPage($event)"
+        ></app-nav-bar>
+        <div class="container-fluid h-100 position-relative">
+          @if (currentIndex == 0) {
+          <app-home-page></app-home-page>
+          <!-- <app-order-page></app-order-page> -->
+          <!-- <app-order-details-page></app-order-details-page> -->
+          <!-- <app-employee-add-page></app-employee-add-page> -->
+          <!-- <app-employee-shift></app-employee-shift> -->
+          <!-- <app-supplier-page></app-supplier-page> -->
+          } @else if (currentIndex == 1) {
+          <app-product-page></app-product-page>
+          } @else if (currentIndex == 2) {
+          <app-order-page></app-order-page>
+          } @else if (currentIndex == 3) {
+          <app-employee-page></app-employee-page>
+          } @else if (currentIndex == 4) {
+          <app-customer-page></app-customer-page>
+          } @else if (currentIndex == 5) {
+
+          <app-supplier-page></app-supplier-page>
+          }
+          <!-- @else if (currentIndex == 6) {
+          <app-employee-add-page
+            [employee]="currentUser"
+          ></app-employee-add-page>
+          } -->
+          <div class="editUser" *ngIf="userEditPage">
+            <app-employee-add-page
+              [employee]="currentUser"
+              [editUser]="true"
+              (hideEditUser)="onHideEditUser($event)"
+            ></app-employee-add-page>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

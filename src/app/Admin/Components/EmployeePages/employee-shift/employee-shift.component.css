@@ -1,0 +1,50 @@
+.calendar-container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 1px 1px 3px 5px rgba(164, 164, 164, 0.3);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 65px);
+}
+
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 60px;
+  border: 2px solid black;
+}
+
+.day-grid div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #bfb6d4;
+}
+
+.grid-container div:nth-child(even) {
+  border: 1px solid black;
+}
+
+.status {
+  width: 130px;
+  padding: 5px 13px;
+  border-radius: 10px;
+}
+
+.active {
+  background-color: #86e49d;
+  color: #006b21;
+}
+
+.bgBrown {
+  background-color: #aa715a;
+}
+
+.brown {
+  color: #aa715a;
+}

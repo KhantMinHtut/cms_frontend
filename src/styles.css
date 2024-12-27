@@ -1,0 +1,153 @@
+@import url("../node_modules/bootstrap-icons/font/bootstrap-icons.css");
+@import url("../node_modules/ngx-toastr/toastr.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.multiselect-dropdown {
+  background-color: #aa715a;
+  border-radius: 4px;
+}
+
+.multiselect-dropdown .dropdown-input::placeholder {
+  color: white !important; /* Set your desired color */
+  opacity: 1; /* Optional: Ensure the color is fully visible */
+}
+
+.multiselect-dropdown .dropdown-btn .selected-item-container .selected-item {
+  max-width: none !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.box {
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box:nth-child(7) {
+  border-right: 2px solid black;
+}
+
+.box:nth-child(14) {
+  border-right: 2px solid black;
+}
+
+.box:nth-child(21) {
+  border-right: 2px solid black;
+}
+
+.box:nth-child(28) {
+  border-right: 2px solid black;
+}
+
+.box:nth-child(35) {
+  border-right: 2px solid black;
+}
+
+.box:nth-child(42) {
+  border-right: 2px solid black;
+}
+
+.selectedBox {
+  width: 300px;
+  height: 150px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 5px #f3e8e5;
+  position: absolute;
+
+  background-color: white;
+}
+
+.c12 {
+  grid-column: 1/2;
+}
+
+.c23 {
+  grid-column: 2/3;
+}
+
+.c34 {
+  grid-column: 3/4;
+  grid-row: auto;
+}
+
+.c45 {
+  grid-column: 4/5;
+}
+
+.c56 {
+  grid-column: 5/6;
+}
+
+.c67 {
+  grid-column: 6/7;
+}
+
+.c78 {
+  grid-column: 7/8;
+}
+
+.bac {
+  width: auto;
+  height: 100%;
+  background-color: rgba(191, 182, 212, 0.5);
+  backdrop-filter: blur(1px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: -15px;
+  right: -15px;
+  bottom: 0;
+
+  z-index: 1000;
+}
+
+.smallCard {
+  position: absolute;
+  z-index: 2000;
+  width: 350px;
+  height: 200px;
+  padding: 10px 15px;
+  background-color: wheat;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 3px 3px rgb(180, 179, 179);
+}
+
+.shiftCard {
+  padding: 3px 6px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: green;
+
+  animation: animate 0.5s ease-in-out;
+}
+
+@keyframes animate {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
