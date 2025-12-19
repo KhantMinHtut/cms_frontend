@@ -20,6 +20,8 @@ interface Credentials {
 export class LoginComponent implements OnInit {
   isError: Boolean = false;
 
+  isLoading: boolean = false;
+
   customer: Customer = {
     name: '',
     email: '',
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
     password: '',
   };
   isActive = false;
+  hidePassword: boolean = true;
   constructor(
     private coffeeService: CoffeeService,
     private cookieService: CookieService,
@@ -58,15 +61,21 @@ export class LoginComponent implements OnInit {
     );
   }
   login() {
+    this.isLoading = true;
     this.coffeeService.login(this.credentials).subscribe(
       (response) => {
         console.log('Login successful', response);
         this.cookieService.set('email', response.currentEmployee.email);
         this.cookieService.set('access_token', response.accessToken);
         // this.router.navigate(['/menu']);
-        response.currentEmployee.role == 1
-          ? this.router.navigate(['/dashboard'])
-          : this.router.navigate(['/menu']);
+
+        setTimeout(() => {
+          this.isLoading = false;
+
+          response.currentEmployee.role == 1
+            ? this.router.navigate(['/dashboard'])
+            : this.router.navigate(['/menu']);
+        }, 2000);
       },
       (error) => {
         // alert(error?.message);
@@ -77,6 +86,10 @@ export class LoginComponent implements OnInit {
           email: '',
           password: '',
         };
+
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
       }
     );
   }

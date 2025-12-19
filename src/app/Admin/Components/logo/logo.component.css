@@ -11,7 +11,7 @@
 
 .logo-container {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 
@@ -22,4 +22,12 @@
   color: #aa715a;
   display: flex;
   align-items: center;
+}
+
+@media (max-width: 991px) {
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

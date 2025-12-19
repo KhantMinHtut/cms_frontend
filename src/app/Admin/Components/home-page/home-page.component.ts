@@ -165,6 +165,9 @@ export class HomePageComponent implements OnInit {
         });
 
         console.log(this.pieChartData);
+        this.pieChartData = this.pieChartData
+          .sort((a, b) => a.data - b.data)
+          .slice(0, 7);
 
         this.pieChart = {
           // labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],

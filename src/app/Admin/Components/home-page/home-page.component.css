@@ -73,6 +73,7 @@
 }
 
 .content {
+  color: white;
   margin: 4px;
 }
 
@@ -160,6 +161,7 @@
   overflow: hidden;
   padding: 15px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #fee7dc;
@@ -185,9 +187,11 @@
 .staff-title {
   width: 200px;
   height: 50px;
+  color: white;
+  font-weight: bold;
   text-align: center;
   font-size: 25px;
-  padding: 10px 15px;
+  padding: 8px 15px;
   border-radius: 10px;
   background-color: #bb9887;
 }
