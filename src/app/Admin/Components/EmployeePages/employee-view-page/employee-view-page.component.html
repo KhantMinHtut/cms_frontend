@@ -1,13 +1,13 @@
 <div class="col-12 mainContainer">
-  <div class="row mt-2 p-0 align-items-center justify-content-between a">
-    <div class="row col-xl-10 col-lg-9 col-md-9 col-sm-8 scroll">
+  <div
+    class="w-100 mt-2 p-0 d-flex align-items-center justify-content-between a"
+  >
+    <div class="row scroll" style="flex: 1">
       <!-- Employee Card -->
       <div class="myCard">
         <div class="title">
-          <span class="d-none d-sm-none d-md-inline-block user-select-none"
-            >Total Employee</span
-          >
-          <span class="d-inline d-sm-inline d-md-none">
+          <span class="show-text user-select-none">Total Employee</span>
+          <span class="show-icon">
             <i class="bi bi-grid"></i>
           </span>
         </div>
@@ -43,7 +43,7 @@
 
       <button class="addBtn" mat-fab extended (click)="onChangePage()">
         <mat-icon>person_add</mat-icon>
-        <span class="hidden">Add Employee</span>
+        <span class="">Add Employee</span>
       </button>
     </div>
   </div>

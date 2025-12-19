@@ -15,7 +15,7 @@ export class CustomerPageComponent {
   paginatedCustomers: Customer[] = [];
   customerCount: number = 0;
 
-  pageSize = 4;
+  pageSize = 5;
   pages: any[] = [];
   currentPage: number = 1;
 

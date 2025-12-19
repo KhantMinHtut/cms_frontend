@@ -1,7 +1,8 @@
 .mynavbar {
-  height: 60px;
+  /* height: 60px; */
   display: flex;
   /* background-color: #d5afa1; */
+  padding: 0.5rem 1rem;
   border-bottom: 1px solid #f1f6f9;
 }
 
@@ -13,7 +14,7 @@
 .profile-container {
   width: 50px;
   height: 50px;
-  position: absolute;
+  /* position: absolute; */
   right: 25px;
   overflow: hidden;
 }
@@ -66,7 +67,7 @@
 
 @media screen and (max-width: 737px) {
   .pos {
-    position: absolute;
+    /* position: absolute; */
     right: 0;
     top: 0;
     bottom: 0;

@@ -4,7 +4,7 @@
   overflow-y: auto;
 }
 
-.order-container::-webkit-scrollbar {
+/* .order-container::-webkit-scrollbar {
   width: 0.2rem;
   height: 0.2rem;
   border-radius: 3px;
@@ -13,17 +13,18 @@
 }
 .order-container:hover::-webkit-scrollbar {
   visibility: visible;
-}
+} */
 
 .myCard {
   min-width: 130px;
-  height: 75px;
+  height: 85px;
   color: white;
   font-weight: bolder;
   padding: 5px 20px;
   margin: 5px;
   border-radius: 7px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  box-shadow: 0 2px 4px #d0d0d0, 0 3px 8px #d7d7d785;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -94,7 +95,7 @@ td {
 }
 
 .table-container {
-  height: 72vh;
+  /* height: 72vh; */
   border-radius: 15px;
   overflow: hidden;
   /* background-color: #fff5; */
@@ -122,7 +123,9 @@ td {
 
 .table-body {
   width: 100%;
-  height: calc(83% - 1.6rem);
+  /* height: calc(83% - 1.6rem); */
+  height: auto;
+  min-height: 383px;
   overflow: auto;
   background-color: #f5f7f7;
   /* background-color: #fee7dc; */

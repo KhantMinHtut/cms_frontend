@@ -189,8 +189,8 @@
             <tbody>
               <tr *ngFor="let order of orders; let i = index">
                 <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-                <td>{{ order.customer_id.name }}</td>
-                <td>{{ order.customer_id.email }}</td>
+                <td>{{ order.customer_id?.name }}</td>
+                <td>{{ order.customer_id?.email }}</td>
                 <td class="text-center">
                   {{ order.orderDate | date : "mediumDate" }}
                 </td>
@@ -246,10 +246,10 @@
                 {{ order.order_id }}
               </td>
               <td>
-                {{ order.customer_id.name }}
+                {{ order.customer_id?.name }}
               </td>
               <td>
-                {{ order.customer_id.email }}
+                {{ order.customer_id?.email }}
               </td>
               <td class="text-center" style="min-width: 130px">
                 {{ order.orderDate | date }}
@@ -289,7 +289,10 @@
 
       <section class="table-pagination">
         <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
+          <ul
+            class="pagination justify-content-center"
+            style="margin-bottom: 0"
+          >
             <li
               style="cursor: pointer"
               [attr.aria-disabled]="currentPage == 1"

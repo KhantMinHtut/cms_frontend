@@ -25,9 +25,7 @@
 }
 
 .nav-container-one {
-  min-width: 100%;
-  height: 400px;
-
+  width: 100%;
   border-radius: 10px;
 }
 

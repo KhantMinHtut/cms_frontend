@@ -9,11 +9,17 @@
   background: linear-gradient(#aa715a, #e7d1c9, #d5afa1);
 }
 
-.myfs {
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
+.logo-container {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.myfs {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0;
+  color: #aa715a;
+  display: flex;
   align-items: center;
 }

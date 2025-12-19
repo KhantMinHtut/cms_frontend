@@ -5,15 +5,36 @@ main {
   overflow-y: auto;
 }
 
+/* main::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+main::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: #0004;
+  visibility: visible;
+  cursor: pointer;
+}
+
+main:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+main::-webkit-scrollbar-corner {
+  display: none;
+} */
+
 .myCard {
   min-width: 160px;
-  height: 75px;
+  height: 85px;
   color: white;
   font-weight: bolder;
   padding: 5px 20px;
   margin: 5px;
   border-radius: 7px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  box-shadow: 0 2px 4px #d0d0d0, 0 3px 8px #d7d7d785;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,6 +51,7 @@ main {
 
 .addBtn {
   color: white;
+  margin-right: 5px;
   background-color: #aa715a;
 }
 
@@ -52,6 +74,9 @@ main {
   width: 100%;
   height: 100%;
   color: #aa715a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ============================table============================= */
@@ -63,7 +88,7 @@ td {
 }
 
 .table-container {
-  height: 72vh;
+  /* height: 72vh; */
   border-radius: 15px;
   overflow: hidden;
   /* background-color: #fff5; */
@@ -86,7 +111,9 @@ td {
 
 .table-body {
   width: 100%;
-  height: calc(83% - 1.6rem);
+  /* height: calc(83% - 1.6rem); */
+  height: auto;
+  min-height: 423px;
   overflow: auto;
 }
 
@@ -155,8 +182,17 @@ tbody tr:hover {
   opacity: 0.5;
   cursor: not-allowed;
 }
-/* ====================================================== */
 
+.show-text {
+  display: inline-block;
+}
+
+.show-icon {
+  display: none;
+}
+
+/* ====================================================== */
+/* 
 @media screen and (max-width: 2000px) {
   .myBotton {
     height: 50px;
@@ -182,7 +218,7 @@ tbody tr:hover {
     padding: 5px 15px;
     margin: 5px;
     border-radius: 7px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -198,7 +234,7 @@ tbody tr:hover {
     padding: 5px 15px;
     margin: 5px;
     border-radius: 7px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -214,7 +250,7 @@ tbody tr:hover {
     padding: 5px 12px;
     margin: 5px;
     border-radius: 7px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -242,9 +278,9 @@ tbody tr:hover {
   .myCard {
     flex-direction: row;
   }
-}
+} */
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 500px) {
   .myCard {
     min-width: 50px;
     height: auto;
@@ -281,5 +317,13 @@ tbody tr:hover {
   .myBotton {
     height: auto;
     cursor: pointer;
+  }
+
+  .show-text {
+    display: none;
+  }
+
+  .show-icon {
+    display: inline-block;
   }
 }

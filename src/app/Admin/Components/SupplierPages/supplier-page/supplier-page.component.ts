@@ -15,7 +15,7 @@ export class SupplierPageComponent implements OnInit {
   paginatedSuppliers: Supplier[] = [];
   supplierCount: number = 0;
 
-  pageSize = 8;
+  pageSize = 5;
   pages: any[] = [];
   currentPage: number = 1;
 

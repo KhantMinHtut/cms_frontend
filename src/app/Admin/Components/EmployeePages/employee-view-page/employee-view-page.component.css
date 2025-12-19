@@ -24,13 +24,14 @@
 
 .myCard {
   min-width: 160px;
-  height: 75px;
+  height: 85px;
   color: white;
   font-weight: bolder;
   padding: 5px 20px;
   margin: 5px;
   border-radius: 7px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  box-shadow: 0 2px 4px #d0d0d0, 0 3px 8px #d7d7d785;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -58,7 +59,7 @@ td {
 }
 
 .table-container {
-  height: 72vh;
+  /* height: 72vh; */
   border-radius: 15px;
   overflow: hidden;
   background-color: #fff5;
@@ -75,7 +76,7 @@ td {
 
 .table-body {
   width: 100%;
-  max-height: calc(83% - 1.6rem);
+  /* max-height: calc(83% - 1.6rem); */
   overflow: auto;
 }
 
@@ -143,7 +144,7 @@ tbody tr:hover {
   justify-content: space-around;
   flex-wrap: wrap;
   overflow: auto;
-  height: 470px;
+  /* height: 470px; */
 }
 
 .card-container::-webkit-scrollbar {
@@ -171,13 +172,15 @@ tbody tr:hover {
   border-radius: 20px;
   padding: 15px;
   position: relative;
-  background-color: #c79d8a;
+  /* background-color: #c79d8a; */
+  background-color: #ffdbcb;
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   grid-template-rows: repeat(8, 25px);
   gap: 10px;
   margin: 15px 5px;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.19), 0px 6px 6px rgba(0, 0, 0, 0.23);
+  /* box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.19), 0px 6px 6px rgba(0, 0, 0, 0.23); */
+  border: 3px solid #aa715a;
 }
 
 /* #502516 */
@@ -273,6 +276,19 @@ tbody tr:hover {
   line-height: 1;
 }
 
+::ng-deep .mat-mdc-menu-content,
+.mat-mdc-menu-content .mat-mdc-menu-item .mat-mdc-menu-item-text {
+  background-color: #ffe5d9;
+}
+
+.show-text {
+  display: inline-block;
+}
+
+.show-icon {
+  display: none;
+}
+
 @media screen and (max-width: 2000px) {
   .myBotton {
     height: 50px;
@@ -298,7 +314,7 @@ tbody tr:hover {
     padding: 5px 15px;
     margin: 5px;
     border-radius: 7px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -307,60 +323,7 @@ tbody tr:hover {
   }
 }
 
-@media screen and (max-width: 800px) {
-  .myCard {
-    min-width: 130px;
-    height: 75px;
-    padding: 5px 15px;
-    margin: 5px;
-    border-radius: 7px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #aa715a;
-  }
-}
-
-@media screen and (max-width: 774px) {
-  .myCard {
-    min-width: 120px;
-    height: 75px;
-    padding: 5px 12px;
-    margin: 5px;
-    border-radius: 7px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #aa715a;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .myCard {
-    min-width: auto;
-    height: auto;
-    padding: 3px 9px;
-    margin-left: 5px;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #aa715a;
-  }
-}
-
-@media (max-width: 767.5px) {
-  .myCard {
-    flex-direction: row;
-  }
-}
-
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 500px) {
   .myCard {
     min-width: 50px;
     height: auto;
@@ -397,6 +360,14 @@ tbody tr:hover {
   .myBotton {
     height: auto;
     cursor: pointer;
+  }
+
+  .show-text {
+    display: none;
+  }
+
+  .show-icon {
+    display: inline-block;
   }
 }
 

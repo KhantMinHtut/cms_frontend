@@ -26,7 +26,7 @@ export class OrderViewPageComponent {
   searchIcon: String = 'd-inline-block';
   searchInput: String = 'd-none';
 
-  pageSize = 8;
+  pageSize = 5;
   pages: any[] = [];
   currentPage: number = 1;
 

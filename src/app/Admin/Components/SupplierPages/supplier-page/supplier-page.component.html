@@ -1,12 +1,12 @@
 <main>
-  <div class="row mt-2 p-0 align-items-center justify-content-between a">
-    <div class="row col-xl-10 col-lg-10 col-md-9 col-sm-8 scroll">
+  <div
+    class="w-100 mt-2 p-0 d-flex align-items-center justify-content-between a"
+  >
+    <div class="row scroll" style="flex: 1">
       <div class="myCard">
         <div class="title">
-          <span class="d-none d-sm-none d-md-inline-block user-select-none"
-            >Total Suppliers</span
-          >
-          <span class="d-inline d-sm-inline d-md-none">
+          <span class="show-text user-select-none">Total Suppliers</span>
+          <span class="show-icon">
             <i class="bi bi-grid"></i>
           </span>
         </div>
@@ -46,7 +46,8 @@
           <span
             (click)="searchBox('open')"
             (mouseleave)="searchBox('close')"
-            class="d-xl-none d-lg-none d-md-none d-sm-inline-block d-inline-block align-content-center justify-content-center rounded bg-primary"
+            class="d-xl-none d-lg-none d-md-none d-sm-inline-block d-inline-block align-content-center justify-content-center rounded"
+            style="background-color: #aa715a; color: white; cursor: pointer"
           >
             <span [ngClass]="searchIcon" class="mt-1 mb-1 ml-2 mr-2"
               ><i class="bi bi-search"></i
@@ -149,7 +150,10 @@
 
       <section class="table-pagination">
         <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
+          <ul
+            class="pagination justify-content-center"
+            style="margin-bottom: 0"
+          >
             <li
               style="cursor: pointer"
               [attr.aria-disabled]="currentPage == 1"

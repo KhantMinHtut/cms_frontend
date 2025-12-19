@@ -9,11 +9,12 @@ main {
   min-width: 160px;
   color: white;
   font-weight: bolder;
-  height: 75px;
+  height: 85px;
   padding: 5px 20px;
   margin: 5px;
   border-radius: 7px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  box-shadow: 0 2px 4px #d0d0d0, 0 3px 8px #d7d7d785;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -52,6 +53,9 @@ main {
   width: 100%;
   height: 100%;
   color: #aa715a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ============================table============================= */
@@ -63,7 +67,7 @@ td {
 }
 
 .table-container {
-  height: 72vh;
+  /* height: 72vh; */
   border-radius: 15px;
   overflow: hidden;
   background-color: #f7f3f3;
@@ -85,7 +89,9 @@ td {
 
 .table-body {
   width: 100%;
-  height: calc(83% - 1.8rem);
+  /* height: calc(83% - 1.8rem); */
+  height: auto;
+  min-height: 353px;
   overflow: auto;
 }
 
@@ -153,6 +159,13 @@ tbody tr:hover {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.show-text {
+  display: inline-block;
+}
+.show-icon {
+  display: none;
+}
 /* ====================================================== */
 
 @media screen and (max-width: 2000px) {
@@ -180,7 +193,7 @@ tbody tr:hover {
     padding: 5px 15px;
     margin: 5px;
     border-radius: 7px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 2px 4px #d0d0d0, 0 3px 8px #d7d7d785;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -196,7 +209,7 @@ tbody tr:hover {
     padding: 5px 15px;
     margin: 5px;
     border-radius: 7px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 2px 4px #d0d0d0, 0 3px 8px #d7d7d785;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -212,7 +225,7 @@ tbody tr:hover {
     padding: 5px 12px;
     margin: 5px;
     border-radius: 7px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 2px 4px #d0d0d0, 0 3px 8px #d7d7d785;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -221,28 +234,7 @@ tbody tr:hover {
   }
 }
 
-@media screen and (max-width: 768px) {
-  .myCard {
-    min-width: auto;
-    height: auto;
-    padding: 3px 9px;
-    margin-left: 5px;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #aa715a;
-  }
-}
-
-@media (max-width: 767.5px) {
-  .myCard {
-    flex-direction: row;
-  }
-}
-
-@media screen and (max-width: 767px) {
+@media (max-width: 500px) {
   .myCard {
     min-width: 50px;
     height: auto;
@@ -279,5 +271,13 @@ tbody tr:hover {
   .myBotton {
     height: auto;
     cursor: pointer;
+  }
+
+  .show-text {
+    display: none;
+  }
+
+  .show-icon {
+    display: inline-block;
   }
 }

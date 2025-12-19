@@ -2,9 +2,10 @@
   color: white;
   font-size: 18px;
   border-radius: 15px;
-  width: 85%;
   padding: 10px 15px;
   margin: 3px 0;
+  cursor: pointer;
+  width: 100%;
 }
 
 span {
