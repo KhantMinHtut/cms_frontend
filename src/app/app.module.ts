@@ -31,6 +31,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input'; // for matInput directive
 import {
   MatNativeDateModule,
+  MatRippleModule,
   provideNativeDateAdapter,
 } from '@angular/material/core'; // For native date support
 import { MatIconModule } from '@angular/material/icon'; // For the icon button
@@ -59,6 +60,9 @@ import { CustomerPageComponent } from './Admin/Components/CustomerPages/customer
 import { CustomerPopupComponent } from './Admin/Components/CustomerPages/customer-popup/customer-popup.component';
 
 import { NgxPrintModule } from 'ngx-print';
+import { POSTerminalComponent } from './pos-terminal/pos-terminal.component';
+import { LoadingComponent } from './Admin/Components/loading/loading.component';
+import { CoffeeSeedLoadingComponent } from './Admin/Components/coffee-seed-loading/coffee-seed-loading.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +90,9 @@ import { NgxPrintModule } from 'ngx-print';
     SupplierPopupComponent,
     CustomerPageComponent,
     CustomerPopupComponent,
+    POSTerminalComponent,
+    LoadingComponent,
+    CoffeeSeedLoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +114,7 @@ import { NgxPrintModule } from 'ngx-print';
     MatTooltipModule,
     MatMenuModule,
     MatTabsModule,
+    MatRippleModule,
 
     MatDatepickerModule,
     JsonPipe,

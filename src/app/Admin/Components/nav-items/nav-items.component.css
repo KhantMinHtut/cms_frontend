@@ -7,18 +7,37 @@
   cursor: pointer;
   width: 100%;
   transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-span {
+/* span {
   margin-left: 12px;
-}
+} */
 
 .myBtn:hover {
   color: #aa715a;
   background-color: #f8f9fa;
 }
 
+.content {
+  font-size: 1rem;
+}
+
 .active {
   color: #aa715a;
   background-color: #f8f9fa;
+}
+
+@media (max-width: 991px) {
+  .myBtn {
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 10px;
+  }
+
+  .myBtn .content {
+    font-size: 0.65rem;
+  }
 }

@@ -34,6 +34,8 @@ export class OrderViewPageComponent {
   minDate = new Date(2021, 6, 1);
   maxDate = new Date();
 
+  isPageLoading: boolean = false;
+
   constructor(
     private os: OrderService,
     private datePipe: DatePipe,
@@ -41,6 +43,7 @@ export class OrderViewPageComponent {
   ) {}
 
   ngOnInit(): void {
+    this.isPageLoading = true;
     this.fetchInitData();
   }
 
@@ -52,12 +55,21 @@ export class OrderViewPageComponent {
       this.cancelledOrder = response.cancelledCount;
       this.orders = response.orders;
 
-      this.os
-        .getPaginateOrders(this.currentPage, this.pageSize)
-        .subscribe((response) => {
+      this.os.getPaginateOrders(this.currentPage, this.pageSize).subscribe({
+        next: (response) => {
           console.log(response.orders);
           this.paginationOrders = response.orders;
-        });
+
+          setTimeout(() => {
+            this.isPageLoading = false;
+          }, 1000);
+        },
+        error: (error) => {
+          setTimeout(() => {
+            this.isPageLoading = false;
+          }, 5000);
+        },
+      });
 
       this.pagination();
     });

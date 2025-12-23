@@ -1,5 +1,8 @@
-<main>
-  <div class="p-xxl-3 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 homepage">
+<main class="w-100 h-100">
+  <div
+    class="p-xxl-3 p-xl-3 p-lg-3 p-md-3 p-sm-3 p-0 homepage"
+    *ngIf="!isLoading"
+  >
     <div class="header">
       <div class="card-container">
         <div class="myCard" matTooltip="Total Orders">
@@ -221,6 +224,14 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div
+    class="w-100 h-100 d-flex flex-column align-items-center justify-content-center"
+    *ngIf="isLoading"
+  >
+    <app-coffee-seed-loading></app-coffee-seed-loading>
+    <div class="w-100" style="height: 15%"></div>
   </div>
 </main>
 

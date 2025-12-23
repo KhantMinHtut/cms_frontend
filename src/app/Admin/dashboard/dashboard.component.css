@@ -1,7 +1,7 @@
 .myrow {
   height: 100vh;
   padding: 10px;
-
+  display: flex;
   background-color: #cebab0;
 }
 
@@ -38,6 +38,7 @@
 .main-page {
   margin: 0;
   padding: 0;
+  flex: 1;
   height: 100%;
   overflow: hidden;
   position: relative;

@@ -1,4 +1,4 @@
-<div class="col-12 viewPage">
+<div class="col-12 viewPage" *ngIf="!isPageLoading">
   <div class="row mt-2 p-0 align-items-center justify-content-between a">
     <div class="row col-xl-10 col-lg-10 col-md-9 col-sm-8 scroll">
       <div class="myCard">
@@ -216,3 +216,11 @@
     </div>
   </div>
 </div>
+
+<section
+  class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+  *ngIf="isPageLoading"
+>
+  <app-coffee-seed-loading></app-coffee-seed-loading>
+  <div style="width: 100%; height: 15%"></div>
+</section>

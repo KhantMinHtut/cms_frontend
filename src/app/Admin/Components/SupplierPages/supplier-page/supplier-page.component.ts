@@ -15,6 +15,8 @@ export class SupplierPageComponent implements OnInit {
   paginatedSuppliers: Supplier[] = [];
   supplierCount: number = 0;
 
+  isPageLoading: boolean = false;
+
   pageSize = 5;
   pages: any[] = [];
   currentPage: number = 1;
@@ -40,14 +42,25 @@ export class SupplierPageComponent implements OnInit {
   }
 
   initData() {
+    this.isPageLoading = true;
     this.coffee.getSuppliers().subscribe(async (response) => {
       this.suppliers = await response.suppliers;
       this.supplierCount = await response.count;
 
       this.coffee
         .getPaginatedSuppliers(this.currentPage, this.pageSize)
-        .subscribe((response) => {
-          this.paginatedSuppliers = response.suppliers;
+        .subscribe({
+          next: (response) => {
+            this.paginatedSuppliers = response.suppliers;
+            setTimeout(() => {
+              this.isPageLoading = false;
+            }, 1000);
+          },
+          error: (error) => {
+            setTimeout(() => {
+              this.isPageLoading = false;
+            }, 5000);
+          },
         });
 
       this.pagination();

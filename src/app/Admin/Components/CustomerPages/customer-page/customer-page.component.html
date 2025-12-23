@@ -1,4 +1,4 @@
-<main>
+<main *ngIf="!isPageLoading">
   <div
     class="w-100 mt-2 p-0 d-flex align-items-center justify-content-between a"
   >
@@ -196,3 +196,11 @@
     </div>
   </div>
 </main>
+
+<section
+  *ngIf="isPageLoading"
+  class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+>
+  <app-coffee-seed-loading></app-coffee-seed-loading>
+  <div style="width: 100%; height: 15%"></div>
+</section>

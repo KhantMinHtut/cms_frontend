@@ -27,6 +27,8 @@ export class ProductInfoPageComponent implements OnInit {
   pages: any[] = [];
   currentPage: number = 1;
 
+  isPageLoading: boolean = false;
+
   @Input() currentBtn: String = '';
   @Output() changePage = new EventEmitter();
 
@@ -47,6 +49,7 @@ export class ProductInfoPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isPageLoading = true;
     this.fetchProductsData();
   }
 
@@ -89,8 +92,19 @@ export class ProductInfoPageComponent implements OnInit {
 
       this.coffee
         .getPaginationProducts(this.currentPage, this.pageSize)
-        .subscribe((response) => {
-          this.products = response.products;
+        .subscribe({
+          next: (response) => {
+            this.products = response.products;
+
+            setTimeout(() => {
+              this.isPageLoading = false;
+            }, 1000);
+          },
+          error: (error) => {
+            setTimeout(() => {
+              this.isPageLoading = false;
+            }, 5000);
+          },
         });
 
       this.pagination();

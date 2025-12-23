@@ -1,0 +1,222 @@
+<section class="pos-terminal" *ngIf="!isLoading">
+  <section class="menu-select">
+    <div class="search-container-row">
+      <!-- Search Box -->
+      <div class="search-container">
+        <input
+          type="text"
+          [(ngModel)]="searchText"
+          (keyup)="onSearchProduct()"
+        />
+        <div
+          class="search-clear"
+          matRipple
+          [matRippleColor]="'#aa715a20'"
+          *ngIf="searchText"
+          (click)="searchText = ''; onSearchProduct()"
+        >
+          <i class="bi bi-x-lg"></i>
+        </div>
+        <div class="search-btn" matRipple [matRippleColor]="'#ffffff19'">
+          <i class="bi bi-search"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="products-container">
+      <div class="category-container">
+        <div class="category-list">
+          <span
+            class="category-item category-active"
+            [ngClass]="{ 'category-active': category_status === 'all' }"
+            (click)="onCategorySelect('all')"
+          >
+            <span>All</span><span>({{ all_product_count }})</span>
+          </span>
+
+          <span
+            class="category-item"
+            [ngClass]="{ 'category-active': category_status === 'hot' }"
+            (click)="onCategorySelect('hot')"
+          >
+            <span>Hot</span><span>({{ hot_product_count }})</span>
+          </span>
+
+          <span
+            class="category-item"
+            [ngClass]="{ 'category-active': category_status === 'cold' }"
+            (click)="onCategorySelect('cold')"
+          >
+            <span>Cold</span><span>({{ cold_product_count }})</span>
+          </span>
+
+          <span
+            class="category-item"
+            [ngClass]="{ 'category-active': category_status === 'deserts' }"
+            (click)="onCategorySelect('deserts')"
+          >
+            <span>Deserts</span><span>({{ desert_product_count }})</span>
+          </span>
+        </div>
+      </div>
+      <!-- Products Card UI Container -->
+      <div class="products-item-container" *ngIf="isLoading">
+        <!-- <app-loading class="mt-5"></app-loading> -->
+        <app-coffee-seed-loading class="mt-5"></app-coffee-seed-loading>
+      </div>
+      <div
+        class="products-item-container"
+        *ngIf="!isLoading && filterProducts.length > 0"
+      >
+        @for (product of filterProducts; track $index) {
+
+        <div class="product-card">
+          <div class="product-count">{{ product.stock_quantity }}</div>
+          <div class="image-container">
+            <img
+              [src]="product.image_url"
+              style="width: 100%; height: 100%"
+              alt="product-image"
+            />
+          </div>
+          <div class="product-info">
+            <span class="product-name">{{ product.name }}</span>
+            <div
+              class="w-100 d-flex justify-content-between align-items-center"
+              style="padding: 3px"
+            >
+              <span class="price">{{ product.price }} MMK</span>
+              <span
+                matRipple
+                [matRippleColor]="'#aa715a20'"
+                class="add-product"
+                (click)="onSelectedMenu(product)"
+                >Add</span
+              >
+            </div>
+          </div>
+        </div>
+
+        }
+      </div>
+      <div
+        class="products-item-container"
+        *ngIf="!isLoading && filterProducts.length === 0"
+      >
+        <div class="no-product-found">
+          <img
+            src="../../assets/images/no-product-found.png"
+            alt="product-not-found"
+          />
+          <h3 class="mb-3">No Product Found</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sales-details" *ngIf="selectedMenuItems.length > 0">
+    <div class="w-100">
+      <div class="customer-info-btn" matRipple [matRippleColor]="'#ffffff19'">
+        <span><i class="bi bi-plus-circle" style="font-size: 1.2rem"></i></span>
+        <span>Add customer info</span>
+      </div>
+    </div>
+
+    <div class="selectedMenuItems">
+      @for (product of selectedMenuItems; track i; let i=$index) {
+      <!-- Menu Item Start -->
+      <div class="selected-menu-item">
+        <div class="menu-image">
+          <img
+            [src]="product.product.image_url"
+            alt="menu"
+            style="width: 100%; height: 100%"
+          />
+        </div>
+        <div class="menu-content-container">
+          <div class="name-deleteBtn">
+            <span>{{ product.product.name }}</span>
+            <span class="delete-btn"><i class="bi bi-trash"></i></span>
+          </div>
+          <div class="price-count">
+            <span>{{ product.product.price * product.count }} MMK</span>
+            <span class="count-container">
+              <span
+                class="count-btn"
+                [ngClass]="{ disabled: product.count === 1 }"
+                (click)="setCount('decrease', i)"
+                ><i class="bi bi-dash"></i
+              ></span>
+              <span class="count">{{ product.count }}</span>
+              <span class="count-btn" (click)="setCount('increase', i)"
+                ><i class="bi bi-plus-lg"></i
+              ></span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Menu Item End -->
+      }
+    </div>
+
+    <div class="payment-info">
+      <div class="pi-item">
+        <span>Sub Total</span> <span>{{ subTotalPrice }} MMK</span>
+      </div>
+      <div class="pi-item"><span>Discount</span> <span>0 %</span></div>
+
+      <div class="pi-divider"></div>
+
+      <div class="pi-item" style="font-size: 0.95rem">
+        <span>Total</span> <span>{{ totalPrice }} MMK</span>
+      </div>
+    </div>
+
+    <div class="payment-method">
+      <span class="p-title">Payment Method</span>
+      <div class="payment-type">
+        <div class="payment-card" (click)="paymentMethod = 'cash'">
+          <div
+            class="payment-icon"
+            [ngClass]="{ selectedMethod: paymentMethod === 'cash' }"
+          >
+            <span><i class="bi bi-currency-dollar"></i></span>
+          </div>
+          <div class="payment-text">Cash</div>
+        </div>
+
+        <div class="payment-card" (click)="paymentMethod = 'k-pay'">
+          <div
+            class="payment-icon"
+            [ngClass]="{ selectedMethod: paymentMethod === 'k-pay' }"
+          >
+            <img src="../../assets/images/kpay-icon.png" alt="k-pay" />
+          </div>
+          <div class="payment-text">K pay</div>
+        </div>
+
+        <div class="payment-card" (click)="paymentMethod = 'wave-pay'">
+          <div
+            class="payment-icon"
+            [ngClass]="{ selectedMethod: paymentMethod === 'wave-pay' }"
+          >
+            <img src="../../assets/images/wave-pay-icon.png" alt="wave-pay" />
+          </div>
+          <div class="payment-text">Wave pay</div>
+        </div>
+      </div>
+
+      <div class="w-100">
+        <span matRipple [matRippleColor]="'#ffffff19'" class="pay-btn"
+          >Checkout</span
+        >
+      </div>
+    </div>
+  </section>
+</section>
+
+<section
+  class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+>
+  <app-coffee-seed-loading></app-coffee-seed-loading>
+  <div style="width: 100%; height: 15%"></div>
+</section>

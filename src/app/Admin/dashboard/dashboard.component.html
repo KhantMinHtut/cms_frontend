@@ -1,7 +1,7 @@
 <ng-container *ngIf="isAdmin">
   <div class="container-fluid overflow-hidden">
     <div class="row myrow">
-      <div class="col-2 col-sm-2 col-md-1 col-lg-2 mySiderBar-container">
+      <div class="mySiderBar-container">
         <div class="mySideBar">
           <div class="nav-container-one">
             <app-logo></app-logo>
@@ -26,16 +26,14 @@
           </div>
         </div>
       </div>
-      <div
-        class="col-10 col-sm-10 col-md-11 col-lg-10 main-page position-relative"
-      >
+      <div class="main-page position-relative">
         <app-nav-bar
           [currentUser]="currentUser"
           (onEditPage)="showUserEditPage($event)"
         ></app-nav-bar>
         <div
-          class="container-fluid h-100 position-relative"
-          style="padding-right: 3px"
+          class="container-fluid position-relative"
+          style="padding-right: 3px; height: calc(100vh - 87px)"
         >
           @if (currentIndex == 0) {
           <app-home-page></app-home-page>
@@ -45,14 +43,16 @@
           <!-- <app-employee-shift></app-employee-shift> -->
           <!-- <app-supplier-page></app-supplier-page> -->
           } @else if (currentIndex == 1) {
-          <app-product-page></app-product-page>
+          <app-pos-terminal></app-pos-terminal>
           } @else if (currentIndex == 2) {
-          <app-order-page></app-order-page>
+          <app-product-page></app-product-page>
           } @else if (currentIndex == 3) {
-          <app-employee-page></app-employee-page>
+          <app-order-page></app-order-page>
           } @else if (currentIndex == 4) {
-          <app-customer-page></app-customer-page>
+          <app-employee-page></app-employee-page>
           } @else if (currentIndex == 5) {
+          <app-customer-page></app-customer-page>
+          } @else if (currentIndex == 6) {
 
           <app-supplier-page></app-supplier-page>
           }

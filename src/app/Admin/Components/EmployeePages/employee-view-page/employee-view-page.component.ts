@@ -17,6 +17,8 @@ export class EmployeeViewPageComponent implements OnInit {
   departments: any[] = [];
   paginatedEmployees: any[] = [];
 
+  isPageLoading: boolean = false;
+
   employeeCount!: number;
 
   searchIcon: String = 'd-inline-block';
@@ -46,6 +48,7 @@ export class EmployeeViewPageComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.isPageLoading = true;
     this.fetchEmployeesData();
   }
 
@@ -76,8 +79,18 @@ export class EmployeeViewPageComponent implements OnInit {
 
       this.employeeService
         .getPaginatedEmployees(this.currentPage, this.pageSize)
-        .subscribe((response) => {
-          this.paginatedEmployees = response.paginatedEmployees;
+        .subscribe({
+          next: (response) => {
+            this.paginatedEmployees = response.paginatedEmployees;
+            setTimeout(() => {
+              this.isPageLoading = false;
+            }, 1000);
+          },
+          error: (error) => {
+            setTimeout(() => {
+              this.isPageLoading = false;
+            }, 5000);
+          },
         });
 
       this.pagination();

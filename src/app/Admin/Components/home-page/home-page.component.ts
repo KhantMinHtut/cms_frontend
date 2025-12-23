@@ -41,6 +41,8 @@ export class HomePageComponent implements OnInit {
   paymentData: any;
   pieChart: any;
 
+  isLoading: boolean = false;
+
   monthsLocalized = Array.from({ length: 12 }, (_, i) =>
     new Date(0, i).toLocaleString('default', { month: 'short' })
   );
@@ -62,22 +64,34 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.onChartPage(new Date('2024-1-1'), Date.now());
 
-    this.employeeService.getAllEmployees().subscribe(async (response) => {
-      const employees = await response.employees;
+    this.employeeService.getAllEmployees().subscribe({
+      next: async (response) => {
+        const employees = await response.employees;
 
-      employees.forEach((employee: any) => {
-        if (employee.position == 'Manager') {
-          this.manager += 1;
-        } else if (employee.position == 'Barista') {
-          this.barista += 1;
-        } else if (employee.position == 'Cashier') {
-          this.cashier += 1;
-        } else if (employee.position == 'Waiter') {
-          this.waiter += 1;
-        }
-      });
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
+
+        employees.forEach((employee: any) => {
+          if (employee.position == 'Manager') {
+            this.manager += 1;
+          } else if (employee.position == 'Barista') {
+            this.barista += 1;
+          } else if (employee.position == 'Cashier') {
+            this.cashier += 1;
+          } else if (employee.position == 'Waiter') {
+            this.waiter += 1;
+          }
+        });
+      },
+      error: (error) => {
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 5000);
+      },
     });
   }
 

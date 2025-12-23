@@ -49,7 +49,8 @@ export class DashboardComponent implements OnInit {
 
   navItems = [
     { icon: 'bi bi-house-fill', content: 'Home' },
-    { icon: 'bi bi-basket-fill', content: 'Product' },
+    { icon: 'bi bi-grid-fill', content: 'Sales' },
+    { icon: 'bi bi-box-seam-fill', content: 'Product' },
     { icon: 'bi bi-journal-check', content: 'Order' },
 
     { icon: 'bi bi-person-fill', content: 'Employee' },

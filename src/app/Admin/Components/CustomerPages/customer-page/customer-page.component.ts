@@ -15,6 +15,8 @@ export class CustomerPageComponent {
   paginatedCustomers: Customer[] = [];
   customerCount: number = 0;
 
+  isPageLoading: boolean = false;
+
   pageSize = 5;
   pages: any[] = [];
   currentPage: number = 1;
@@ -36,6 +38,7 @@ export class CustomerPageComponent {
   ) {}
 
   ngOnInit(): void {
+    this.isPageLoading = true;
     this.initData();
   }
 
@@ -46,9 +49,19 @@ export class CustomerPageComponent {
 
       this.customerService
         .getPaginatedCustomers(this.currentPage, this.pageSize)
-        .subscribe((response) => {
-          console.log(response);
-          this.paginatedCustomers = response.paginatedCustomers;
+        .subscribe({
+          next: (response) => {
+            console.log(response);
+            this.paginatedCustomers = response.paginatedCustomers;
+            setTimeout(() => {
+              this.isPageLoading = false;
+            }, 1000);
+          },
+          error: (error) => {
+            setTimeout(() => {
+              this.isPageLoading = false;
+            }, 5000);
+          },
         });
 
       this.pagination();

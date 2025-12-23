@@ -1,11 +1,8 @@
 <div class="w-100 px-2">
-  <div class="w-100 align-items-center justify-content-center">
-    <div
-      class="myBtn text-lg-left text-md-center text-sm-center text-center"
-      ngClass="{{ isActive }}"
-    >
+  <div class="w-100 d-flex align-items-center justify-content-center">
+    <div class="myBtn" ngClass="{{ isActive }}">
       <i class="{{ icon }} 25em"></i>
-      <span class="d-lg-inline d-md-none d-sm-none d-none">{{ content }}</span>
+      <span class="content">{{ content }}</span>
     </div>
   </div>
 </div>
