@@ -1,6 +1,7 @@
 <div class="w-100 h-100">
   @if (currentPage == 'view-page') {
   <app-employee-view-page
+    [currentBtn]="clickedBtn"
     (changePage)="onChangePage($event)"
   ></app-employee-view-page>
   } @else if (currentPage == 'add-page') {

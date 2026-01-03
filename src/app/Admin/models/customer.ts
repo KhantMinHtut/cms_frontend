@@ -1,9 +1,9 @@
 export class Customer {
-  _id?: String;
-  customer_id?: Number;
-  name?: String;
-  email?: String;
-  password?: String;
-  phone?: String;
-  loyalty_points?: Number;
+  _id?: string;
+  customer_id?: number;
+  name?: string;
+  email?: string;
+  password?: string;
+  phone?: string;
+  loyalty_points?: number;
 }

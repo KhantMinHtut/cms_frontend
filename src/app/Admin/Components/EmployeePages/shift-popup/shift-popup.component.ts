@@ -15,6 +15,7 @@ export class ShiftPopupComponent implements OnInit {
   employeeData: any;
 
   form!: FormGroup;
+  formLoading: boolean = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -43,36 +44,55 @@ export class ShiftPopupComponent implements OnInit {
 
     const formValue = this.form.value;
 
-    if (this.employeeData.title == 'Created Shift') {
-      //employee_id, shift_date, start_time, end_time
-      this.employeeService
-        .createEmployeeShift({
-          employee_id: this.employeeData.currentEmployeeId,
-          shift_date: formValue.date,
-          start_time: formValue.startTime,
-          end_time: formValue.endTime,
-        })
-        .subscribe((response) => {
-          console.log(response);
-          this.toastr.success('Successfully added Shift!', 'Success', {
-            closeButton: true,
-            timeOut: 3000,
+    if (this.form.valid) {
+      this.formLoading = true;
+      if (this.employeeData.title == 'Created Shift') {
+        //employee_id, shift_date, start_time, end_time
+        this.employeeService
+          .createEmployeeShift({
+            employee_id: this.employeeData.currentEmployeeId,
+            shift_date: formValue.date,
+            start_time: formValue.startTime,
+            end_time: formValue.endTime,
+          })
+          .subscribe({
+            next: (response) => {
+              // console.log(response);
+              this.toastr.success('Successfully added Shift!', 'Success', {
+                closeButton: true,
+                timeOut: 3000,
+              });
+
+              this.formLoading = false;
+            },
+            error: (err) => {
+              this.formLoading = false;
+            },
           });
-        });
-    } else if (this.employeeData.title == 'Updated Shift') {
-      this.employeeService
-        .updatedEmployeeShift(this.employeeData.shiftDate.shift_id, {
-          employee_id: this.employeeData.currentEmployeeId,
-          shift_date: formValue.date,
-          start_time: formValue.startTime,
-          end_time: formValue.endTime,
-        })
-        .subscribe((response) => {
-          this.toastr.success('Successfully updated!', 'Success', {
-            closeButton: true,
-            timeOut: 3000,
+      } else if (this.employeeData.title == 'Updated Shift') {
+        this.employeeService
+          .updatedEmployeeShift(this.employeeData.shiftDate.shift_id, {
+            employee_id: this.employeeData.currentEmployeeId,
+            shift_date: formValue.date,
+            start_time: formValue.startTime,
+            end_time: formValue.endTime,
+          })
+          .subscribe({
+            next: (response) => {
+              this.toastr.success('Successfully updated!', 'Success', {
+                closeButton: true,
+                timeOut: 3000,
+              });
+
+              this.formLoading = false;
+            },
+            error: (err) => {
+              this.formLoading = false;
+            },
           });
-        });
+      }
+    } else {
+      this.form.markAllAsTouched();
     }
   }
 }

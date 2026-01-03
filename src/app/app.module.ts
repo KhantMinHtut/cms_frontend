@@ -41,6 +41,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // ngx-toastr
 import { ToastrModule } from 'ngx-toastr';
@@ -115,6 +116,7 @@ import { CoffeeSeedLoadingComponent } from './Admin/Components/coffee-seed-loadi
     MatMenuModule,
     MatTabsModule,
     MatRippleModule,
+    MatProgressSpinnerModule,
 
     MatDatepickerModule,
     JsonPipe,

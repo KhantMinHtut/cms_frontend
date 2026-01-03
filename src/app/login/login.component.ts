@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoffeeService } from '../coffee.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { AuthService } from '../Services/auth.service';
 interface Customer {
   name: string;
   email: string;
@@ -35,11 +36,21 @@ export class LoginComponent implements OnInit {
   isActive = false;
   hidePassword: boolean = true;
   constructor(
-    private coffeeService: CoffeeService,
+    private authService: AuthService,
     private cookieService: CookieService,
     private router: Router
   ) {}
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    if (
+      this.cookieService.check('email') &&
+      this.cookieService.check('access_token') &&
+      this.cookieService.check('refresh_token')
+    ) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
   showRegister(): void {
     this.isActive = true;
   }
@@ -47,10 +58,10 @@ export class LoginComponent implements OnInit {
     this.isActive = false;
   }
   register(): void {
-    this.coffeeService.register(this.customer).subscribe(
+    this.authService.register(this.customer).subscribe(
       (response) => {
         alert('Registration successful');
-        console.log('Registration successful', response);
+        // console.log('Registration successful', response);
         this.customer = { name: '', email: '', password: '', phone: '' }; // Reset customer object
         this.router.navigate(['/login']);
       },
@@ -62,19 +73,22 @@ export class LoginComponent implements OnInit {
   }
   login() {
     this.isLoading = true;
-    this.coffeeService.login(this.credentials).subscribe(
+    this.authService.login(this.credentials).subscribe(
       (response) => {
-        console.log('Login successful', response);
-        this.cookieService.set('email', response.currentEmployee.email);
+        // console.log('Login successful', response);
+        this.cookieService.set('email', response.email);
         this.cookieService.set('access_token', response.accessToken);
+        this.cookieService.set('refresh_token', response.refreshToken);
         // this.router.navigate(['/menu']);
 
         setTimeout(() => {
           this.isLoading = false;
 
-          response.currentEmployee.role == 1
-            ? this.router.navigate(['/dashboard'])
-            : this.router.navigate(['/menu']);
+          // response.currentEmployee.role == 1
+          //   ? this.router.navigate(['/dashboard'])
+          //   : this.router.navigate(['/menu']);
+
+          this.router.navigate(['/dashboard']);
         }, 2000);
       },
       (error) => {

@@ -1,7 +1,7 @@
-<div class="col-12 order-container" *ngIf="!isPageLoading">
-  <div class="row mt-2 p-0 align-items-center justify-content-between a">
-    <div class="row col-12 scroll">
-      <div class="myCard">
+<div class="w-100 order-container" *ngIf="!isPageLoading">
+  <div class="w-100 p-0 align-items-center justify-content-between a">
+    <div class="w-100 d-flex align-items-center scroll">
+      <div class="myCard" matTooltip="Total Orders">
         <div class="title">
           <span class="d-none d-sm-none d-md-inline-block user-select-none"
             >Total Orders</span
@@ -10,12 +10,12 @@
             <i class="bi bi-grid"></i>
           </span>
         </div>
-        <div class="content mt-2 user-select-none">
+        <div class="content user-select-none">
           {{ orderCount }}
         </div>
       </div>
 
-      <div class="myCard">
+      <div class="myCard" matTooltip="Total Completed Orders">
         <div class="title">
           <span class="d-none d-sm-none d-md-inline-block user-select-none"
             >Completed</span
@@ -27,7 +27,7 @@
         <div class="content user-select-none">{{ completedOrder }}</div>
       </div>
 
-      <div class="myCard">
+      <div class="myCard" matTooltip="Total Pending Orders">
         <div class="title">
           <span class="d-none d-sm-none d-md-inline-block user-select-none"
             >Pending</span
@@ -39,7 +39,7 @@
         <div class="content user-select-none">{{ pendingOrder }}</div>
       </div>
 
-      <div class="myCard">
+      <div class="myCard" matTooltip="Total Cancelled Orders">
         <div class="title">
           <span class="d-none d-sm-none d-md-inline-block user-select-none"
             >Cancelled</span
@@ -79,7 +79,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="w-100">
     <div class="mt-3 p-0 container-fluid table-responsive table-container">
       <section class="table-header">
         <h3>Orders</h3>
@@ -100,6 +100,7 @@
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                style="border-radius: 13px"
                 (keyup)="onSearch($event)"
               />
             </span>
@@ -112,6 +113,7 @@
               type="search"
               placeholder="Search"
               aria-label="Search"
+              style="border-radius: 13px"
               (keyup)="onSearch($event)"
             />
           </span>
@@ -265,9 +267,9 @@
                 <strong>{{ order.totalAmount }}</strong>
               </td>
               <td class="text-center">
-                <span>
+                <span class="d-flex align-items-center flex-wrap">
                   <span
-                    class="btn btn-sm btn-primary m-1"
+                    class="btn btn-sm btn-primary m-1 d-flex align-items-center justify-content-center"
                     (click)="onChangePage(order._id)"
                     ><i
                       class="bi bi-clipboard-check"
@@ -275,9 +277,22 @@
                     ></i
                   ></span>
                   <span
-                    class="btn btn-sm btn-primary m-1"
-                    (click)="onDeletedOrder(order._id)"
-                    ><i class="bi bi-trash3" style="font-size: 18px"></i
+                    class="btn btn-sm btn-primary m-1 d-flex align-items-center justify-content-center"
+                    (click)="onDeletedOrder(order._id, i)"
+                    [id]="i"
+                    #deleteBtn
+                  >
+                    <span
+                      *ngIf="deleteLoading && deleteBtn.id == detectBtn"
+                      class="spinner-border spinner-border-sm"
+                      aria-hidden="true"
+                      style="margin: 5.3px 0"
+                    ></span>
+                    <i
+                      *ngIf="!deleteLoading || deleteBtn.id != detectBtn"
+                      class="bi bi-trash3"
+                      style="font-size: 18px"
+                    ></i
                   ></span>
                 </span>
               </td>

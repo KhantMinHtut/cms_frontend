@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
+  background-color: #aa715a !important;
 }
 
 .dialog-title-between span {
@@ -13,4 +14,25 @@
 
 .dialog-actions-center {
   justify-content: center;
+}
+
+::ng-deep .mat-mdc-raised-button:not(:disabled) {
+  background-color: #aa715a !important;
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-raised-button {
+  /* border-radius: 17px !important; */
+  height: 42px !important;
+  padding: 0 1.5rem !important;
+}
+
+::ng-deep .mdc-button .mdc-button__label {
+  display: flex !important;
+  align-items: center !important;
+}
+
+::ng-deep .close-popup.mat-mdc-raised-button:not(:disabled) {
+  background-color: #f44336 !important;
+  color: white !important;
 }

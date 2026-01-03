@@ -56,11 +56,11 @@ export class SupplierPopupComponent implements OnInit {
         });
       });
     } else if (this.supplierData.title == 'Updated Supplier') {
-      console.log(this.supplierData.info._id);
+      // console.log(this.supplierData.info._id);
       this.coffee
         .updatedSupplier(this.supplierData.info._id, formValue)
         .subscribe((response) => {
-          console.log(response);
+          // console.log(response);
           this.toastr.success('Successfully Updated Supplier!', 'Success', {
             closeButton: true,
             timeOut: 3000,

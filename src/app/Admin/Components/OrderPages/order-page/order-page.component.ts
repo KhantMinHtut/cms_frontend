@@ -6,8 +6,8 @@ import { Component, EventEmitter, Output, OnInit } from '@angular/core';
   styleUrl: './order-page.component.css',
 })
 export class OrderPageComponent implements OnInit {
-  currentPage: String = 'view-page';
-  currentOrderId: String = '';
+  currentPage: string = 'view-page';
+  currentOrderId: string = '';
 
   ngOnInit(): void {}
 

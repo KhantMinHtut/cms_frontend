@@ -1,10 +1,11 @@
-<div class="dialog-title-between bg-primary">
+<div class="dialog-title-between">
   <span>{{ employeeData.title }}</span>
   <button
     (click)="closePopup()"
     mat-raised-button
     color="warn"
     style="font-size: 35px"
+    class="close-popup"
   >
     &times;
   </button>
@@ -30,16 +31,18 @@
       </div>
     </div>
     <div class="w-100 d-flex justify-content-between">
-      <span style="width: 175px"
-        ><input
+      <span style="width: 175px">
+        <label for="startTime" style="font-size: 0.95rem">Start time</label>
+        <input
           type="time"
           name="time"
           id="time "
           class="form-control"
           formControlName="startTime"
       /></span>
-      <span style="width: 175px"
-        ><input
+      <span style="width: 175px">
+        <label for="endTime" style="font-size: 0.95rem">End time</label>
+        <input
           type="time"
           name="time"
           id="time "
@@ -51,7 +54,14 @@
 </form>
 
 <div mat-dialog-actions class="dialog-actions-center">
-  <button (click)="closeAndSavePopup()" mat-raised-button color="primary">
-    OK
+  <button (click)="closeAndSavePopup()" mat-raised-button>
+    <mat-progress-spinner
+      *ngIf="formLoading"
+      diameter="20"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+
+    <span *ngIf="!formLoading">Save</span>
+    <span *ngIf="formLoading" class="ml-2">Saving…</span>
   </button>
 </div>

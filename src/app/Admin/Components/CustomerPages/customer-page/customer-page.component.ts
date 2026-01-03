@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { CustomerService } from '../../../../Services/customer.service';
 import { Customer } from '../../../models/customer';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { firstValueFrom, take } from 'rxjs';
 
 @Component({
   selector: 'app-customer-page',
@@ -16,6 +18,9 @@ export class CustomerPageComponent {
   customerCount: number = 0;
 
   isPageLoading: boolean = false;
+  submitted = false;
+
+  changeForm: boolean = false;
 
   pageSize = 5;
   pages: any[] = [];
@@ -24,18 +29,42 @@ export class CustomerPageComponent {
   searchIcon: String = 'd-inline-block';
   searchInput: String = 'd-none';
 
-  newCustomer = {
+  selectedCustomer = {
+    _id: '',
     name: '',
     email: '',
     phone: '',
     loyalty_points: 0,
   };
 
+  mode: 'create' | 'update' = 'create';
+
+  form!: FormGroup;
+  formLoading: boolean = false;
+
   constructor(
     private customerService: CustomerService,
     private dialog: MatDialog,
+    private formBuilder: FormBuilder,
     private toastr: ToastrService
-  ) {}
+  ) {
+    this.form = this.formBuilder.group({
+      name: [
+        this.selectedCustomer.name,
+        [Validators.required, Validators.minLength(3)],
+      ],
+
+      email: [
+        this.selectedCustomer.email,
+        [Validators.required, Validators.email],
+      ],
+      phone: [
+        this.selectedCustomer.phone,
+        [Validators.required, Validators.pattern(/^[0-9]{11}$/)],
+      ],
+      loyalty_points: [this.selectedCustomer.loyalty_points],
+    });
+  }
 
   ngOnInit(): void {
     this.isPageLoading = true;
@@ -51,7 +80,7 @@ export class CustomerPageComponent {
         .getPaginatedCustomers(this.currentPage, this.pageSize)
         .subscribe({
           next: (response) => {
-            console.log(response);
+            // console.log(response);
             this.paginatedCustomers = response.paginatedCustomers;
             setTimeout(() => {
               this.isPageLoading = false;
@@ -73,7 +102,7 @@ export class CustomerPageComponent {
     for (let i = 1; i < this.customerCount; i++) {
       if (this.pageSize * i < this.customerCount + this.pageSize) {
         this.pages.push(i);
-        console.log(this.pages);
+        // console.log(this.pages);
       }
     }
   }
@@ -84,7 +113,7 @@ export class CustomerPageComponent {
       .getPaginatedCustomers(currentPage, this.pageSize)
       .subscribe((response) => {
         this.paginatedCustomers = response.paginatedCustomers;
-        console.log(response);
+        // console.log(response);
       });
   }
 
@@ -134,7 +163,12 @@ export class CustomerPageComponent {
     }
   }
 
-  onChangePage() {}
+  onChangePage() {
+    this.changeForm = false;
+    this.submitted = false;
+    this.mode = 'create';
+    this.form.reset();
+  }
 
   onDeletedCustomer(id: String) {
     this.customerService.deleteOneCustomer(id).subscribe((response) => {
@@ -159,5 +193,126 @@ export class CustomerPageComponent {
     _popup.afterClosed().subscribe((item) => {
       this.initData();
     });
+  }
+
+  onUpdateCustomer(customer: Customer) {
+    this.selectedCustomer = {
+      _id: customer._id || '',
+      name: customer.name || '',
+      email: customer.email || '',
+      phone: customer.phone || '',
+      loyalty_points: customer.loyalty_points || 0,
+    };
+
+    this.form.patchValue({
+      name: this.selectedCustomer.name,
+      email: this.selectedCustomer.email,
+      phone: this.selectedCustomer.phone,
+      loyalty_points: this.selectedCustomer.loyalty_points,
+    });
+
+    this.changeForm = true;
+    this.mode = 'update';
+  }
+
+  getAllInvalidControls(form = this.form) {
+    const invalid: any = [];
+
+    Object.keys(form.controls).forEach((key) => {
+      const control = form.get(key);
+
+      if (control instanceof FormGroup) {
+        invalid.push(...this.getAllInvalidControls(control));
+      } else if (control?.invalid) {
+        invalid.push(key);
+      }
+    });
+
+    return invalid;
+  }
+
+  onSubmit() {
+    const formValue = this.form.value;
+
+    if (this.form.valid) {
+      this.formLoading = true;
+      if (this.mode == 'create') {
+        this.customerService.createCustomer(formValue).subscribe({
+          next: async (response) => {
+            this.toastr.success('Successfully Added Customer!', 'Success', {
+              closeButton: true,
+              timeOut: 3000,
+            });
+
+            this.initData();
+            this.formLoading = false;
+            this.form.reset();
+            this.changeForm = false;
+          },
+          error: (err) => {
+            this.formLoading = false;
+          },
+        });
+      } else if (this.mode == 'update') {
+        // console.log(this.selectedCustomer._id);
+        // console.log(formValue);
+
+        this.customerService
+          .updatedCustomer(this.selectedCustomer._id, {
+            name: formValue.name,
+            email: formValue.email,
+            phone: formValue.phone,
+            loyalty_points: parseInt(formValue.loyalty_points),
+          })
+          .subscribe({
+            next: async (response) => {
+              // console.log(response);
+
+              this.toastr.success('Successfully Updated Customer!', 'Success', {
+                closeButton: true,
+                timeOut: 3000,
+              });
+
+              this.customerService
+                .getPaginatedCustomers(this.currentPage, this.pageSize)
+                .subscribe({
+                  next: (response) => {
+                    this.paginatedCustomers = response.paginatedCustomers;
+
+                    this.formLoading = false;
+                    this.changeForm = false;
+                    this.form.reset();
+                  },
+                  error: (error) => {
+                    this.formLoading = false;
+                  },
+                });
+            },
+            error: (err) => {
+              this.formLoading = false;
+            },
+          });
+      }
+    } else {
+      this.submitted = true;
+
+      const invalidFields = this.getAllInvalidControls();
+      let invalidMessage = '';
+
+      if (invalidFields.length == 1) {
+        invalidMessage = `Please correct the field: ${invalidFields[0]}`;
+      } else if (invalidFields.length == 2) {
+        invalidMessage =
+          'Please correct the fields:' +
+          invalidFields.map((f: string) => `${f}`).join(' , ');
+      } else if (invalidFields.length == 3) {
+        invalidMessage = 'Please fill all required fields correctly.';
+      }
+
+      this.toastr.error(invalidMessage, 'Form Validation Error', {
+        closeButton: true,
+        timeOut: 3000,
+      });
+    }
   }
 }

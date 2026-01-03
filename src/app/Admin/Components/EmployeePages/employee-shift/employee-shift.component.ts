@@ -72,11 +72,11 @@ export class EmployeeShiftComponent implements OnInit {
   }
 
   initCalendar(employeeId: String) {
-    console.log(this.employee);
+    // console.log(this.employee);
     this.employeeService
       .getOneEmployeeShift(employeeId)
       .subscribe(async (response) => {
-        console.log(response);
+        // console.log(response);
         this.employeeDays = await response.shift;
 
         this.calendar(this.currentYear, this.currentMonth);
@@ -98,7 +98,7 @@ export class EmployeeShiftComponent implements OnInit {
   calendar(year: number, month: number) {
     this.dayInCurrentMonth = this.getDaysInMonth(year, month);
 
-    console.log(this.currentMonth);
+    // console.log(this.currentMonth);
 
     const containerTag = document.querySelector('.grid-container');
 
@@ -167,7 +167,7 @@ export class EmployeeShiftComponent implements OnInit {
       let historyEndtime;
       let shiftId;
 
-      console.log(this.employeeDays);
+      // console.log(this.employeeDays);
 
       this.employeeDays.forEach((doc) => {
         // console.log(parseInt(doc.shift_date.slice(8)), day);
@@ -176,13 +176,13 @@ export class EmployeeShiftComponent implements OnInit {
             ? doc.shift_date.slice(5, 6)
             : doc.shift_date.slice(5, 7);
 
-        console.log(sliceMonth);
+        // console.log(sliceMonth);
         if (
           parseInt(doc.shift_date.slice(8)) == parseInt(boxTag.textContent!) &&
           parseInt(doc.shift_date.slice(0, 4)) == this.currentYear &&
           parseInt(sliceMonth) == this.currentMonth + 1
         ) {
-          boxTag.classList.add('bg-primary');
+          boxTag.classList.add('active-day');
 
           const preDate = boxTag.textContent;
 
@@ -233,11 +233,11 @@ export class EmployeeShiftComponent implements OnInit {
           }`;
 
           const filterDate = this.employeeDays.filter((date) => {
-            console.log(clickedDate);
+            // console.log(clickedDate);
             return date.shift_date == clickedDate;
           });
 
-          console.log(filterDate);
+          // console.log(filterDate);
           if (filterDate.length == 0) {
             this.openPopup('Created Shift', {
               date: `${this.currentYear}-${this.currentMonth + 1}-${
@@ -322,6 +322,6 @@ export class EmployeeShiftComponent implements OnInit {
       this.initCalendar(this.employee._id);
     });
 
-    console.log(this.today);
+    // console.log(this.today);
   }
 }

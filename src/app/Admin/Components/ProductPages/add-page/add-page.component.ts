@@ -31,6 +31,9 @@ export class AddPageComponent implements OnInit {
 
   imageUrl: String = '../../../../../assets/images/image-upload2.png';
 
+  formLoading: boolean = false;
+  submitted: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private coffee: CoffeeService,
@@ -125,10 +128,10 @@ export class AddPageComponent implements OnInit {
   }
 
   onItemSelect(item: any) {
-    console.log(item);
+    // console.log(item);
   }
   onSelectAll(items: any) {
-    console.log(items);
+    // console.log(items);
   }
 
   selectedImage(event: Event) {
@@ -136,7 +139,7 @@ export class AddPageComponent implements OnInit {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
 
-      console.log('Selected file:', file);
+      // console.log('Selected file:', file);
       this.form.patchValue({ image_url: file });
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -147,37 +150,41 @@ export class AddPageComponent implements OnInit {
   }
 
   onCreateProduct(formValue: any, fileInput: HTMLInputElement) {
-    console.log(formValue);
-    if (this.currentBtn == 'create') {
-      this.coffee.createProduct(formValue).subscribe((response) => {
-        console.log(response);
-        this.toastr.success('Successfully added product!', 'Success', {
-          closeButton: true,
-          timeOut: 3000,
-        });
-      });
-      console.log(this.currentBtn);
-    } else {
-      console.log(this.data._id);
-      console.log(this.currentBtn);
-      this.coffee
-        .updateProduct(this.data._id, formValue)
-        .subscribe((response) => {
-          console.log(response);
-          this.toastr.success('Successfully updated product!', 'Success', {
+    // console.log(formValue);
+    if (this.form.valid) {
+      if (this.currentBtn == 'create') {
+        this.coffee.createProduct(formValue).subscribe((response) => {
+          // console.log(response);
+          this.toastr.success('Successfully added product!', 'Success', {
             closeButton: true,
             timeOut: 3000,
           });
         });
-    }
+        // console.log(this.currentBtn);
+      } else {
+        // console.log(this.data._id);
+        // console.log(this.currentBtn);
+        this.coffee
+          .updateProduct(this.data._id, formValue)
+          .subscribe((response) => {
+            // console.log(response);
+            this.toastr.success('Successfully updated product!', 'Success', {
+              closeButton: true,
+              timeOut: 3000,
+            });
+          });
+      }
 
-    this.form.reset();
-    if (fileInput) {
-      fileInput.value = '';
-    }
-    this.imageUrl = '../../../../../assets/images/image-upload2.png';
+      this.form.reset();
+      if (fileInput) {
+        fileInput.value = '';
+      }
+      this.imageUrl = '../../../../../assets/images/image-upload2.png';
 
-    this.changePage.emit({ page: 'info-page', data: {}, clickBtn: 'ok' });
+      this.changePage.emit({ page: 'info-page', data: {}, clickBtn: 'ok' });
+    } else {
+      this.form.markAllAsTouched();
+    }
   }
 
   onChangePage() {

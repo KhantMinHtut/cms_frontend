@@ -6,6 +6,7 @@ import { Route, Router } from '@angular/router';
 import { CoffeeService } from '../../coffee.service';
 import { Employee } from '../models/employee';
 import { EmployeeAddPageComponent } from '../Components/EmployeePages/employee-add-page/employee-add-page.component';
+import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,7 @@ import { EmployeeAddPageComponent } from '../Components/EmployeePages/employee-a
 export class DashboardComponent implements OnInit {
   currentIndex: number = 0;
   currentUser!: Employee;
+  role: number = 0;
   isAdmin: boolean = false;
   isUserEditPage!: Boolean;
 
@@ -24,22 +26,31 @@ export class DashboardComponent implements OnInit {
     private cookieService: CookieService,
     private employeeService: EmployeeService,
     private router: Router,
-    private coffee: CoffeeService
+    private coffee: CoffeeService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     const currentEmail = this.cookieService.get('email');
 
-    if (currentEmail) {
+    if (
+      currentEmail &&
+      this.cookieService.check('access_token') &&
+      this.cookieService.check('refresh_token')
+    ) {
       this.employeeService
         .getOneEmployee(currentEmail)
         .subscribe((response) => {
-          console.log(response);
+          // console.log(response);
           this.currentUser = response.employee;
+          this.role = response.employee.role;
+          // if (response.employee.role == 0) {
+          //   // this.router.navigate(['/menu']);
+          // } else if (response.employee.role == 1) {
+          //   this.isAdmin = true;
+          // }
           if (response.employee.role == 0) {
-            this.router.navigate(['/menu']);
-          } else if (response.employee.role == 1) {
-            this.isAdmin = true;
+            this.currentIndex = 1;
           }
         });
     } else {
@@ -48,14 +59,14 @@ export class DashboardComponent implements OnInit {
   }
 
   navItems = [
-    { icon: 'bi bi-house-fill', content: 'Home' },
-    { icon: 'bi bi-grid-fill', content: 'Sales' },
-    { icon: 'bi bi-box-seam-fill', content: 'Product' },
-    { icon: 'bi bi-journal-check', content: 'Order' },
+    { icon: 'bi bi-house-fill', content: 'Home', permission: [1] },
+    { icon: 'bi bi-grid-fill', content: 'Sales', permission: [1, 0] },
+    { icon: 'bi bi-box-seam-fill', content: 'Product', permission: [1] },
+    { icon: 'bi bi-journal-check', content: 'Order', permission: [1] },
 
-    { icon: 'bi bi-person-fill', content: 'Employee' },
-    { icon: 'bi bi-person-fill', content: 'Customer' },
-    { icon: 'bi bi-person-fill', content: 'Supplier' },
+    { icon: 'bi bi-person-fill', content: 'Employee', permission: [1] },
+    { icon: 'bi bi-person-fill', content: 'Customer', permission: [1] },
+    { icon: 'bi bi-person-fill', content: 'Supplier', permission: [1] },
   ];
 
   changePage(index: any, isUserEdit: boolean) {
@@ -65,7 +76,7 @@ export class DashboardComponent implements OnInit {
 
   showUserEditPage(value: boolean) {
     this.userEditPage = value;
-    console.log(value);
+    // console.log(value);
   }
 
   onHideEditUser(value: any) {
@@ -73,6 +84,6 @@ export class DashboardComponent implements OnInit {
   }
 
   logOut() {
-    this.coffee.logout();
+    this.authService.logout();
   }
 }

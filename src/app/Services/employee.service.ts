@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
   private apiUrl = 'https://cms-api-nk80.onrender.com/api/cms';
+  // private apiUrl = 'http://localhost:8080/api/cms';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private api: ApiService) {}
 
   createEmployee(employeeData: any): Observable<any> {
     const data = new FormData();
@@ -25,13 +27,14 @@ export class EmployeeService {
     // data.append('image', employeeData.image_url, employeeData.image_url.name);
 
     if (typeof employeeData.image_url == 'string') {
-      console.log(employeeData.image_url);
+      // console.log(employeeData.image_url);
       data.append('url', employeeData.image_url);
     } else {
       data.append('image', employeeData.image_url, employeeData.image_url.name);
     }
 
-    return this.http.post<any>(`${this.apiUrl}/employee/register`, data);
+    // return this.http.post<any>(`${this.apiUrl}/employee/register`, data);
+    return this.api.post(`${this.apiUrl}/employee/register`, data);
   }
 
   updatedEmployee(id: String, employeeData: any): Observable<any> {
@@ -49,30 +52,39 @@ export class EmployeeService {
     // data.append('image', employeeData.image_url, employeeData.image_url.name);
 
     if (typeof employeeData.image_url == 'string') {
-      console.log(employeeData.image_url);
+      // console.log(employeeData.image_url);
       data.append('url', employeeData.image_url);
     } else {
       data.append('image', employeeData.image_url, employeeData.image_url.name);
     }
 
-    return this.http.patch<any>(
+    // return this.http.patch<any>(
+    //   `${this.apiUrl}/employee/update-employee/${id}`,
+    //   data
+    // );
+    return this.api.patch(
       `${this.apiUrl}/employee/update-employee/${id}`,
       data
     );
   }
 
   getAllEmployees(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/employee/all-employees`);
+    // return this.http.get<any>(`${this.apiUrl}/employee/all-employees`);
+    return this.api.get(`${this.apiUrl}/employee/all-employees`);
   }
 
   getOneEmployee(email: String): Observable<any> {
-    return this.http.get<any>(
-      `${this.apiUrl}/employee/one-employee?email=${email}`
-    );
+    // return this.http.get<any>(
+    //   `${this.apiUrl}/employee/one-employee?email=${email}`
+    // );
+    return this.api.get(`${this.apiUrl}/employee/one-employee?email=${email}`);
   }
 
   getEmployeesByDate(startDate: String, endDate: String): Observable<any> {
-    return this.http.get(
+    // return this.http.get(
+    //   `${this.apiUrl}/employee/getemployeesbydate?startDate=${startDate}&endDate=${endDate}`
+    // );
+    return this.api.get(
       `${this.apiUrl}/employee/getemployeesbydate?startDate=${startDate}&endDate=${endDate}`
     );
   }
@@ -81,32 +93,40 @@ export class EmployeeService {
     currentPage: number,
     pageSize: number
   ): Observable<any> {
-    return this.http.get<any>(
+    // return this.http.get<any>(
+    //   `${this.apiUrl}/employee/paginatedEmployees?page=${currentPage}&pageSize=${pageSize}`
+    // );
+    return this.api.get(
       `${this.apiUrl}/employee/paginatedEmployees?page=${currentPage}&pageSize=${pageSize}`
     );
   }
 
   getEmployeeShifts(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/employee/get-shifts`);
+    // return this.http.get<any>(`${this.apiUrl}/employee/get-shifts`);
+    return this.api.get(`${this.apiUrl}/employee/get-shifts`);
   }
 
   getOneEmployeeShift(id: any): Observable<any> {
-    return this.http.get<any>(
-      `${this.apiUrl}/employee/get-oneEmployeeShift/${id}`
-    );
+    // return this.http.get<any>(
+    //   `${this.apiUrl}/employee/get-oneEmployeeShift/${id}`
+    // );
+    return this.api.get(`${this.apiUrl}/employee/get-oneEmployeeShift/${id}`);
   }
 
   createEmployeeShift(shift: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/employee/create-shift`, shift);
+    // return this.http.post<any>(`${this.apiUrl}/employee/create-shift`, shift);'
+    return this.api.post(`${this.apiUrl}/employee/create-shift`, shift);
   }
 
   updatedEmployeeShift(id: String, shift: any): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/employee/update-shift/${id}`, shift);
+    // return this.http.patch(`${this.apiUrl}/employee/update-shift/${id}`, shift);
+    return this.api.patch(`${this.apiUrl}/employee/update-shift/${id}`, shift);
   }
 
   deletedEmployee(id: String): Observable<any> {
-    return this.http.delete(
-      `${this.apiUrl}/employee/delete-one-employee/${id}`
-    );
+    // return this.http.delete(
+    //   `${this.apiUrl}/employee/delete-one-employee/${id}`
+    // );
+    return this.api.delete(`${this.apiUrl}/employee/delete-one-employee/${id}`);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { OrderService } from '../../../../Services/order.service';
 import { DatePipe } from '@angular/common';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './order-view-page.component.css',
 })
 export class OrderViewPageComponent {
+  @Input() orderId: string = '';
   @Output() changePage = new EventEmitter();
 
   orders: any[] = [];
@@ -35,6 +36,8 @@ export class OrderViewPageComponent {
   maxDate = new Date();
 
   isPageLoading: boolean = false;
+  deleteLoading: boolean = false;
+  detectBtn: string | null = null;
 
   constructor(
     private os: OrderService,
@@ -43,7 +46,7 @@ export class OrderViewPageComponent {
   ) {}
 
   ngOnInit(): void {
-    this.isPageLoading = true;
+    if (this.orderId === '') this.isPageLoading = true;
     this.fetchInitData();
   }
 
@@ -57,7 +60,7 @@ export class OrderViewPageComponent {
 
       this.os.getPaginateOrders(this.currentPage, this.pageSize).subscribe({
         next: (response) => {
-          console.log(response.orders);
+          // console.log(response.orders);
           this.paginationOrders = response.orders;
 
           setTimeout(() => {
@@ -80,7 +83,7 @@ export class OrderViewPageComponent {
     for (let i = 1; i < this.orderCount; i++) {
       if (this.pageSize * i < this.orderCount + this.pageSize) {
         this.pages.push(i);
-        console.log(this.pages);
+        // console.log(this.pages);
       }
     }
   }
@@ -170,24 +173,44 @@ export class OrderViewPageComponent {
   //   doc.save('testpdf');
   // }
 
-  onDeletedOrder(id: String) {
-    this.os.deletedOrder(id).subscribe((response) => {
-      console.log(response);
-
-      this.os.getOneOrderDetail(id).subscribe((response) => {
-        this.os
-          .deletedOrderDetails(response.orderDetail._id)
-          .subscribe((response) => {
-            console.log(response);
-
-            this.toastr.error('Deleted Order', 'Delete', {
-              closeButton: true,
-              timeOut: 3000,
+  onDeletedOrder(id: String, index: number) {
+    this.deleteLoading = true;
+    this.detectBtn = index.toString();
+    this.os.deletedOrder(id).subscribe({
+      next: (response) => {
+        this.os.getOneOrderDetail(id).subscribe((response) => {
+          this.os
+            .deletedOrderDetails(response.orderDetail._id)
+            .subscribe((response) => {
+              // console.log(response)
             });
+
+          this.deleteLoading = false;
+          this.detectBtn = null;
+
+          this.toastr.error('Deleted Order', 'Delete', {
+            closeButton: true,
+            timeOut: 3000,
           });
-      });
+
+          this.paginationOrders = this.paginationOrders.filter(
+            (order) => order._id != id
+          );
+
+          if (this.paginationOrders.length == 0) {
+            this.currentPage--;
+          }
+
+          this.fetchInitData();
+        });
+      },
+      error: (err) => {
+        setTimeout(() => {
+          this.deleteLoading = false;
+          this.detectBtn = null;
+        }, 2000);
+      },
     });
-    this.fetchInitData();
   }
 
   getStatusClass(status: string): string {

@@ -1,7 +1,8 @@
 .order-container {
   display: block;
-  height: 87vh;
+  height: calc(100vh - 95px);
   overflow-y: auto;
+  padding: 8px 10px;
 }
 
 /* .order-container::-webkit-scrollbar {
@@ -94,6 +95,10 @@ td {
   padding: 1rem;
 }
 
+table {
+  display: inline-table;
+}
+
 .table-container {
   /* height: 72vh; */
   border-radius: 15px;
@@ -125,7 +130,7 @@ td {
   width: 100%;
   /* height: calc(83% - 1.6rem); */
   height: auto;
-  min-height: 383px;
+  /* min-height: 383px; */
   overflow: auto;
   background-color: #f5f7f7;
   /* background-color: #fee7dc; */
@@ -151,7 +156,7 @@ tbody tr td {
 tbody tr:hover {
   background-color: #fff6;
 }
-
+/* 
 .table-body::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
@@ -169,7 +174,7 @@ tbody tr:hover {
 
 .table-body::-webkit-scrollbar-corner {
   display: none;
-}
+} */
 
 .table-pagination {
   width: 100%;

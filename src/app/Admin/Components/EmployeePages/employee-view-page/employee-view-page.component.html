@@ -1,14 +1,15 @@
-<div class="col-12 mainContainer" *ngIf="!isPageLoading">
+<div class="w-100 mainContainer" *ngIf="!isPageLoading">
   <div
-    class="w-100 mt-2 p-0 d-flex align-items-center justify-content-between a"
+    class="w-100 p-0 d-flex align-items-center justify-content-between flex-wrap a"
+    style="gap: 0.5rem"
   >
-    <div class="row scroll" style="flex: 1">
+    <div class="w-100 d-flex align-items-center" style="flex: 1">
       <!-- Employee Card -->
-      <div class="myCard">
+      <div class="myCard" matTooltip="Total Employees">
         <div class="title">
-          <span class="show-text user-select-none">Total Employee</span>
+          <span class="show-text user-select-none">Total Employees</span>
           <span class="show-icon">
-            <i class="bi bi-grid"></i>
+            <i class="bi bi-people-fill"></i>
           </span>
         </div>
         <div class="content mt-2 user-select-none">
@@ -17,12 +18,10 @@
       </div>
 
       <!-- Departments Card -->
-      <div class="myCard">
+      <div class="myCard" matTooltip="Total Departments">
         <div class="title">
-          <span class="d-none d-sm-none d-md-inline-block user-select-none"
-            >Departments</span
-          >
-          <span class="d-inline d-sm-inline d-md-none">
+          <span class="show-text user-select-none">Departments</span>
+          <span class="show-icon">
             <i class="bi bi-grid"></i>
           </span>
         </div>
@@ -32,15 +31,6 @@
       </div>
     </div>
     <div class="">
-      <!-- <div class="myBotton" (click)="onChangePage()">
-        <div class="title">
-          <span class="btnIcon"><i class="bi bi-cart-plus-fill"></i></span>
-          <span class="d-none d-sm-inline d-md-inline-block user-select-none"
-            >create product</span
-          >
-        </div>
-      </div> -->
-
       <button class="addBtn" mat-fab extended (click)="onChangePage()">
         <mat-icon>person_add</mat-icon>
         <span class="">Add Employee</span>
@@ -178,7 +168,7 @@
     </div>
   </div> -->
 
-  <div class="row mt-3">
+  <div class="w-100 mt-3">
     <mat-tab-group
       style="width: 100%"
       mat-stretch-tabs="false"
@@ -247,11 +237,11 @@
               </div>
               <div class="date">
                 <div style="width: 40px; font-weight: bold">Date</div>
-                <span>: {{ employee.createdAt | date }}</span>
+                <span>: {{ employee.createdAt | date : "dd/MM/yy" }}</span>
               </div>
               <div class="role">
                 <div style="width: 40px; font-weight: bold">Role</div>
-                <span>: {{ employee.role }}</span>
+                <span>: {{ employee.role == 1 ? "Admin" : "user" }}</span>
               </div>
             </div>
 

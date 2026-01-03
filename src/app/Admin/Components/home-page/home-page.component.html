@@ -112,7 +112,7 @@
         class="barChart col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12"
       >
         <div class="orderBarChart w-100">
-          @if (monthsDatas.join('') != "000000000000") {
+          @if (true) {
           <canvas
             baseChart
             [data]="orderData"
@@ -131,7 +131,7 @@
         </div>
 
         <div class="saleBarChart w-100">
-          @if (monthsDatas.join('') != "000000000000") {
+          @if (true) {
           <canvas
             baseChart
             [data]="paymentData"
@@ -153,10 +153,11 @@
         class="pieChart-shaff d-flex flex-xxl-column flex-xl-column flex-lg-column flex-md-row flex-sm-column flex-column col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12"
       >
         <div class="pieChart">
-          @if(pieChartData.length != 0) {
           <div style="color: #757372; margin-bottom: 3px; padding-top: 6px">
             Top Selling Products
           </div>
+          @if(pieChartData.length != 0) {
+
           <canvas
             baseChart
             [data]="pieChart"
@@ -165,12 +166,19 @@
           >
           </canvas>
           } @else {
-          <span>
+          <span
+            class="d-flex align-items-center justify-content-center flex-column"
+            style="flex: 1"
+          >
             <img
-              src="../../../../assets/images/nodatafound.png"
+              src="../../../../assets/images/no-product-found.png"
               alt="dataset"
-              style="width: 300px"
+              style="width: 200px"
             />
+
+            <div style="font-size: 1.3rem; opacity: 0.7">
+              No selling product
+            </div>
           </span>
           }
         </div>

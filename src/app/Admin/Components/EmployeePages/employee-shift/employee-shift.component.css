@@ -1,3 +1,10 @@
+main {
+  padding: 8px 10px;
+  height: calc(100vh - 92px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .calendar-container {
   background-color: white;
   border-radius: 10px;
@@ -8,22 +15,23 @@
 .grid-container {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(6, 65px);
+  /* grid-template-rows: repeat(6, 65px); */
 }
 
 .day-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: 60px;
-  border: 2px solid black;
+  grid-template-rows: 50px;
+  border: 2px solid #8b5641;
 }
 
 .day-grid div {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background-color: #bfb6d4;
+  /* background-color: #bfb6d4; */
+  color: white;
+  background-color: #aa715a;
 }
 
 .grid-container div:nth-child(even) {
@@ -47,4 +55,10 @@
 
 .brown {
   color: #aa715a;
+}
+
+.current-month-year {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #8b5641;
 }

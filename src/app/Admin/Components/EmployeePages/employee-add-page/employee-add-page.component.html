@@ -1,11 +1,7 @@
-<main>
-  <div class="container-fluid">
-    <div class="row">
-      <!-- <span class="productBtn" (click)="onChangePage()">
-        <i class="bi bi-arrow-left"></i>
-      </span> -->
-
-      <button mat-fab class="addBtn" (click)="onChangePage()">
+<main style="padding: 8px 10px">
+  <div class="w-100">
+    <div class="w-100 d-flex align-items-center">
+      <button mat-fab class="addBtn back-btn" (click)="onChangePage()">
         <mat-icon>arrow_back</mat-icon>
       </button>
     </div>
@@ -236,11 +232,11 @@
         </div>
 
         <div>
-          <label class="custom-radio">
+          <label class="custom-radio" style="cursor: pointer">
             <input type="radio" formControlName="role" value="1" />
             <span class="radio-label">Admin </span>
           </label>
-          <label class="custom-radio">
+          <label class="custom-radio" style="cursor: pointer">
             <input type="radio" formControlName="role" value="0" />
             <span class="radio-label">User</span>
           </label>
@@ -254,8 +250,8 @@
             (click)="onSubmit(form.value, fileInput)"
             [disabled]="!form.valid"
           >
-            Submit
-            <mat-icon>send</mat-icon>
+            {{ clickedBtn == "create" ? "Create" : "Update" }}
+            <mat-icon>person_add</mat-icon>
           </button>
         </div>
       </div>

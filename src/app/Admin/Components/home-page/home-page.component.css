@@ -13,6 +13,16 @@
   overflow-y: auto;
 }
 
+/* Change thumb color only */
+.homepage::-webkit-scrollbar-thumb {
+  background-color: #aa715a; /* your color */
+}
+
+/* Optional — track color (transparent keeps default look) */
+.homepage::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+/* 
 .homepage::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
@@ -21,16 +31,12 @@
 .homepage::-webkit-scrollbar-thumb {
   border-radius: 0.5rem;
   background-color: #aa715a;
-  visibility: hidden;
-}
-
-.homepage:hover::-webkit-scrollbar-thumb {
   visibility: visible;
 }
 
 .homepage::-webkit-scrollbar-corner {
   display: none;
-}
+} */
 
 .header {
   display: flex;

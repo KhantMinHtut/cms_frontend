@@ -1,30 +1,40 @@
 <main class="main">
-  <div class="container-fluid">
-    <div class="row">
-      <span class="productBtn" (click)="onChangePage()">
+  <div class="w-100">
+    <div class="w-100 d-flex align-items-center justify-content-between">
+      <!-- <span class="productBtn" (click)="onChangePage()">
         <i class="bi bi-arrow-left"></i>
-      </span>
+      </span> -->
+      <div class="d-flex" style="flex: 1; gap: 1rem">
+        <button
+          mat-fab
+          class="back-btn"
+          style="background-color: #aa715a"
+          (click)="onChangePage()"
+        >
+          <mat-icon>arrow_back</mat-icon>
+        </button>
 
-      <span>
-        <div class="col-12 d-flex align-items-center">
-          <h2 class="mr-3">Order Id: #{{ customOrderId }}</h2>
-          <!-- <span class="status completed">Pending</span> -->
-        </div>
-        <div class="col-12">
-          <span class="mr-4"
-            >Oder Date: {{ orderDetails.createdAt | date : "dd-MM-yyyy" }} at
-            {{ orderDetails.createdAt | date : "h:mm a" }}</span
-          >
-          <span
-            >Order Status:
-            <span class="status" [ngClass]="orderStatus">{{
-              orderStatus
-            }}</span></span
-          >
-        </div>
-      </span>
+        <span>
+          <div class="d-flex align-items-center">
+            <h2 class="mr-3">Order Id: #{{ customOrderId }}</h2>
+            <!-- <span class="status completed">Pending</span> -->
+          </div>
+          <div class="d-flex align-items-center flex-wrap" style="gap: 0.5rem">
+            <span class=""
+              >Oder Date: {{ orderDetails.createdAt | date : "dd-MM-yyyy" }} at
+              {{ orderDetails.createdAt | date : "h:mm a" }}</span
+            >
+            <span
+              >Order Status:
+              <span class="status" [ngClass]="orderStatus">{{
+                orderStatus
+              }}</span></span
+            >
+          </div>
+        </span>
+      </div>
 
-      <span class="offset-6 d-flex justify-content-center align-items-center">
+      <span class="d-flex justify-content-center align-items-center">
         <button
           class="btn btn-primary"
           printTitle="Coffee Shop"
@@ -82,7 +92,7 @@
     </div>
   </div>
 
-  <section class="container-fluid">
+  <section class="w-100">
     <div class="row">
       <!-- <div class="col-12 d-flex align-items-center">
         <h2 class="mr-3">Order Id: #001</h2>
@@ -93,9 +103,9 @@
         <span>Order Status: <span class="status completed">Pending</span></span>
       </div> -->
     </div>
-    <div class="row mt-3">
+    <div class="w-100 mt-3">
       <div
-        class="col-12 d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column h-75"
+        class="w-100 d-flex flex-xl-row flex-lg-row flex-md-column flex-sm-column flex-column h-75"
       >
         <div class="col-xl-8 col-lg-7 col-md-12 col-sm-12 col-12">
           <div class="table-body">
@@ -138,6 +148,7 @@
         </div>
         <div
           class="col-xl-4 col-lg-5 col-md-12 d-xl-inline-block d-lg-inline-block d-md-flex flex-xl-column flex-lg-column flex-md-row justify-content-between mt-xl-0 mt-lg-0 mt-md-0 mt-sm-3 mt-3"
+          style="gap: 1rem"
         >
           <div class="col-xl-12 col-lg-12 col-md-6 p-1 mt-xl-0 mt-lg-0 mt-md-3">
             <div class="myCard">
@@ -167,17 +178,17 @@
               <div class="body">
                 <div class="d-flex justify-content-between align-items-center">
                   <span>Payment Date</span>
-                  <span>{{ payment.payment_date | date }}</span>
+                  <span>{{ payment?.payment_date | date }}</span>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
                   <span>Payment Method</span>
-                  <span>{{ payment.payment_method }}</span>
+                  <span>{{ payment?.payment_method }}</span>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
                   <span>Subtotal</span>
-                  <span>{{ payment.amount }}</span>
+                  <span>{{ payment?.amount }}</span>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
@@ -189,7 +200,7 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                   <span>Total</span>
-                  <span>{{ payment.amount }}</span>
+                  <span>{{ payment?.amount }}</span>
                 </div>
               </div>
             </div>

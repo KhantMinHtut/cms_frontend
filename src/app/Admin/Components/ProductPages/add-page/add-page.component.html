@@ -1,13 +1,14 @@
-<div class="">
+<div class="product-form">
   <div class="container-fluid">
-    <div class="row backBtnRow">
+    <div class="w-100 backBtnRow">
       <!-- <span class="productBtn" (click)="onChangePage()">
         <i class="bi bi-arrow-left"></i>
       </span> -->
 
       <button
         mat-fab
-        style="background-color: #aa715a"
+        class="back-btn"
+        style="background-color: #aa715a; margin-top: 5px"
         (click)="onChangePage()"
       >
         <mat-icon>arrow_back</mat-icon>
@@ -288,8 +289,10 @@
             (click)="onCreateProduct(form.value, fileInput)"
             [disabled]="!form.valid"
           >
-            Submit
-            <mat-icon>send</mat-icon>
+            {{ currentBtn != "create" ? "Update" : "Create" }}
+            <mat-icon>{{
+              currentBtn != "create" ? "update" : "add_2"
+            }}</mat-icon>
           </button>
         </div>
       </div>

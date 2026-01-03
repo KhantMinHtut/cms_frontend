@@ -284,3 +284,51 @@ select:-webkit-autofill {
   margin-top: 35px !important;
   text-transform: none !important;
 }
+
+.welcome {
+  font-size: 5.5vw;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 680px) {
+  .welcome {
+    margin-top: 60px;
+  }
+
+  .loginbox {
+    width: 500px;
+    min-height: 55vh;
+  }
+
+  .mycontainer form {
+    padding: 0 23px;
+  }
+
+  .mycontainer button {
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 518px) {
+  .toggle-container {
+    border-radius: 110px 0 0 110px;
+  }
+
+  .loginbox {
+    width: 380px;
+    min-height: 55vh;
+  }
+
+  .mycontainer form {
+    padding: 0 12px;
+  }
+
+  .toggle-panel h3 {
+    font-size: 1.4rem;
+  }
+
+  .mycontainer button {
+    padding: 10px 10px;
+  }
+}

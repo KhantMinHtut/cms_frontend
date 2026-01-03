@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { EmployeeService } from '../../../../Services/employee.service';
 import { ToastrService } from 'ngx-toastr';
@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './employee-view-page.component.css',
 })
 export class EmployeeViewPageComponent implements OnInit {
+  @Input() currentBtn: string = '';
+
   employees: any[] = [];
   managers: any[] = [];
   baristas: any[] = [];
@@ -48,7 +50,7 @@ export class EmployeeViewPageComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.isPageLoading = true;
+    if (this.currentBtn != 'create') this.isPageLoading = true;
     this.fetchEmployeesData();
   }
 
@@ -57,7 +59,7 @@ export class EmployeeViewPageComponent implements OnInit {
     for (let i = 1; i < this.employeeCount; i++) {
       if (this.pageSize * i < this.employeeCount + this.pageSize) {
         this.pages.push(i);
-        console.log(this.pages);
+        // console.log(this.pages);
       }
     }
   }
@@ -103,8 +105,8 @@ export class EmployeeViewPageComponent implements OnInit {
       .getPaginatedEmployees(currentPage, this.pageSize)
       .subscribe((response) => {
         this.paginatedEmployees = response.paginatedEmployees;
-        console.log(currentPage, this.pageSize);
-        console.log(response);
+        // console.log(currentPage, this.pageSize);
+        // console.log(response);
       });
   }
 
@@ -192,7 +194,7 @@ export class EmployeeViewPageComponent implements OnInit {
 
   onDeleteEmployee(id: String) {
     this.employeeService.deletedEmployee(id).subscribe((response) => {
-      console.log(response);
+      // console.log(response);
       this.toastr.success('Successfully Deleted Employee!', 'Success', {
         closeButton: true,
         timeOut: 3000,

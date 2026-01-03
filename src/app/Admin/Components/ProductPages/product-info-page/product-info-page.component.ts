@@ -49,7 +49,7 @@ export class ProductInfoPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isPageLoading = true;
+    if (this.currentBtn != 'ok') this.isPageLoading = true;
     this.fetchProductsData();
   }
 
@@ -62,7 +62,7 @@ export class ProductInfoPageComponent implements OnInit {
     for (let i = 1; i < this.productCount; i++) {
       if (this.pageSize * i < this.productCount + this.pageSize) {
         this.pages.push(i);
-        console.log(this.pages);
+        // console.log(this.pages);
       }
     }
   }
@@ -72,7 +72,7 @@ export class ProductInfoPageComponent implements OnInit {
     this.coffee.getProducts().subscribe(async (response) => {
       this.productCount = await response.count;
 
-      console.log(this.productCount);
+      // console.log(this.productCount);
       response.products.forEach((product: any) => {
         this.productFiler.push(product);
       });
@@ -82,7 +82,7 @@ export class ProductInfoPageComponent implements OnInit {
           this.categoryList.push(product.category);
         }
       });
-      console.log(this.categoryList);
+      // console.log(this.categoryList);
 
       this.reorderList = [];
 

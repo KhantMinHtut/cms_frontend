@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SupplierPopupComponent } from '../supplier-popup/supplier-popup.component';
 import { ToastrService } from 'ngx-toastr';
 import { Supplier } from '../../../models/supplier';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-supplier-page',
@@ -25,24 +26,47 @@ export class SupplierPageComponent implements OnInit {
   searchInput: String = 'd-none';
 
   supplierInfo = {
+    _id: '',
     name: '',
     contact_person: '',
     email: '',
     phone: '',
   };
 
+  isCreateMode: boolean = true;
+
+  form: FormGroup;
+
+  changeForm: boolean = false;
+  formLoading: boolean = false;
+  submitted: boolean = false;
+
   constructor(
     private coffee: CoffeeService,
     private dialog: MatDialog,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder
+  ) {
+    this.form = this.formBuilder.group({
+      name: [
+        this.supplierInfo.name,
+        [Validators.required, Validators.minLength(3)],
+      ],
+      contact_person: [this.supplierInfo.contact_person, [Validators.required]],
+      email: [this.supplierInfo.email, [Validators.required, Validators.email]],
+      phone: [
+        this.supplierInfo.phone,
+        [Validators.required, Validators.pattern(/^[0-9]{11}$/)],
+      ],
+    });
+  }
 
   ngOnInit(): void {
+    this.isPageLoading = true;
     this.initData();
   }
 
   initData() {
-    this.isPageLoading = true;
     this.coffee.getSuppliers().subscribe(async (response) => {
       this.suppliers = await response.suppliers;
       this.supplierCount = await response.count;
@@ -72,7 +96,7 @@ export class SupplierPageComponent implements OnInit {
     for (let i = 1; i < this.supplierCount; i++) {
       if (this.pageSize * i < this.supplierCount + this.pageSize) {
         this.pages.push(i);
-        console.log(this.pages);
+        // console.log(this.pages);
       }
     }
   }
@@ -82,7 +106,7 @@ export class SupplierPageComponent implements OnInit {
     this.coffee
       .getPaginatedSuppliers(currentPage, this.pageSize)
       .subscribe((response) => {
-        this.suppliers = response.suppliers;
+        this.paginatedSuppliers = response.suppliers;
       });
   }
 
@@ -136,7 +160,31 @@ export class SupplierPageComponent implements OnInit {
     }
   }
 
-  onChangePage() {}
+  onChangePage() {
+    this.changeForm = false;
+    this.submitted = false;
+    this.form.reset();
+  }
+
+  onUpdateSupplier(supplier: Supplier) {
+    this.supplierInfo = {
+      _id: supplier._id || '',
+      name: supplier.name || '',
+      contact_person: supplier.contact_person || '',
+      email: supplier.email || '',
+      phone: supplier.phone || '',
+    };
+
+    this.form.patchValue({
+      name: this.supplierInfo.name,
+      contact_person: this.supplierInfo.contact_person,
+      email: this.supplierInfo.email,
+      phone: this.supplierInfo.phone,
+    });
+
+    this.changeForm = true;
+    this.isCreateMode = false;
+  }
 
   onDeletedSupplier(id: String) {
     this.coffee.deletedSupplier(id).subscribe((response) => {
@@ -144,8 +192,17 @@ export class SupplierPageComponent implements OnInit {
         closeButton: true,
         timeOut: 3000,
       });
+
+      this.paginatedSuppliers = this.paginatedSuppliers.filter(
+        (supplier) => supplier._id != id
+      );
+
+      if (this.paginatedSuppliers.length == 0) {
+        this.currentPage--;
+      }
+
+      this.initData();
     });
-    this.initData();
   }
 
   openPopup(title: String, info: any) {
@@ -161,5 +218,110 @@ export class SupplierPageComponent implements OnInit {
     _popup.afterClosed().subscribe((item) => {
       this.initData();
     });
+  }
+
+  getAllInvalidControls(form = this.form) {
+    const invalid: any = [];
+
+    Object.keys(form.controls).forEach((key) => {
+      const control = form.get(key);
+
+      if (control instanceof FormGroup) {
+        invalid.push(...this.getAllInvalidControls(control));
+      } else if (control?.invalid) {
+        invalid.push(key);
+      }
+    });
+
+    return invalid;
+  }
+
+  onSubmit() {
+    const formValue = this.form.value;
+
+    if (this.form.valid) {
+      this.formLoading = true;
+      if (this.isCreateMode) {
+        this.coffee.createdSupplier(formValue).subscribe({
+          next: (response) => {
+            this.toastr.success('Successfully Added Supplier!', 'Success', {
+              closeButton: true,
+              timeOut: 3000,
+            });
+
+            this.formLoading = false;
+            this.changeForm = false;
+            this.form.reset();
+
+            this.coffee.getSuppliers().subscribe(async (response) => {
+              this.suppliers = await response.suppliers;
+              this.supplierCount = await response.count;
+
+              this.coffee
+                .getPaginatedSuppliers(this.currentPage, this.pageSize)
+                .subscribe({
+                  next: (response) => {
+                    this.paginatedSuppliers = response.suppliers;
+                  },
+                  error: (error) => {},
+                });
+
+              this.pagination();
+            });
+          },
+          error: (err) => {
+            this.formLoading = false;
+          },
+        });
+      } else {
+        this.coffee
+          .updatedSupplier(this.supplierInfo._id, formValue)
+          .subscribe({
+            next: (response) => {
+              // console.log(response);
+              this.toastr.success('Successfully Updated Supplier!', 'Success', {
+                closeButton: true,
+                timeOut: 3000,
+              });
+
+              this.formLoading = false;
+              this.changeForm = false;
+              this.form.reset();
+
+              this.coffee
+                .getPaginatedSuppliers(this.currentPage, this.pageSize)
+                .subscribe({
+                  next: (response) => {
+                    this.paginatedSuppliers = response.suppliers;
+                  },
+                  error: (error) => {},
+                });
+            },
+            error: (err) => {
+              this.formLoading = false;
+            },
+          });
+      }
+    } else {
+      this.submitted = true;
+
+      const invalidFields = this.getAllInvalidControls();
+      let invalidMessage = '';
+
+      if (invalidFields.length == 1) {
+        invalidMessage = `Please correct the field: ${invalidFields[0]}`;
+      } else if (invalidFields.length > 1 && invalidFields.length < 4) {
+        invalidMessage =
+          'Please correct the fields:' +
+          invalidFields.map((f: string) => `${f}`).join(' , ');
+      } else if (invalidFields.length == 4) {
+        invalidMessage = 'Please fill all required fields correctly.';
+      }
+
+      this.toastr.error(invalidMessage, 'Form Validation Error', {
+        closeButton: true,
+        timeOut: 3000,
+      });
+    }
   }
 }

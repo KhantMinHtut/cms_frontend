@@ -17,17 +17,17 @@ import { PaymentService } from '../../../../Services/payment.service';
   styleUrl: './order-details-page.component.css',
 })
 export class OrderDetailsPageComponent implements OnInit {
-  @Input() orderId: String = '';
+  @Input() orderId: string = '';
   @Output() changePage = new EventEmitter();
 
   orderDetails: any = {};
-  customOrderId: String = '';
-  orderStatus: String = '';
+  customOrderId: string = '';
+  orderStatus: string = '';
   productCollection: any[] = [];
   products: any[] = [];
   customerInfo: any = {};
   payment: any = {};
-  status: String = 'completed';
+  status: string = 'completed';
 
   constructor(
     private os: OrderService,
@@ -42,9 +42,9 @@ export class OrderDetailsPageComponent implements OnInit {
   }
 
   fetchData(id: any) {
-    console.log(id);
+    // console.log(id);
     this.os.getOneOrderDetail(id).subscribe(async (response) => {
-      console.log(response.orderDetail);
+      // console.log(response.orderDetail);
       this.orderDetails = await response.orderDetail;
       this.productCollection = await response.orderDetail.product_id;
       const productName: any[] = [];
@@ -53,7 +53,7 @@ export class OrderDetailsPageComponent implements OnInit {
         if (!productName.includes(product.name)) {
           this.products.push(product);
           productName.push(product.name);
-          console.log(this.products);
+          // console.log(this.products);
         }
       });
 
@@ -65,7 +65,7 @@ export class OrderDetailsPageComponent implements OnInit {
         .subscribe(async (response) => {
           this.customerInfo = await response.customer;
 
-          console.log(this.customerInfo);
+          // console.log(this.customerInfo);
         });
     });
 
@@ -81,7 +81,7 @@ export class OrderDetailsPageComponent implements OnInit {
   }
 
   onChangePage() {
-    this.changePage.emit({ page: 'view-page', orderId: '' });
+    this.changePage.emit({ page: 'view-page', orderId: this.orderId });
   }
 
   print() {

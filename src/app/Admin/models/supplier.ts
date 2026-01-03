@@ -1,8 +1,8 @@
 export class Supplier {
-  _id?: String;
-  supplier_id?: Number;
-  name?: String;
-  contact_person?: String;
-  phone?: String;
-  email?: String;
+  _id?: string;
+  supplier_id?: number;
+  name?: string;
+  contact_person?: string;
+  phone?: string;
+  email?: string;
 }

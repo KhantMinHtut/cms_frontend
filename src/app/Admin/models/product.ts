@@ -1,14 +1,14 @@
 export class Product {
-  _id?: String;
-  image_url?: String;
-  ingredients?: String;
-  name?: String;
-  price?: Number;
-  quantity?: Number;
-  origin?: String;
-  discount?: Number;
-  reorderlevel?: Number;
-  category?: String;
-  supplier_id?: String[];
-  description?: String;
+  _id?: string;
+  image_url?: string;
+  ingredients?: string;
+  name?: string;
+  price?: number;
+  quantity?: number;
+  origin?: string;
+  discount?: number;
+  reorderlevel?: number;
+  category?: string;
+  supplier_id?: string[];
+  description?: string;
 }

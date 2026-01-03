@@ -1,5 +1,12 @@
+.product-form {
+  --text-color: #8b5641;
+  --primary-color: #aa715a;
+  --input-bg: #ffedde40;
+  --input-shadow: #aa715a42;
+}
+
 .productBtn {
-  background-color: #aa715a;
+  background-color: var(--primary-color);
   color: white;
   font-size: 23px;
   padding: 5px 12px;
@@ -44,7 +51,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  border: 4px dashed #aa715a;
+  border: 4px dashed var(--primary-color);
   overflow: hidden;
 }
 
@@ -56,11 +63,12 @@
 .textarea {
   width: 250px;
   border-radius: 10px;
-  background-color: #aa715a;
-  color: white;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 2px solid var(--primary-color);
 }
 .textarea::placeholder {
-  color: white;
+  color: var(--text-color);
 }
 
 /* .ingredients {
@@ -117,12 +125,13 @@ textarea.ng-invalid.ng-touched {
 }
 
 .description {
-  background-color: #aa715a;
-  color: white;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 2px solid var(--primary-color);
 }
 
 .description::placeholder {
-  color: white;
+  color: var(--text-color);
 }
 
 ::ng-deep .multiselect-dropdown .dropdown-input::placeholder {
@@ -131,13 +140,29 @@ textarea.ng-invalid.ng-touched {
 }
 
 .category {
-  background-color: #aa715a !important;
+  background-color: #ffedde40 !important;
   color: white;
 }
 
 .category option {
-  color: white;
-  background-color: #aa715a;
+  color: var(--text-color);
+  font-size: 1rem;
+  background-color: var(--input-bg);
+}
+
+.form-control {
+  background-color: var(--input-bg) !important;
+  color: var(--text-color) !important;
+  border: 2px solid var(--primary-color) !important;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem var(--input-shadow);
+}
+
+::ng-deep .mat-mdc-fab[disabled],
+.mat-mdc-fab.mat-mdc-button-disabled {
+  background-color: #aa715a69 !important;
 }
 
 @media screen and (max-width: 991px) {
@@ -152,7 +177,7 @@ textarea.ng-invalid.ng-touched {
   }
 
   .textarea {
-    width: 85%;
+    width: 89%;
     height: 120px;
   }
 
@@ -216,10 +241,10 @@ textarea.ng-invalid.ng-touched {
 }
 
 input {
-  background-color: #aa715a !important;
-  color: white !important;
+  background-color: var(--input-bg) !important;
+  color: var(--text-color) !important;
 }
 
 input::placeholder {
-  color: white !important;
+  color: var(--text-color) !important;
 }

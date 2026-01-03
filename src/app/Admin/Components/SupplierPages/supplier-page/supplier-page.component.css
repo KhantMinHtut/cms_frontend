@@ -1,7 +1,6 @@
 main {
-  padding: 0 15px;
-  height: 87vh;
-
+  padding: 8px 10px;
+  height: calc(100vh - 95px);
   overflow-y: auto;
 }
 
@@ -279,6 +278,95 @@ tbody tr:hover {
     flex-direction: row;
   }
 } */
+
+/* ======================== Customer Form ===================== */
+.customer-form {
+  padding: 8px 10px;
+
+  --text-color: #8b5641;
+  --primary-color: #aa715a;
+  --input-bg: #ffedde40;
+  --input-shadow: #aa715a42;
+
+  --mdc-circular-progress-active-indicator-color: white !important;
+}
+
+.backBtnRow {
+  background-color: transparent;
+}
+
+.form-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+  row-gap: 1.5rem;
+}
+
+.input-container {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.input-container label {
+  width: 120px;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.customer-form .form-control {
+  background-color: var(--input-bg) !important;
+  color: var(--text-color) !important;
+  border: 2px solid var(--primary-color) !important;
+}
+
+.customer-form .form-control::placeholder {
+  color: var(--primary-color);
+}
+
+.customer-form .form-control:focus {
+  box-shadow: 0 0 0 0.2rem var(--input-shadow);
+}
+
+::ng-deep .mat-mdc-raised-button:not(:disabled) {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+::ng-deep .mat-mdc-raised-button {
+  border-radius: 17px !important;
+  height: 42px !important;
+  padding: 0 1.5rem !important;
+}
+
+::ng-deep .mdc-button .mdc-button__label {
+  display: flex !important;
+  align-items: center !important;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: 450px) {
+  .form-container {
+    row-gap: 0.8rem;
+  }
+
+  .input-container {
+    height: auto;
+    flex-direction: column;
+    align-items: start;
+    gap: 0;
+  }
+}
+/* ============================================================= */
 
 @media screen and (max-width: 500px) {
   .myCard {

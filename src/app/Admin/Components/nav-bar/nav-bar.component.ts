@@ -4,8 +4,11 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnChanges,
+  OnInit,
   Output,
   Renderer2,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Employee } from '../../models/employee';
@@ -16,17 +19,27 @@ import { CoffeeService } from '../../../coffee.service';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css',
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnChanges {
   @ViewChild('userInfoBtn') userInfoBtn!: ElementRef;
   @ViewChild('userInfoCard') userInfoCard!: ElementRef;
 
   @Input() currentUser: Employee = {};
   @Output() onEditPage = new EventEmitter();
 
+  image_url: string = '../../../../assets/images/employee placeholder.png';
+
   click: Boolean = false;
   userEditPage: Boolean = false;
 
   constructor(private renderer: Renderer2, private coffee: CoffeeService) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['currentUser'].currentValue) {
+      this.image_url =
+        changes['currentUser'].currentValue.image_url ||
+        '../../../../assets/images/employee placeholder.png';
+    }
+  }
 
   showUserInfo(): void {
     this.click = !this.click;

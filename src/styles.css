@@ -6,20 +6,55 @@
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
+  scrollbar-color: #aa715a transparent;
 }
 
 .multiselect-dropdown {
-  background-color: #aa715a;
+  background-color: #ffedde40;
   border-radius: 4px;
 }
 
 .multiselect-dropdown .dropdown-input::placeholder {
-  color: white !important; /* Set your desired color */
+  color: #8b5641 !important; /* Set your desired color */
   opacity: 1; /* Optional: Ensure the color is fully visible */
+}
+
+.multiselect-dropdown .dropdown-btn {
+  color: #8b5641 !important;
+  border: 2px solid #aa715a !important;
+}
+
+.multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret:before {
+  border-color: #aa715a transparent;
+}
+
+.dropdown-list ul {
+  background-color: #ffedde40;
 }
 
 .multiselect-dropdown .dropdown-btn .selected-item-container .selected-item {
   max-width: none !important;
+  border-color: #aa715a !important;
+  background-color: #aa715a !important;
+  font-size: 0.85rem !important;
+}
+
+/* Multiselect checkbox */
+.multiselect-item-checkbox input[type="checkbox"] + div {
+  color: #8b5641 !important;
+}
+
+.multiselect-item-checkbox input[type="checkbox"] + div:before {
+  border-color: #8b5641 !important;
+  border-radius: 4px !important;
+}
+
+.multiselect-item-checkbox input[type="checkbox"]:checked + div:before {
+  background: #aa715a !important;
+}
+
+html .mat-mdc-fab.mat-primary {
+  --mdc-fab-container-color: #aa715a;
 }
 
 html,
@@ -32,35 +67,37 @@ body {
 }
 
 .box {
-  border-bottom: 2px solid black;
-  border-left: 2px solid black;
+  border-bottom: 2px solid #8b5641;
+  border-left: 2px solid #8b5641;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 65px;
+  color: #8b5641;
 }
 
 .box:nth-child(7) {
-  border-right: 2px solid black;
+  border-right: 2px solid #8b5641;
 }
 
 .box:nth-child(14) {
-  border-right: 2px solid black;
+  border-right: 2px solid #8b5641;
 }
 
 .box:nth-child(21) {
-  border-right: 2px solid black;
+  border-right: 2px solid #8b5641;
 }
 
 .box:nth-child(28) {
-  border-right: 2px solid black;
+  border-right: 2px solid #8b5641;
 }
 
 .box:nth-child(35) {
-  border-right: 2px solid black;
+  border-right: 2px solid #8b5641;
 }
 
 .box:nth-child(42) {
-  border-right: 2px solid black;
+  border-right: 2px solid #8b5641;
 }
 
 .selectedBox {
@@ -136,11 +173,15 @@ body {
 
 .shiftCard {
   padding: 3px 6px;
-  border: 1px solid black;
+  border: 1px solid #8b5641;
   border-radius: 5px;
-  background-color: green;
-
+  background-color: #ad7760;
+  color: white;
   animation: animate 0.5s ease-in-out;
+}
+
+.active-day {
+  background-color: #86e49d;
 }
 
 @keyframes animate {
@@ -150,4 +191,29 @@ body {
   to {
     transform: scale(1);
   }
+}
+
+.mdc-fab.back-btn {
+  width: 46px !important;
+  height: 46px !important;
+}
+
+.mdc-fab.calender {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.cdk-overlay-container {
+  z-index: 5000 !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #917054;
+  -webkit-box-shadow: 0 0 0px 1000px #ffedde40 inset;
+  box-shadow: 0 0 0px 1000px #ffedde40 inset;
+  transition: background-color 5000s ease-in-out 0s;
 }

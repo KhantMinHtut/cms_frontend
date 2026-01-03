@@ -4,18 +4,21 @@ import { Observable, retry } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { ApiService } from './Services/api.service';
 @Injectable({
   providedIn: 'root',
 })
 export class CoffeeService {
   private apiUrl = 'https://cms-api-nk80.onrender.com/api/cms';
+  // private apiUrl = 'http://localhost:8080/api/cms';
 
   // public userEditPage: Boolean = false;
 
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private api: ApiService
   ) {}
   private getHeaders(): HttpHeaders {
     const token = this.cookieService.get('access_token') || '';
@@ -29,59 +32,62 @@ export class CoffeeService {
     this.router.navigate(['/login']);
   }
 
-  login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/employee/login`, credentials);
-  }
-  logout() {
-    this.cookieService.delete('email');
-    this.cookieService.delete('access_token');
-    this.router.navigate(['/login']);
-  }
-  register(customer: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/customer/register`, customer);
-  }
-
   //======================================Suppliers============================
 
   getSuppliers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/supplier/all-suppliers`);
+    // return this.http.get(`${this.apiUrl}/supplier/all-suppliers`);
+    return this.api.get(`${this.apiUrl}/supplier/all-suppliers`);
   }
 
   getPaginatedSuppliers(page: number, pageSize: number): Observable<any> {
-    return this.http.get(
+    // return this.http.get(
+    //   `${this.apiUrl}/supplier/pagination-suppliers?page=${page}&pageSize=${pageSize}`
+    // );
+    return this.api.get(
       `${this.apiUrl}/supplier/pagination-suppliers?page=${page}&pageSize=${pageSize}`
     );
   }
 
   getSupplier(id: any): Observable<any> {
-    return this.http.get(`${this.apiUrl}/supplier/${id}`);
+    // return this.http.get(`${this.apiUrl}/supplier/${id}`);
+    return this.api.get(`${this.apiUrl}/supplier/${id}`);
   }
 
   createdSupplier(data: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/supplier/create`, data);
+    // return this.http.post<any>(`${this.apiUrl}/supplier/create`, data);
+    return this.api.post(`${this.apiUrl}/supplier/create`, data);
   }
 
   updatedSupplier(id: String, data: any): Observable<any> {
-    return this.http.patch<any>(
+    // return this.http.patch<any>(
+    //   `${this.apiUrl}/supplier/updated-supplier/${id}`,
+    //   data
+    // );
+    return this.api.patch(
       `${this.apiUrl}/supplier/updated-supplier/${id}`,
       data
     );
   }
 
   deletedSupplier(id: String): Observable<any> {
-    return this.http.delete<any>(
-      `${this.apiUrl}/supplier/deleted-supplier/${id}`
-    );
+    // return this.http.delete<any>(
+    //   `${this.apiUrl}/supplier/deleted-supplier/${id}`
+    // );
+    return this.api.delete(`${this.apiUrl}/supplier/deleted-supplier/${id}`);
   }
 
   //========================================Products===================================
 
   getProducts(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/product/all-products`);
+    // return this.http.get(`${this.apiUrl}/product/all-products`);
+    return this.api.get(`${this.apiUrl}/product/all-products`);
   }
 
   getPaginationProducts(page: number, pageSize: number): Observable<any> {
-    return this.http.get(
+    // return this.http.get(
+    //   `${this.apiUrl}/product?page=${page}&pageSize=${pageSize}`
+    // );
+    return this.api.get(
       `${this.apiUrl}/product?page=${page}&pageSize=${pageSize}`
     );
   }
@@ -92,7 +98,7 @@ export class CoffeeService {
     product.suppliers.forEach((supplier: any) => {
       suppliesId.push(supplier.item_id);
     });
-    console.log(suppliesId.join(','));
+    // console.log(suppliesId.join(','));
 
     const data = new FormData();
     data.append('name', product.name);
@@ -107,7 +113,8 @@ export class CoffeeService {
     data.append('suppliers', suppliesId.join(','));
     data.append('image', product.image_url, product.image_url.name);
 
-    return this.http.post(`${this.apiUrl}/product/create`, data);
+    // return this.http.post(`${this.apiUrl}/product/create`, data);
+    return this.api.post(`${this.apiUrl}/product/create`, data);
   }
 
   updateProduct(id: any, product: any) {
@@ -116,8 +123,7 @@ export class CoffeeService {
     product.suppliers.forEach((supplier: any) => {
       suppliesId.push(supplier.item_id);
     });
-    console.log(suppliesId.join(','));
-    console.log(product);
+    // console.log(suppliesId.join(','));
     const data = new FormData();
     data.append('name', product.name);
     data.append('description', product.description);
@@ -132,16 +138,32 @@ export class CoffeeService {
     // data.append('image', product.image_url, product.image_url.name);
 
     if (typeof product.image_url == 'string') {
-      console.log(product.image_url);
+      // console.log(product.image_url);
       data.append('url', product.image_url);
     } else {
       data.append('image', product.image_url, product.image_url.name);
     }
-    console.log(`FormDAta is ${data.get('stock_quantity')}`);
-    return this.http.patch(`${this.apiUrl}/product/update-product/${id}`, data);
+    // console.log(`FormDAta is ${data.get('stock_quantity')}`);
+    // return this.http.patch(`${this.apiUrl}/product/update-product/${id}`, data);
+    return this.api.patch(`${this.apiUrl}/product/update-product/${id}`, data);
+  }
+
+  updatedProductOuantity(
+    product_id: string,
+    totalQuantity: number
+  ): Observable<any> {
+    // return this.http.patch(
+    //   `${this.apiUrl}/product/update-quantity/${product_id}`,
+    //   { stock_quantity: totalQuantity - currentQuantity }
+    // );
+    return this.api.patch(
+      `${this.apiUrl}/product/update-quantity/${product_id}`,
+      { stock_quantity: totalQuantity }
+    );
   }
 
   deleteOneProduct(id: String): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/product/delete-one-product/${id}`);
+    // return this.http.delete(`${this.apiUrl}/product/delete-one-product/${id}`);
+    return this.api.delete(`${this.apiUrl}/product/delete-one-product/${id}`);
   }
 }

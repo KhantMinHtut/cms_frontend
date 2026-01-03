@@ -97,6 +97,7 @@ export class HomePageComponent implements OnInit {
 
   onChartPage(startdate: any, enddate: any) {
     this.monthsDatas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.paymentDatas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     this.pieChartData = [];
 
     // this.orderService.getOrders().subscribe((response) => {
@@ -106,7 +107,7 @@ export class HomePageComponent implements OnInit {
     this.customerService
       .getCustomersByDate(startdate, enddate)
       .subscribe(async (response) => {
-        console.log(response);
+        // console.log(response);
         const customers = await response.customers;
         this.totalCustomer = customers.length;
       });
@@ -135,13 +136,13 @@ export class HomePageComponent implements OnInit {
         this.totalOrder = ordersByDate.length;
         const isequalDatas: string | any[] = [];
 
-        console.log(ordersByDate);
+        // console.log(ordersByDate);
 
         ordersByDate.forEach((doc: any) => {
           // this.datePipe.transform(doc.orderDate, 'MM/dd/yyyy');
-          console.log(new Date(doc.orderDate).getMonth());
+          // console.log(new Date(doc.orderDate).getMonth());
           this.monthsDatas[new Date(doc.orderDate).getMonth()] += 1;
-          console.log(this.monthsDatas);
+          // console.log(this.monthsDatas);
         });
 
         this.orderData = {
@@ -160,7 +161,7 @@ export class HomePageComponent implements OnInit {
     this.orderService
       .getOrderDetails(startdate, enddate)
       .subscribe(async (response) => {
-        console.log(response);
+        // console.log(response);
         const orderDetails = await response.orderDetails;
         const isEqualName: any[] = [];
 
@@ -178,7 +179,7 @@ export class HomePageComponent implements OnInit {
           });
         });
 
-        console.log(this.pieChartData);
+        // console.log(this.pieChartData);
         this.pieChartData = this.pieChartData
           .sort((a, b) => a.data - b.data)
           .slice(0, 7);
@@ -227,13 +228,13 @@ export class HomePageComponent implements OnInit {
 
         const isequalDatas: string | any[] = [];
 
-        console.log(payment);
+        // console.log(payment);
 
         payment.forEach((doc: any) => {
           // this.datePipe.transform(doc.orderDate, 'MM/dd/yyyy');
-          console.log(new Date(doc.createdAt).getMonth());
+          // console.log(new Date(doc.createdAt).getMonth());
           this.paymentDatas[new Date(doc.createdAt).getMonth()] += doc.amount;
-          console.log(this.paymentDatas);
+          // console.log(this.paymentDatas);
         });
 
         this.paymentData = {
@@ -275,6 +276,8 @@ export class HomePageComponent implements OnInit {
           display: true,
           color: 'rgba(255,99,132,0.2)',
         },
+        beginAtZero: true,
+        min: 0,
       },
       x: {
         grid: {
@@ -368,12 +371,12 @@ export class HomePageComponent implements OnInit {
       this.endDate !== null &&
       this.endDate !== undefined
     ) {
-      console.log('Date Range Changed: ', {
-        startDate: this.startDate,
-        endDate: this.endDate,
-      });
+      // console.log('Date Range Changed: ', {
+      //   startDate: this.startDate,
+      //   endDate: this.endDate,
+      // });
 
-      console.log(this.startDate.toLocaleDateString());
+      // console.log(this.startDate.toLocaleDateString());
 
       this.onChartPage(this.startDate, this.endDate);
     }

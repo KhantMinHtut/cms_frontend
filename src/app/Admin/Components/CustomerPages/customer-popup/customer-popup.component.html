@@ -1,81 +1,149 @@
-<div class="dialog-title-between">
-  <span>{{ customerData.title }}</span>
-  <button
-    (click)="closePopup()"
-    mat-raised-button
-    color="warn"
-    style="font-size: 35px"
-  >
-    &times;
-  </button>
-</div>
-
-<form [formGroup]="form">
-  <div class="p-3">
-    <div class="m-3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Name</mat-label>
-        <input
-          matInput
-          placeholder="Enter name"
-          type="text"
-          formControlName="name"
-        />
-      </mat-form-field>
-    </div>
-    <!-- <div>
-        <input
-          type="text"
-          name="contact_person"
-          id="contact_person"
-          class="form-control"
-        />
-      </div> -->
-
-    <div class="m-3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Email</mat-label>
-        <input
-          matInput
-          placeholder="Enter email"
-          type="email"
-          formControlName="email"
-        />
-      </mat-form-field>
-    </div>
-
-    <div class="m-3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Phone</mat-label>
-        <input
-          matInput
-          placeholder="Enter phone number"
-          type="text"
-          formControlName="phone"
-        />
-      </mat-form-field>
-    </div>
-
-    <div class="m-3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Phone</mat-label>
-        <input
-          matInput
-          placeholder="Enter loyalty points"
-          type="text"
-          formControlName="loyalty_points"
-        />
-      </mat-form-field>
-    </div>
+<main>
+  <div class="dialog-title-between">
+    <span>{{ customerData.title }}</span>
+    <button
+      (click)="closePopup()"
+      mat-raised-button
+      color="warn"
+      style="font-size: 35px"
+      class="close-popup"
+    >
+      &times;
+    </button>
   </div>
-</form>
 
-<div mat-dialog-actions align="center" class="mb-4">
-  <button
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-container">
+      <div class="input-container">
+        <label for="name">Name <span style="color: red">*</span></label>
+        <div style="flex: 1; width: 100%">
+          <input
+            placeholder="Enter name"
+            type="text"
+            formControlName="name"
+            class="form-control"
+          />
+
+          <small
+            class="text-danger"
+            *ngIf="
+              (form.get('name')?.touched || submitted) &&
+              form.get('name')?.errors
+            "
+          >
+            <span *ngIf="form.get('name')?.errors?.['required']"
+              >*Name is required.</span
+            >
+            <span *ngIf="form.get('name')?.errors?.['minlength']"
+              >*Minimum 3 characters.</span
+            >
+          </small>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <label for="name">Email <span style="color: red">*</span></label>
+        <div style="flex: 1; width: 100%">
+          <input
+            placeholder="Enter email"
+            type="email"
+            formControlName="email"
+            class="form-control"
+          />
+
+          <small
+            class="text-danger"
+            *ngIf="
+              (form.get('email')?.touched || submitted) &&
+              form.get('email')?.errors
+            "
+          >
+            <span *ngIf="form.get('email')?.errors?.['required']"
+              >Email is required.</span
+            >
+            <span *ngIf="form.get('email')?.errors?.['email']"
+              >Enter a valid email.</span
+            >
+          </small>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <label for="name">Phone <span style="color: red">*</span></label>
+        <div style="flex: 1; width: 100%">
+          <input
+            placeholder="Enter phone number"
+            type="text"
+            formControlName="phone"
+            class="form-control"
+          />
+
+          <small
+            class="text-danger"
+            *ngIf="
+              (form.get('phone')?.touched || submitted) &&
+              form.get('phone')?.errors
+            "
+          >
+            <span *ngIf="form.get('phone')?.errors?.['required']"
+              >Phone is required.</span
+            >
+
+            <span *ngIf="form.get('phone')?.errors?.['pattern']">
+              Phone number must start with 09 or +959 and be at least 9 digits
+              long..
+            </span>
+          </small>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <label for="name">Loyalty Points</label>
+        <div style="flex: 1; width: 100%">
+          <input
+            placeholder="Enter loyalty points"
+            type="text"
+            formControlName="loyalty_points"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- <div
+    class="w-100 px-3 py-3 mt-3 d-flex align-items-center justify-content-center"
+  >
+    <button mat-raised-button>
+      <mat-progress-spinner
+        *ngIf="formLoading"
+        diameter="20"
+        mode="indeterminate"
+      ></mat-progress-spinner>
+
+      <span *ngIf="!formLoading">Save</span>
+      <span *ngIf="formLoading" class="ml-2">Saving…</span>
+    </button>
+  </div> -->
+  </form>
+
+  <div mat-dialog-actions align="center" class="mb-4">
+    <!-- <button
     (click)="closeAndSavePopup()"
     mat-raised-button
+    [disabled]="form.invalid"
     style="background-color: #aa715a; color: white"
   >
     Add
-  </button>
-</div>
+  </button> -->
+    <button mat-raised-button (click)="onSubmit()">
+      <mat-progress-spinner
+        *ngIf="formLoading"
+        diameter="20"
+        mode="indeterminate"
+      ></mat-progress-spinner>
+
+      <span *ngIf="!formLoading">Save</span>
+      <span *ngIf="formLoading" class="ml-2">Saving…</span>
+    </button>
+  </div>
+</main>

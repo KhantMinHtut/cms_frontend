@@ -1,6 +1,7 @@
 .mainContainer {
   height: 87vh;
   overflow-y: auto;
+  padding: 8px 10px;
 }
 
 .mainContainer::-webkit-scrollbar {
@@ -196,11 +197,13 @@ tbody tr:hover {
   border-radius: 10px;
   overflow: hidden;
   border: 2px solid #502516;
+  background-color: white;
 }
 
 .employee-card .image-container img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 
 .employee-card .name {

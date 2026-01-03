@@ -1,12 +1,13 @@
-<main class="row w-100 h-100">
+<main class="d-flex w-100 h-100">
   @if (currentPage == 'view-page') {
   <app-order-view-page
-    class="col-12"
+    class="w-100"
+    [orderId]="currentOrderId"
     (changePage)="onCurrentPage($event)"
   ></app-order-view-page>
   } @else {
   <app-order-details-page
-    class="col-12"
+    class="w-100"
     [orderId]="currentOrderId"
     (changePage)="onCurrentPage($event)"
   ></app-order-details-page>

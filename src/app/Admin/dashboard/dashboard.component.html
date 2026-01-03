@@ -1,4 +1,4 @@
-<ng-container *ngIf="isAdmin">
+<ng-container>
   <div class="container-fluid overflow-hidden">
     <div class="row myrow">
       <div class="mySiderBar-container">
@@ -7,7 +7,12 @@
             <app-logo></app-logo>
             @for ( item of navItems; track item;let i = $index) {
             <!-- i = change pages, true = close userEdit page -->
-            <div (click)="changePage(i, false)">
+            <div
+              (click)="changePage(i, false)"
+              [ngClass]="{
+                'disabled-navitem': !item.permission.includes(role)
+              }"
+            >
               <app-nav-items
                 isActive="{{ i == currentIndex ? 'active' : '' }}"
                 icon="{{ item['icon'] }}"
@@ -33,7 +38,11 @@
         ></app-nav-bar>
         <div
           class="container-fluid position-relative"
-          style="padding-right: 3px; height: calc(100vh - 87px)"
+          style="
+            padding-right: 3px;
+            padding-left: 3px;
+            height: calc(100vh - 87px);
+          "
         >
           @if (currentIndex == 0) {
           <app-home-page></app-home-page>

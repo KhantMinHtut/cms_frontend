@@ -59,7 +59,7 @@ export class EmployeeAddPageComponent implements OnInit {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
 
-      console.log('Selected file:', file);
+      // console.log('Selected file:', file);
       this.form.patchValue({ image_url: file });
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -70,10 +70,14 @@ export class EmployeeAddPageComponent implements OnInit {
   }
 
   onChangePage() {
-    console.log(this.editUser);
+    // console.log(this.editUser);
     this.editUser
       ? this.hideEditUser.emit(true)
-      : this.changePage.emit({ page: 'view-page', data: {}, clickBtn: '' });
+      : this.changePage.emit({
+          page: 'view-page',
+          data: {},
+          clickBtn: 'create',
+        });
   }
 
   onPasswordVisible() {
@@ -82,32 +86,42 @@ export class EmployeeAddPageComponent implements OnInit {
   }
 
   onSubmit(formValue: any, fileInput: HTMLInputElement) {
-    console.log(formValue);
+    // console.log(formValue);
 
     if (this.clickedBtn == 'create') {
       this.employeeService.createEmployee(formValue).subscribe((response) => {
-        console.log(response);
+        // console.log(response);
         this.toastr.success('Successfully added employee!', 'Success', {
           closeButton: true,
           timeOut: 3000,
         });
+
+        this.form.reset();
+        if (fileInput) {
+          fileInput.value = '';
+        }
+        this.imageUrl = '../../../../../assets/images/image-upload2.png';
+
+        this.onChangePage();
       });
     } else if (this.clickedBtn == 'update') {
       this.employeeService
         .updatedEmployee(this.employee._id!, formValue)
         .subscribe((response) => {
-          console.log(response);
+          // console.log(response);
           this.toastr.success('Successfully updated employee!', 'Success', {
             closeButton: true,
             timeOut: 3000,
           });
+
+          this.form.reset();
+          if (fileInput) {
+            fileInput.value = '';
+          }
+          this.imageUrl = '../../../../../assets/images/image-upload2.png';
+
+          this.onChangePage();
         });
     }
-
-    this.form.reset();
-    if (fileInput) {
-      fileInput.value = '';
-    }
-    this.imageUrl = '../../../../../assets/images/image-upload2.png';
   }
 }

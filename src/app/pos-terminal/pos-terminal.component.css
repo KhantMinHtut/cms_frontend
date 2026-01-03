@@ -24,6 +24,7 @@
 
 /* Search Box CSS */
 .search-container-row {
+  flex: 1;
   width: 100%;
   padding: 6px 10px;
   display: flex;
@@ -39,6 +40,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+  background-color: var(--primary-color);
 }
 
 .search-container input {
@@ -51,6 +53,7 @@
   padding: 5px 15px;
   font-size: 1rem;
   color: var(--primary-color);
+  background-color: white;
 }
 
 .search-container .search-btn {
@@ -80,6 +83,37 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.shop-icon-container {
+  position: relative;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #7a4b39;
+  width: 50px;
+  padding: 5px;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  display: none;
+}
+
+.shop-icon-container .shop-badge {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  width: 18px;
+  height: 18px;
+  color: white;
+  font-size: 0.8rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #c02121;
 }
 
 /* Products Container CSS */
@@ -158,6 +192,27 @@
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
+.product-card .out-of-stock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #24232385;
+  font-size: 1rem;
+  color: white;
+  font-weight: bold;
+  backdrop-filter: blur(1.2px);
+}
+
+.product-card:has(.out-of-stock) {
+  pointer-events: none;
+}
+
 .product-card .product-count {
   position: absolute;
   top: -5px;
@@ -174,6 +229,33 @@
   border: 2px solid #8b5641;
   background-color: var(--primary-color);
   /* border: 2px solid var(--primary-color); */
+  z-index: 1500;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #e63946;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 1500;
+}
+
+.discount-price {
+  font-weight: 700;
+  font-size: 0.83rem;
+  position: absolute;
+  top: -13px;
+  width: 80px;
+}
+
+.old-price {
+  font-weight: normal !important;
+  text-decoration: line-through;
 }
 
 .product-card .image-container {
@@ -205,7 +287,7 @@
 .product-card .product-info .price {
   font-size: 0.8rem;
   font-weight: bold;
-  color: black;
+  /* color: black; */
 }
 
 .product-card .product-info .add-product {
@@ -233,7 +315,20 @@
   justify-content: center;
 }
 /* Product Card CSS End */
+.sd-container {
+  position: relative;
+  top: 0;
+  right: 0;
+  width: 0px;
+  height: 100%;
+  transition: width 0.3s ease;
+  background-color: white;
+}
+
 .sales-details {
+  position: absolute;
+  top: 0;
+  left: 100%;
   width: 300px;
   height: 100%;
   display: flex;
@@ -241,6 +336,7 @@
   gap: 0.5rem;
   padding: 10px;
   background-color: #f0d5ca30;
+  transition: left 0.3s ease;
 }
 
 .disabled {
@@ -251,7 +347,7 @@
 /* Add Customer Info CSS */
 .customer-info-btn {
   width: 100%;
-  padding: 2px 8px;
+  padding: 4px 8px;
   font-size: 0.8rem;
   color: white;
   background-color: var(--primary-color);
@@ -259,8 +355,22 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  border: 2px solid #8b5641;
+  /* border: 2px solid #8b5641; */
   cursor: pointer;
+}
+
+.close-order-btn {
+  width: 37px;
+  height: 100%;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: white;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  cursor: pointer;
+  display: none;
 }
 /* ================================================== */
 
@@ -309,6 +419,20 @@
   padding: 3px 0;
   font-size: 0.8rem;
   color: #8b5641;
+}
+
+.sd-discount-badge {
+  background: #e63946;
+  color: #fff;
+  padding: 0px 6px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sd-old-price {
+  text-decoration: line-through;
+  font-size: 0.75rem !important;
 }
 
 .selected-menu-item .menu-content-container .name-deleteBtn .delete-btn {
@@ -452,6 +576,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #f1c7b66e;
 }
 
 .selectedMethod {
@@ -494,3 +619,17 @@
   background-color: var(--button-hover-color);
 }
 /* ==================================================================== */
+
+@media (max-width: 885px) {
+  .shop-icon-container {
+    display: flex;
+  }
+
+  .sd-container {
+    position: absolute !important;
+  }
+
+  .close-order-btn {
+    display: flex;
+  }
+}

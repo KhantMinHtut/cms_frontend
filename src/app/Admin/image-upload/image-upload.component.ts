@@ -32,7 +32,7 @@ export class ImageUploadComponent implements OnInit {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
 
-      console.log('Selected file:', file);
+      // console.log('Selected file:', file);
       this.form.patchValue({ img_url: file });
     }
   }
@@ -40,19 +40,19 @@ export class ImageUploadComponent implements OnInit {
   getSuppliers() {
     this.coffee.getSuppliers().subscribe(
       (response) => {
-        console.log(typeof response.suppliers);
+        // console.log(typeof response.suppliers);
         this.suppliers = response.suppliers;
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
 
   onSubmit(value: any) {
-    console.log(value);
+    // console.log(value);
     this.coffee.createProduct(value).subscribe((response) => {
-      console.log(response);
+      // console.log(response);
     });
   }
 }
